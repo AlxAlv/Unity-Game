@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Test
+  - Arrow
+  - Projectile
+  - MeleeWeapon
+  - Weapon
+  - HealthBar
+  - SpawnPoint
+  - Rooms
+  - RoomsTemplate
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Map
+  - LevelComponents
+  - Player
+  - Enemies
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Floor
+    uniqueID: 3231990103
+    locked: 0
+  - name: Highlights
+    uniqueID: 1492134991
+    locked: 0
+  - name: LevelComponents
+    uniqueID: 738545045
+    locked: 0
+  - name: Collectables
+    uniqueID: 3079107623
+    locked: 0
+  - name: Arm
+    uniqueID: 1719999593
+    locked: 0
+  - name: Weapon
+    uniqueID: 800954485
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1320828053
+    locked: 0
+  - name: NPC
+    uniqueID: 3540112591
+    locked: 0
+  - name: Offhand
+    uniqueID: 2459593273
+    locked: 0
+  - name: Offhand Weapon
+    uniqueID: 1662341513
+    locked: 0
+  - name: Projectiles
+    uniqueID: 4253358311
+    locked: 0
+  - name: CombatUI
+    uniqueID: 3303144103
+    locked: 0
+  - name: Environment
+    uniqueID: 101534647
+    locked: 0
+  - name: Walls
+    uniqueID: 939877599
+    locked: 0
+  - name: Top
+    uniqueID: 2123880471
+    locked: 0

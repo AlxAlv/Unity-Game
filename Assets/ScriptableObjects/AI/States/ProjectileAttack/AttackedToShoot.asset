@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645592ca24832604fa5d5e965ca0b61c, type: 3}
+  m_Name: AttackedToShoot
+  m_EditorClassIdentifier: 
+  Actions:
+  - {fileID: 11400000, guid: 5632c72f4ee40544493548185cfcff8c, type: 2}
+  Transitions:
+  - Decision: {fileID: 11400000, guid: 29f6829c5998fa045bbe54fd273e7c72, type: 2}
+    TrueState: {fileID: 11400000, guid: 72cd85a624bf6414983f7fd6580be123, type: 2}
+    FalseState: {fileID: 11400000, guid: dfa0bd6d44beac449bfec000c5d9bd68, type: 2}
+  - Decision: {fileID: 11400000, guid: c085d1c4846968541a7a1a0f122b7022, type: 2}
+    TrueState: {fileID: 11400000, guid: c37a7760e333131469afdbce491ca1f1, type: 2}
+    FalseState: {fileID: 11400000, guid: dfa0bd6d44beac449bfec000c5d9bd68, type: 2}

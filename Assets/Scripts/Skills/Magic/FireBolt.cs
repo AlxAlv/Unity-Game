@@ -1,0 +1,71 @@
+﻿using Assets.Scripts.Skills.Magic;
+using UnityEngine;
+
+public class FireBolt : MagicSkill
+{
+    // Skillbar Helper Static
+    public static float ResourceAmount = 4.0f;
+    public static Resource ResourceType = Resource.Mana;
+
+    public FireBolt(Staff staffToUse) : base(staffToUse)
+    {
+        _stunTime = 1.2f;
+        _knockBackAmount = 60f;
+        _staffToUse = staffToUse;
+        _loadingTime = 0.8f;
+        _spritePath = "SkillIcons/FireboltIcon";
+        _projectilePrefabPath = "Prefabs/Projectiles/Firebolt";
+        _soundPath = "Audio/SoundEffects/FireBoltFx";
+        _projectileCollisionsoundPath = "Audio/SoundEffects/BoltHitFx";
+        _skillName = "Firebolt";
+
+        _resourceAmount = ResourceAmount;
+        _resourceToUse = ResourceType;
+
+        SetProjectileGameObject(_projectilePrefabPath);
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+    public override void Update()
+    {
+        base.Update();
+    }
+
+    public override void Trigger()
+    {
+        base.Trigger();
+    }
+
+    protected override void Execute()
+    {
+        base.Execute();
+
+        _staffToUse.EvaluateProjectileSpawnPosition();
+
+        Vector3 firstBoltSpawn = _staffToUse.ProjectileSpawnPosition;
+        Vector3 secondBoltSpawn = _staffToUse.ProjectileSpawnPosition;
+
+        firstBoltSpawn.y += 0.3f;
+        secondBoltSpawn.y -= 0.3f;
+
+        _staffToUse.SpawnProjectile(firstBoltSpawn, _pooler);
+        _staffToUse.SpawnProjectile(_staffToUse.ProjectileSpawnPosition, _pooler);
+        _staffToUse.SpawnProjectile(secondBoltSpawn, _pooler);
+    }
+
+    public override void SetOwner(Entity anEntity)
+    {
+        base.SetOwner(anEntity);
+    }
+
+    protected override void UpdateDamage()
+    {
+        _damageAmount = _statManager.Intelligence.StatAmount * 3;
+
+        base.UpdateDamage();
+    }
+}

@@ -1,0 +1,118 @@
+﻿using TMPro;
+using UnityEngine;
+
+public class StatManager : MonoBehaviour
+{
+    [Header("Stats")]
+    [SerializeField] private int _initialInt = 1;
+    [SerializeField] private int _initialDex = 1;
+    [SerializeField] private int _initialStr = 1;
+
+    [Header("Panels")]
+    [SerializeField] private GameObject _characterPanel;
+    [SerializeField] private GameObject _statContainer;
+    [SerializeField] private TextMeshProUGUI _intelligenceTextAmount;
+    [SerializeField] private TextMeshProUGUI _dexterityTextAmount;
+    [SerializeField] private TextMeshProUGUI _strengthTextAmount;
+    [SerializeField] private TextMeshProUGUI _pointsTextAmount;
+    [SerializeField] private OnClickStat _dexterityButton;
+    [SerializeField] private OnClickStat _intelligenceButton;
+    [SerializeField] private OnClickStat _strengthButton;
+
+    public Intelligence Intelligence;
+    public Dexterity Dexterity;
+    public Strength Strength;
+
+    private Exp _exp;
+
+    // Start is called before the first frame update
+    void Awake()
+    {
+        Intelligence = new Intelligence(StatType.Intelligence, _initialInt);
+        Dexterity = new Dexterity(StatType.Dexterity, _initialDex);
+        Strength = new Strength(StatType.Strength, _initialStr);
+
+        _exp = GetComponent<Exp>();
+
+        if (GetComponent<Entity>().EntityType == Entity.EntityTypes.Player)
+        {
+            _dexterityButton.SetStat(0, this);
+            _intelligenceButton.SetStat(1, this);
+            _strengthButton.SetStat(2, this);
+        }
+
+        if (_characterPanel != null)
+            _characterPanel.SetActive(false);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (GetComponent<Entity>().EntityType == Entity.EntityTypes.Player)
+            HandleInput();
+    }
+
+    void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _characterPanel.SetActive(!_characterPanel.activeSelf);
+            _statContainer.SetActive(_characterPanel.activeSelf);
+
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _characterPanel.SetActive(false);
+            _statContainer.SetActive(false);
+
+        }
+
+        if (_characterPanel.activeSelf)
+        {
+            UpdateStats();
+        }
+    }
+
+    public void ModifyEquipStats(int strBonus, int intBonus, int dexBonus)
+    {
+        Intelligence.StatAmount += intBonus;
+        Strength.StatAmount += strBonus;
+        Dexterity.StatAmount += dexBonus;
+    }
+
+    public void AddIntelligence()
+    {
+        if (_exp.UseStatPoints(1))
+        {
+            Intelligence.StatAmount++;
+            DialogManager.Instance.InstantSystemMessage("Increased Intelligence to " + Intelligence.StatAmount);
+        }
+    }
+
+    public void AddDexterity()
+    {
+        if (_exp.UseStatPoints(1))
+        {
+            Dexterity.StatAmount++;
+            DialogManager.Instance.InstantSystemMessage("Increased Dexterity to " + Dexterity.StatAmount);
+        }
+    }
+
+    public void AddStrength()
+    {
+        if (_exp.UseStatPoints(1))
+        {
+            Strength.StatAmount++;
+            DialogManager.Instance.InstantSystemMessage("Increased Strength to " + Strength.StatAmount);
+        }
+    }
+
+    void UpdateStats()
+    {
+        _intelligenceTextAmount.text = Intelligence.StatAmount.ToString();
+        _dexterityTextAmount.text = Dexterity.StatAmount.ToString();
+        _strengthTextAmount.text = Strength.StatAmount.ToString();
+        if (_pointsTextAmount != null && _exp != null)
+            _pointsTextAmount.text = _exp.GetPoints().ToString();
+    }
+}

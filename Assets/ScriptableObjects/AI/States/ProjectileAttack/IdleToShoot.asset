@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645592ca24832604fa5d5e965ca0b61c, type: 3}
+  m_Name: IdleToShoot
+  m_EditorClassIdentifier: 
+  Actions:
+  - {fileID: 11400000, guid: 52294ad1f92464249b2cf5cc12dc2b9d, type: 2}
+  Transitions:
+  - Decision: {fileID: 11400000, guid: 9ba512ed13d36694f97ceaf33b65f715, type: 2}
+    TrueState: {fileID: 11400000, guid: 86f17f78c827e784cbda99af62850b4b, type: 2}
+    FalseState: {fileID: 11400000, guid: dfa0bd6d44beac449bfec000c5d9bd68, type: 2}
+  - Decision: {fileID: 11400000, guid: 655d1766d0e81964990d7bd76b08966b, type: 2}
+    TrueState: {fileID: 11400000, guid: a7b3585fd13634b4e80f60c17fda031f, type: 2}
+    FalseState: {fileID: 11400000, guid: dfa0bd6d44beac449bfec000c5d9bd68, type: 2}
