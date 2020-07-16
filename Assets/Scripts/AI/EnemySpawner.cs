@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if ((((Time.time > _nextSpawn) || (transform.childCount == 0)) && (((_currentSpawns < _maxNumberOfEnemies)) || (_summonAllAtOnce && _currentSpawns < _maxNumberOfTotalSpawns) || (_maxNumberOfEnemies == 0))))
+        if ((((Time.time > _nextSpawn) || (transform.childCount == 0)) && (((_currentSpawns < _maxNumberOfTotalSpawns)) || (_summonAllAtOnce && _currentSpawns < _maxNumberOfTotalSpawns) || (_maxNumberOfTotalSpawns == 0))))
         {
             _nextSpawn = Time.time + _spawnRate;
 
