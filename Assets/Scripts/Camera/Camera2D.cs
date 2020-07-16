@@ -54,10 +54,10 @@ public class Camera2D : MonoBehaviour
 
 	private void HandleInput()
 	{
-		if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize > 12)
+		if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize > 10)
 			Camera.main.orthographicSize = Camera.main.orthographicSize - 1;
 
-		else if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize < 20)
+		else if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize < 14)
 			Camera.main.orthographicSize = Camera.main.orthographicSize + 1;
 	}
 }
