@@ -95,7 +95,7 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DialogManager.Instance.AddSystemMessage("June 16th Build\nAdded Equipment Drops And Fixed AI Pathing\nPress [F1] For Help");
+        DialogManager.Instance.AddSystemMessage("June 16th Build\nAdded Equipment Drops And Fixed AI Pathing\nPress [H] For Help");
     }
 
     // Update is called once per frame
@@ -117,7 +117,7 @@ public class TutorialManager : MonoBehaviour
 
     void HandleHelpText()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             DialogManager.Instance.AddSystemMessage("Controls\n---------------------\n[S] To Target Enemy]\n[A] [D] To Change Skills\n[F] Interact With Dungeon Entry\n[Mouse Buttons] Move And Attack");
         }
