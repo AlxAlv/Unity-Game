@@ -95,7 +95,7 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DialogManager.Instance.AddSystemMessage("July 16th Build\nAdded Equipment Drops And Fixed AI Pathing\nPress [H] For Help");
+        DialogManager.Instance.AddSystemMessage("Press [H] For Help");
     }
 
     // Update is called once per frame
