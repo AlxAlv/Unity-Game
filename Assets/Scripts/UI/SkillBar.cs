@@ -31,6 +31,7 @@ public class SkillBar : MonoBehaviour
     const string IceBoltName = "IceboltIcon";
     const string FireBoltName = "FireboltIcon";
     const string LightningBoltName = "LightningboltIcon";
+    const string BoulderTossName = "BoulderTossIcon";
     const string HealName = "HealIcon";
 
     // Archery Skills
@@ -52,6 +53,7 @@ public class SkillBar : MonoBehaviour
         { IceBoltName, IceBolt.ResourceAmount},
         { FireBoltName, FireBolt.ResourceAmount},
         { LightningBoltName, LightningBolt.ResourceAmount},
+        { BoulderTossName, BoulderToss.ResourceAmount},
         { HealName, Heal.ResourceAmount },
         { RangedAttackName, RangedAttack.ResourceAmount},
         { ArrowRevolverName, ArrowRevolver.ResourceAmount },
@@ -65,6 +67,7 @@ public class SkillBar : MonoBehaviour
         { IceBoltName, IceBolt.ResourceType},
         { FireBoltName, FireBolt.ResourceType},
         { LightningBoltName, LightningBolt.ResourceType},
+        { BoulderTossName, BoulderToss.ResourceType},
         { HealName, Heal.ResourceType },
         { RangedAttackName, RangedAttack.ResourceType},
         { ArrowRevolverName, ArrowRevolver.ResourceType },
@@ -78,6 +81,7 @@ public class SkillBar : MonoBehaviour
         { IceBoltName, WeaponType.Magic },
         { FireBoltName, WeaponType.Magic },
         { LightningBoltName, WeaponType.Magic },
+        { BoulderTossName, WeaponType.Magic },
         { HealName, WeaponType.Magic },
         { RangedAttackName, WeaponType.Bow },
         { ArrowRevolverName, WeaponType.Bow },
@@ -291,7 +295,9 @@ public class SkillBar : MonoBehaviour
             return new FireBolt(weapon as Staff);
         else if (iconName == LightningBoltName)
             return new LightningBolt(weapon as Staff);
-        if (iconName == HealName)
+        else if (iconName == BoulderTossName)
+            return new BoulderToss(weapon as Staff);
+        else if (iconName == HealName)
             return new Heal(weapon as Staff);
         else if (iconName == RangedAttackName)
             return new RangedAttack(weapon as Bow);

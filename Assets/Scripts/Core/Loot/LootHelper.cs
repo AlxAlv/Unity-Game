@@ -31,36 +31,41 @@ public class LootHelper : MonoBehaviour
         EquipType equipType = EquipType.Armor;
 
         // Randomize Weapon Type
-        if (rewardType > 0 && rewardType < 10)
+        if (rewardType > 0 && rewardType < 100)
         {
-            weaponReward = Resources.Load("Prefabs/Rewards/BowReward");
+            weaponReward = Resources.Load("Prefabs/Rewards/SwordReward");
             rewardWeapon = true;
         }
-        else if (rewardType > 10 && rewardType < 20)
-        {
-            weaponReward = Resources.Load("Prefabs/Rewards/StaffReward");
-            rewardWeapon = true;
-        }
+        //if (rewardType > 0 && rewardType < 10)
+        //{
+        //    weaponReward = Resources.Load("Prefabs/Rewards/BowReward");
+        //    rewardWeapon = true;
+        //}
+        //else if (rewardType > 10 && rewardType < 20)
+        //{
+        //    weaponReward = Resources.Load("Prefabs/Rewards/StaffReward");
+        //    rewardWeapon = true;
+        //}
 
-        // Randomize Equip Type
-        if (rewardType > 20 && rewardType < 30)
-        {
-            weaponReward = Resources.Load("Prefabs/Rewards/ArmorReward");
-            rewardEquip = true;
-            equipType = EquipType.Armor;
-        }
-        else if (rewardType > 30 && rewardType < 40)
-        {
-            weaponReward = Resources.Load("Prefabs/Rewards/HelmetReward");
-            rewardEquip = true;
-            equipType = EquipType.Helmet;
-        }
-        else if (rewardType > 40 && rewardType < 50)
-        {
-            weaponReward = Resources.Load("Prefabs/Rewards/FootwearReward");
-            rewardEquip = true;
-            equipType = EquipType.Footwear;
-        }
+        //// Randomize Equip Type
+        //if (rewardType > 20 && rewardType < 30)
+        //{
+        //    weaponReward = Resources.Load("Prefabs/Rewards/ArmorReward");
+        //    rewardEquip = true;
+        //    equipType = EquipType.Armor;
+        //}
+        //else if (rewardType > 30 && rewardType < 40)
+        //{
+        //    weaponReward = Resources.Load("Prefabs/Rewards/HelmetReward");
+        //    rewardEquip = true;
+        //    equipType = EquipType.Helmet;
+        //}
+        //else if (rewardType > 40 && rewardType < 50)
+        //{
+        //    weaponReward = Resources.Load("Prefabs/Rewards/FootwearReward");
+        //    rewardEquip = true;
+        //    equipType = EquipType.Footwear;
+        //}
 
         GameObject newObj = null;
 

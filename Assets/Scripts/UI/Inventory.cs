@@ -134,6 +134,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // Show Weapons On GUI
     private void AddWeapons()
     {
         for (int i = 0; i < WeaponsOwned.Count; ++i)
