@@ -25,9 +25,17 @@ public class ActionShoot : AIAction
             SetWeaponAim(controller, _aimDirection);
 
             // Attack
-            if ((!controller.EntityWeapon.IsAnySkillLoaded() || !controller.EntityWeapon.StunGuage.Stunned) && !controller.EntityWeapon.StunGuage.KnockedBack)
+            if ((!controller.EntityWeapon.IsAnySkillLoading() || !controller.EntityWeapon.StunGuage.Stunned) && !controller.EntityWeapon.StunGuage.KnockedBack && controller.IsTimePassed())
             {
+                // Create A Random Time Until Next Click
+	            Debug.Log("Enemy Click");
+	            controller.ResetTime(Random.Range(0.0f, 3.0f));
+
                 controller.EntityWeapon.CurrentWeapon.TriggerEnemySkill();
+            }
+            else
+            {
+	            Debug.Log("Waiting on the next click...");
             }
         }
     }

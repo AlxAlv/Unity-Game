@@ -32,6 +32,7 @@ public class SkillBar : MonoBehaviour
     const string FireBoltName = "FireboltIcon";
     const string LightningBoltName = "LightningboltIcon";
     const string BoulderTossName = "BoulderTossIcon";
+    const string FrozenDaggersName = "FrozenDaggersIcon";
     const string HealName = "HealIcon";
 
     // Archery Skills
@@ -54,6 +55,7 @@ public class SkillBar : MonoBehaviour
         { FireBoltName, FireBolt.ResourceAmount},
         { LightningBoltName, LightningBolt.ResourceAmount},
         { BoulderTossName, BoulderToss.ResourceAmount},
+        { FrozenDaggersName, FrozenDaggers.ResourceAmount},
         { HealName, Heal.ResourceAmount },
         { RangedAttackName, RangedAttack.ResourceAmount},
         { ArrowRevolverName, ArrowRevolver.ResourceAmount },
@@ -68,6 +70,7 @@ public class SkillBar : MonoBehaviour
         { FireBoltName, FireBolt.ResourceType},
         { LightningBoltName, LightningBolt.ResourceType},
         { BoulderTossName, BoulderToss.ResourceType},
+        { FrozenDaggersName, FrozenDaggers.ResourceType},
         { HealName, Heal.ResourceType },
         { RangedAttackName, RangedAttack.ResourceType},
         { ArrowRevolverName, ArrowRevolver.ResourceType },
@@ -82,6 +85,7 @@ public class SkillBar : MonoBehaviour
         { FireBoltName, WeaponType.Magic },
         { LightningBoltName, WeaponType.Magic },
         { BoulderTossName, WeaponType.Magic },
+        { FrozenDaggersName, WeaponType.Magic },
         { HealName, WeaponType.Magic },
         { RangedAttackName, WeaponType.Bow },
         { ArrowRevolverName, WeaponType.Bow },
@@ -297,6 +301,8 @@ public class SkillBar : MonoBehaviour
             return new LightningBolt(weapon as Staff);
         else if (iconName == BoulderTossName)
             return new BoulderToss(weapon as Staff);
+        else if (iconName == FrozenDaggersName)
+	        return new FrozenDaggers(weapon as Staff);
         else if (iconName == HealName)
             return new Heal(weapon as Staff);
         else if (iconName == RangedAttackName)

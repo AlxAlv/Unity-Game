@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class AIStateController : MonoBehaviour
@@ -25,7 +26,7 @@ public class AIStateController : MonoBehaviour
 
     private void Update()
     {
-        _currentState.EvaluateState(this);
+	    _currentState.EvaluateState(this);
     }
 
     public void TransitionToState(AIState nextState)
@@ -35,7 +36,6 @@ public class AIStateController : MonoBehaviour
             if (nextState.name.Contains("Idle") || nextState.name.Contains("idle"))
             {
                 ExclamationMark.RemoveInstanceFromList(gameObject.GetInstanceID());
-                //Debug.Log("Removed an enemy from being aggroed!");
             }
 
             _currentState = nextState;
@@ -45,5 +45,25 @@ public class AIStateController : MonoBehaviour
     public WeaponAim[] GetWeaponAims()
     {
         return GetComponentsInChildren<WeaponAim>();
+    }
+
+
+
+
+
+    /* Members Used By Decision Making */
+    // Timer to be used for decision making
+    private float _timer = float.MaxValue;
+    public float Timer => _timer;
+
+    public bool IsTimePassed()
+    {
+	    return (Time.time > _timer);
+
+    }
+
+    public void ResetTime(float timeToWait)
+    {
+	    _timer = Time.time + timeToWait;
     }
 }

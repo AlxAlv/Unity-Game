@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "AI/Decisions/DecisionNotice", fileName = "DecisionNotice")]
 public class DecisionNotice : AIDecision
@@ -10,8 +11,6 @@ public class DecisionNotice : AIDecision
 	private Collider2D _targetCollider2D;
 	private AIStateController _controller;
 
-	private float _timer = 0.0f;
-
 	public override bool Decide(AIStateController controller)
 	{
 		_controller = controller;
@@ -20,22 +19,34 @@ public class DecisionNotice : AIDecision
 
 	private bool CheckTarget(AIStateController controller)
 	{
+		// _targetCollider2D contains collisions found
 		_targetCollider2D = Physics2D.OverlapCircle(controller.transform.position, DetectArea, TargetMask);
 
- 		if (_targetCollider2D != null)
+		// Were there any collisions detected?
+		if (_targetCollider2D != null)
 		{
+			// Is there a wall between the player and me?
  			RaycastHit2D hit = Physics2D.Linecast(controller.transform.position, _targetCollider2D.transform.position, LayerMask.GetMask("LevelComponents", "Player"));
-			if (hit)
-			{
-				if (hit.transform.tag == "Player" && (Time.time > _timer))
+
+			// If there's no wall in between us...
+            if (hit)
+            {
+				// And we see the player
+				if (hit.transform.tag == "Player" && controller.IsTimePassed())
 				{
 					controller.Target = _targetCollider2D.transform;
 					return true;
 				}
-			}
+				else if (controller.Timer == float.MaxValue)
+				{
+					controller.ResetTime(TimeUntilNotice);
+				}
+            }
 		}
 		else
-			_timer = Time.time + TimeUntilNotice;
+		{
+			controller.ResetTime(TimeUntilNotice);
+		}
 
 		return false;
 	}

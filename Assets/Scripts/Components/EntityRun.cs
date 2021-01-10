@@ -26,14 +26,15 @@ public class EntityRun : EntityComponent
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && !IsRunning() && (m_movement.m_moveSpeed != 0))
-        {
-            Run();
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            StopRunning();
-        }
+        // Note: This code can be uncommented out to add the running mechanic again
+        //if (Input.GetKey(KeyCode.LeftShift) && !IsRunning() && (m_movement.m_moveSpeed != 0))
+        //{
+        //    Run();
+        //}
+        //else if (Input.GetKeyUp(KeyCode.LeftShift))
+        //{
+        //    StopRunning();
+        //}
     }
 
     private void Run()

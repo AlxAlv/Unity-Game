@@ -34,6 +34,7 @@ public class Health : MonoBehaviour
 	public float m_currentShield { get; set; }
 
 	public float StunDamageModifier = 1.0f;
+	public float DodgeDamageModifier = 1.0f;
 
 	private GameObject _player;
 	private bool _maxHealthSet = false;
@@ -43,8 +44,8 @@ public class Health : MonoBehaviour
 		//if (m_entity != null && m_entity.EntityType == Entity.EntityTypes.Player && _cameraShake != null)
 		//	_cameraShake.Shake();
 
-		if (m_entity != null && m_entity.EntityType == Entity.EntityTypes.AI)
-			damage = (_staleMove.CalculateDamage(damage, attackName) * StunDamageModifier);
+		if (m_entity != null && (m_entity.EntityType == Entity.EntityTypes.AI || m_entity.EntityType == Entity.EntityTypes.Player))
+			damage = (_staleMove.CalculateDamage(damage, attackName) * StunDamageModifier * DodgeDamageModifier);
 
 		if (damage > 0 && _tintHelper != null)
 			_tintHelper.SetTintColor(new Color(1, 0, 0, 1f));

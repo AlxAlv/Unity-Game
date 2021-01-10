@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb3e7ecd03264c409f8ea1a8d2f0109, type: 3}
   m_Name: DecisionKeepFollowingRange
   m_EditorClassIdentifier: 
-  MinDistanceToAttack: 12
+  MinDistanceToAttack: 16

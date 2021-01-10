@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Collectables : MonoBehaviour
 {
 	[Header("Settings")]
 	[SerializeField] private bool _canDestroyItem = true;
+	[SerializeField] private int _rotationSpeed = 160;
 
 	protected Entity _entity;
 	protected GameObject _objectCollided;
@@ -16,6 +18,11 @@ public class Collectables : MonoBehaviour
 	{
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 		_collider2D = GetComponent<Collider2D>();
+	}
+
+	private void Update()
+	{
+		transform.Rotate(0, _rotationSpeed * Time.deltaTime, 0);
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)

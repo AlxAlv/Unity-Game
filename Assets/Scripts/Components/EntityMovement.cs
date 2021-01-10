@@ -23,11 +23,14 @@ public class EntityMovement : EntityComponent
     public float SkillMovementModifier { get; set; }
     public float RunMovementModifier { get; set; }
     public float StunMovementModifier { get; set; }
+
     public MovementState State = MovementState.Idle;
 
     private Vector3 _destination;
     private GameObject _currentEnemy;
     private AudioSource _movementAudio;
+
+    public Vector3 Destination => _destination;
 
     // AI Movement
     private Seeker _seeker;
@@ -127,7 +130,7 @@ public class EntityMovement : EntityComponent
              _rigidBody.MovePosition(Vector3.MoveTowards(transform.position, _destination, m_moveSpeed * Time.deltaTime));
         }
 
-        if (transform.position == _destination)
+        if (IsAtDestination())
             _isMoving = false;
     }
 
@@ -186,7 +189,7 @@ public class EntityMovement : EntityComponent
                 }
             }
 
-            if ((!_entityTarget.IsTargettingEnemy() || _entityTarget.CurrentTarget == null) && !_enemyTargeted)
+            if (((!_entityTarget.IsTargettingEnemy() || _entityTarget.CurrentTarget == null) && !_enemyTargeted) || (Input.GetKeyDown(KeyCode.LeftShift)))
             {
                 if (Input.GetMouseButton(0) && _canMove && !RaycastHelper.Instance.IsPlayerUnderCursor())
                 {
@@ -286,5 +289,10 @@ public class EntityMovement : EntityComponent
         _destination = transform.position;
 
         _isMoving = false;
+    }
+
+    public bool IsAtDestination()
+    {
+	    return (transform.position == _destination);
     }
 }

@@ -15,13 +15,13 @@ public class EntityDash : EntityComponent
 
     protected override void HandleInput()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    Dash();
-        //}
-    }
+		//if (Input.GetKeyDown(KeyCode.Space))
+		//{
+		//	Dash();
+		//}
+	}
 
-    protected override void HandleComponent()
+	protected override void HandleComponent()
     {
         base.HandleComponent();
 

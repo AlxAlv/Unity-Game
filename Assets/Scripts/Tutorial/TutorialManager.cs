@@ -119,7 +119,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            DialogManager.Instance.AddSystemMessage("Controls\n---------------------\nHold [S] To Target Enemy]\n[A] [D] To Change Skills\n[F] Interact With Dungeon Entry\n[Mouse Buttons] Move And Attack");
+            DialogManager.Instance.AddSystemMessage("Controls\n---------------------\nHold [S] To Target Enemy]\n[A] [D] To Change Skills\n[F] Interact With Dungeon Entry\n[Mouse Buttons] Move And Attack\n[L-SHIFT] Shield And Let Go To DodgeRoll");
         }
     }
 

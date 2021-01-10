@@ -18,7 +18,9 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if ((((Time.time > _nextSpawn) || (transform.childCount == 0)) && (((_currentSpawns < _maxNumberOfTotalSpawns)) || (_summonAllAtOnce && _currentSpawns < _maxNumberOfTotalSpawns) || (_maxNumberOfTotalSpawns == 0))))
+        if (    ((Time.time > _nextSpawn) || (transform.childCount == 0)) 
+             && ((_currentSpawns < _maxNumberOfTotalSpawns) || (_summonAllAtOnce && _currentSpawns < _maxNumberOfTotalSpawns) || (_maxNumberOfTotalSpawns == 0))
+             && (gameObject.transform.childCount < _maxNumberOfEnemies))
         {
             _nextSpawn = Time.time + _spawnRate;
 
@@ -45,7 +47,8 @@ public class EnemySpawner : MonoBehaviour
 
             hit = Physics2D.BoxCast(whereToSpawn, enemyToSpawn.GetComponent<BoxCollider2D>().size, 0.0f, Vector2.zero, 0, LayerMask.GetMask("LevelComponents"));
         } while (hit.collider != null);
-         var objectCreated = Instantiate(_enemyObject, whereToSpawn, Quaternion.identity);
+	    
+        var objectCreated = Instantiate(_enemyObject, whereToSpawn, Quaternion.identity);
         objectCreated.transform.parent = transform;
         return objectCreated;
     }

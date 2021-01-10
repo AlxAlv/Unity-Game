@@ -12,12 +12,14 @@ public class EntityComponent : MonoBehaviour
 	protected EntityMovement m_movement;
 	protected Animator m_animator;
 	protected Stamina _stamina;
+	protected Health _health;
 	protected Entity m_entity;
 	protected EntityArm _entityArm;
 	protected EntityTarget _entityTarget;
 	protected EntityStunGuage _entityStunGuage;
 	protected Rigidbody2D _rigidBody;
 	protected EntityFlip _entityFlip;
+	protected EntityShield _entityShield;
 
 	public EntityStunGuage StunGuage => _entityStunGuage;
 
@@ -35,6 +37,8 @@ public class EntityComponent : MonoBehaviour
 		_entityStunGuage = GetComponent<EntityStunGuage>();
 		_rigidBody = GetComponent<Rigidbody2D>();
 		_entityFlip = GetComponent<EntityFlip>();
+		_entityShield = GetComponent<EntityShield>();
+		_health = GetComponent<Health>();
 	}
 
 	protected virtual void Update()

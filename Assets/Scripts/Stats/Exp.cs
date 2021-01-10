@@ -5,8 +5,8 @@ public class Exp : MonoBehaviour
 {
     private Dictionary<int, int> levelToExpNeeded = new Dictionary<int, int>()
     {
-        { 1, 15 }, { 2, 25 }, { 3, 50 }, { 4, 75 }, { 5, 100 },
-        { 6, 150 }, { 7, 200 }, { 8, 300 }, { 9, 500 }, { 10, 1000 }
+        { 1, 40 }, { 2, 80 }, { 3, 200 }, { 4, 400 }, { 5, 700 },
+        { 6, 1000 }, { 7, 1500 }, { 8, 2000 }, { 9, 3500 }, { 10, 5000 }
     };
 
     [SerializeField] public int ExpToGive = 10;
