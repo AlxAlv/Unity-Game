@@ -10,6 +10,7 @@ public class HealthReward : Collectables
 	protected override void Pick()
 	{
 		AddHealth(_entity);
+		SoundManager.Instance.Playsound("Audio/SoundEffects/HealFx");
 	}
 
 	protected override void PlayEffects()

@@ -7,6 +7,8 @@ public class CoinReward : Collectables
 	protected override void Pick()
 	{
 		AddCoins();
+
+		SoundManager.Instance.Playsound("Audio/SoundEffects/CoinPickupFx");
 	}
 
 	private void AddCoins()
