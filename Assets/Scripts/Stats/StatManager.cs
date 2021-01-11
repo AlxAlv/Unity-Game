@@ -75,9 +75,9 @@ public class StatManager : MonoBehaviour
 
     public void ModifyEquipStats(int strBonus, int intBonus, int dexBonus)
     {
-        Intelligence.StatAmount += intBonus;
-        Strength.StatAmount += strBonus;
-        Dexterity.StatAmount += dexBonus;
+        Intelligence.BonusAmount += intBonus;
+        Strength.BonusAmount += strBonus;
+        Dexterity.BonusAmount += dexBonus;
     }
 
     public void AddIntelligence()
@@ -109,10 +109,17 @@ public class StatManager : MonoBehaviour
 
     void UpdateStats()
     {
-        _intelligenceTextAmount.text = Intelligence.StatAmount.ToString();
-        _dexterityTextAmount.text = Dexterity.StatAmount.ToString();
-        _strengthTextAmount.text = Strength.StatAmount.ToString();
+        _intelligenceTextAmount.text = Intelligence.TotalAmount.ToString();
+        _dexterityTextAmount.text = Dexterity.TotalAmount.ToString();
+        _strengthTextAmount.text = Strength.TotalAmount.ToString();
         if (_pointsTextAmount != null && _exp != null)
             _pointsTextAmount.text = _exp.GetPoints().ToString();
+    }
+
+    public void SetStatsData(int intelligence, int dexterity, int strength)
+    {
+	    Intelligence.StatAmount = intelligence;
+	    Dexterity.StatAmount = dexterity;
+	    Strength.StatAmount = strength;
     }
 }

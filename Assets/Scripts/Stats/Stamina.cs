@@ -85,7 +85,7 @@ public class Stamina : MonoBehaviour
 
 	private float CalculateStamina()
 	{
-		return _initialStamina + (_statManager.Dexterity.StatAmount * 5);
+		return _initialStamina + (_statManager.Dexterity.TotalAmount * 5);
 	}
 
 	private void UpdateStamina()

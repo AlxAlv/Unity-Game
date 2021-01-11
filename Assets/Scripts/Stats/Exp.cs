@@ -11,23 +11,18 @@ public class Exp : MonoBehaviour
 
     [SerializeField] public int ExpToGive = 10;
 
-    private int _currentStatPoints = 0;
     private int _pointsPerLevel = 2;
 
-    private int _currentExp;
-    private int _expForNextLevel;
 
-    private int _currentLevel;
+    private int _currentStatPoints = 0;
+    private int _expForNextLevel = 40;
+    private int _currentExp = 0;
+    private int _currentLevel = 1;
 
     public int CurrentStatPoints => _currentStatPoints;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _currentExp = 0;
-        _currentLevel = 1;
-        _expForNextLevel = levelToExpNeeded[_currentLevel];
-    }
+    public int CurrentEXP => _currentExp;
+    public int CurrentTargetEXP => _expForNextLevel;
+    public int CurrentLevel => _currentLevel;
 
     // Update is called once per frame
     void Update()
@@ -38,6 +33,14 @@ public class Exp : MonoBehaviour
         }
         
         UpdateExp();
+    }
+
+    public void SetEXPData(int statPoints, int currentEXP, int targetEXP, int currentLevel)
+    {
+	    _currentStatPoints = statPoints;
+	    _currentExp = currentEXP;
+	    _expForNextLevel = targetEXP;
+	    _currentLevel = currentLevel;
     }
 
     private void UpdateExp()

@@ -10,7 +10,11 @@ public enum StatType : ushort
 public class Stat
 {
     public StatType Type { get; set; }
+
     public int StatAmount { get; set; }
+    public int BonusAmount { get; set; }
+
+    public int TotalAmount => (StatAmount + BonusAmount);
 
     public Stat(StatType type, int amount)
     {

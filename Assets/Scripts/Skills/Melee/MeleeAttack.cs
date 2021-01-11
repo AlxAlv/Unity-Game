@@ -82,7 +82,7 @@ public class MeleeAttack : MeleeSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = (_statManager.Strength.StatAmount * 3) + (_swordToUse.WeaponInfo.Damage * 2);
+        _damageAmount = (_statManager.Strength.TotalAmount * 3) + (_swordToUse.WeaponInfo.Damage * 2);
 
         base.UpdateDamage();
     }

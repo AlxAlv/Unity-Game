@@ -54,7 +54,7 @@ public class LightningBolt : MagicSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Intelligence.StatAmount * 1;
+        _damageAmount = _statManager.Intelligence.TotalAmount * 1;
 
         base.UpdateDamage();
     }

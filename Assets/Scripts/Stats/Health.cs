@@ -113,7 +113,7 @@ public class Health : MonoBehaviour
 	private float CalculateMaxHealth()
 	{
 		if (_statManager != null)
-			return m_initialHealth + (_statManager.Strength.StatAmount * 3);
+			return m_initialHealth + (_statManager.Strength.TotalAmount * 3);
 
 		return m_maxHealth;
 	}

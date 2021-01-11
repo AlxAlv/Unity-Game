@@ -53,7 +53,7 @@ public class Charge : ShieldSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Dexterity.StatAmount * 2;
+        _damageAmount = _statManager.Dexterity.TotalAmount * 2;
 
         base.UpdateDamage();
     }

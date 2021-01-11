@@ -50,7 +50,7 @@ public class EnemyRangedAttack : ArcherySkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Dexterity.StatAmount * 2 + _bowToUse.WeaponInfo.Damage;
+        _damageAmount = _statManager.Dexterity.TotalAmount * 2 + _bowToUse.WeaponInfo.Damage;
 
         base.UpdateDamage();
     }

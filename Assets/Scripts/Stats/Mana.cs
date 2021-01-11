@@ -86,7 +86,7 @@ public class Mana : MonoBehaviour
 
 	private float CalcualteMaxMana()
 	{
-		return _initialMana + (_statManager.Intelligence.StatAmount * 2);
+		return _initialMana + (_statManager.Intelligence.TotalAmount * 2);
 	}
 
 	public void RefillMana()

@@ -114,6 +114,7 @@ MonoBehaviour:
   _lootHelper: {fileID: 0}
   _cameraShake: {fileID: 0}
   StunDamageModifier: 1
+  DodgeDamageModifier: 1
 --- !u!61 &-5376998343455241193
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -270,6 +271,18 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2234223204481625711, guid: b976bc055323f3747b3911024d0c1df6,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7390eeec8d78f564fb9b63aefb79a526,
+        type: 2}
+    - target: {fileID: 2234223204481625711, guid: b976bc055323f3747b3911024d0c1df6,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1247091629276729821, guid: 7390eeec8d78f564fb9b63aefb79a526,
+        type: 2}
     - target: {fileID: 5324704710257811902, guid: b976bc055323f3747b3911024d0c1df6,
         type: 3}
       propertyPath: m_LocalPosition.x
