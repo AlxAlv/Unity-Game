@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Profiling.Memory.Experimental;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -9,6 +9,7 @@ public class ArenaManager : MonoBehaviour
 	private const int NUM_OF_ROUNDS = 5;
 	private const int MAX_NUM_DEFEAT_ALL_ENEMIES = 8;
 	private const int MAX_NUM_DEFEAT_BOSS_BOSSES = 1;
+
 
 	enum Objectives
 	{
@@ -25,8 +26,14 @@ public class ArenaManager : MonoBehaviour
 	[SerializeField] private List<GameObject> _possibleBosses;
     [SerializeField] private List<Weapon> _possibleWeapons;
 
-    // Player
-    private GameObject _player;
+	// UI
+	[SerializeField] private GameObject _objectivesPanel;
+	[SerializeField] private TextMeshProUGUI _objectiveStatement;
+	[SerializeField] private TextMeshProUGUI _objectiveText;
+	[SerializeField] private Image _objectiveIcon;
+
+	// Player
+	private GameObject _player;
 
     // Objective Information
     private List<GameObject> _spawnedEntities;
@@ -53,19 +60,24 @@ public class ArenaManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	    if (_isArenaStarted)
-	    {
+	    _objectivesPanel.active = _isArenaStarted;
+
+		if (_isArenaStarted)
+		{
+			Objectives currentObjective = _objectivesList[_currentRound];
+			UpdateUI(currentObjective);
+
 		    if (_currentRound == NUM_OF_ROUNDS)
             {
 	            DialogManager.Instance.InstantSystemMessage("You Win!");
 	            EndArena();
             }
-		    else if (CheckRoundStatus(_objectivesList[_currentRound]))
+		    else if (CheckRoundStatus(currentObjective))
 		    {
 			    _currentRound++;
 
 				if (_currentRound < NUM_OF_ROUNDS)
-					StartRound(_objectivesList[_currentRound]);
+					StartRound(currentObjective);
 		    }
 	    }
     }
@@ -179,4 +191,20 @@ public class ArenaManager : MonoBehaviour
 
 	    _spawnedEntities.Add(spawnedEnemy);
     }
+
+    private void UpdateUI(Objectives objective)
+    {
+	    _objectiveStatement.text = "(" + (_currentRound + 1) + "/" + NUM_OF_ROUNDS + ") " +  _roundStartStrings[_objectivesList[_currentRound]];
+
+		switch (objective)
+		{
+			case Objectives.DefeatAllEnemies:
+				_objectiveText.text = "x" + _spawnedEntities.Count.ToString();
+				break;
+
+			case Objectives.DefeatTheBoss:
+				_objectiveText.text = "x" + _spawnedEntities.Count.ToString();
+				break;
+		}
+	}
 }
