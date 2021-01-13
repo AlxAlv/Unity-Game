@@ -11,6 +11,9 @@ public class DecisionNotice : AIDecision
 	private Collider2D _targetCollider2D;
 	private AIStateController _controller;
 
+	private float _lineWidth = 0.025f;
+	private int _numVerticies = 64;
+
 	public override bool Decide(AIStateController controller)
 	{
 		_controller = controller;
@@ -21,6 +24,7 @@ public class DecisionNotice : AIDecision
 	{
 		// _targetCollider2D contains collisions found
 		_targetCollider2D = Physics2D.OverlapCircle(controller.transform.position, DetectArea, TargetMask);
+		Color color = Color.green;
 
 		// Were there any collisions detected?
 		if (_targetCollider2D != null)
@@ -29,10 +33,16 @@ public class DecisionNotice : AIDecision
  			RaycastHit2D hit = Physics2D.Linecast(controller.transform.position, _targetCollider2D.transform.position, LayerMask.GetMask("LevelComponents", "Player"));
 
 			// If there's no wall in between us...
-            if (hit)
+            if (hit && hit.transform.tag == "Player")
             {
-				// And we see the player
-				if (hit.transform.tag == "Player" && controller.IsTimePassed())
+				// If this is the first loop where the player is noticed, create a question mark
+				if (controller.LineRenderer.startColor == Color.green)
+					ThoughtPopups.Create(controller.SkillLoadingTransform.position, controller.gameObject.GetInstanceID(), ThoughtTypes.QuestionMark);
+
+				color = Color.Lerp(Color.red, Color.green, ((controller.Timer - Time.time) / TimeUntilNotice));
+
+	            // And we see the player
+				if (controller.IsTimePassed())
 				{
 					controller.Target = _targetCollider2D.transform;
 					return true;
@@ -42,12 +52,18 @@ public class DecisionNotice : AIDecision
 					controller.ResetTime(TimeUntilNotice);
 				}
             }
+            else
+            {
+				ThoughtPopups.RemoveInstanceFromList(controller.gameObject.GetInstanceID());
+			}
 		}
 		else
 		{
 			controller.ResetTime(TimeUntilNotice);
+			ThoughtPopups.RemoveInstanceFromList(controller.gameObject.GetInstanceID());
 		}
 
+		controller.DrawPolygon(_numVerticies, DetectArea, controller.transform.position, _lineWidth, _lineWidth, color);
 		return false;
 	}
 }

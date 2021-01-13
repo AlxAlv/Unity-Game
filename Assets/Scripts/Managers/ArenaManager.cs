@@ -1,0 +1,182 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Profiling.Memory.Experimental;
+using UnityEngine;
+
+public class ArenaManager : MonoBehaviour
+{
+	// Arena Constants
+	private const int NUM_OF_ROUNDS = 5;
+	private const int MAX_NUM_DEFEAT_ALL_ENEMIES = 8;
+	private const int MAX_NUM_DEFEAT_BOSS_BOSSES = 1;
+
+	enum Objectives
+	{
+		DefeatAllEnemies,
+		DefeatTheBoss
+	};
+
+	Objectives[] ArenaObjectives = new Objectives[] { Objectives.DefeatAllEnemies, Objectives.DefeatTheBoss };
+
+    // Locations And Possible Enemies
+	[SerializeField] private Transform _hubStartPosition;
+	[SerializeField] private List<EnemySpawner> _enemySpawners;
+	[SerializeField] private List<GameObject> _possibleEnemies;
+	[SerializeField] private List<GameObject> _possibleBosses;
+    [SerializeField] private List<Weapon> _possibleWeapons;
+
+    // Player
+    private GameObject _player;
+
+    // Objective Information
+    private List<GameObject> _spawnedEntities;
+
+    // Arena State
+    private bool _isArenaStarted = false;
+    private int _currentRound = 0;
+    private List<Objectives> _objectivesList;
+
+    // Constant Strings To Display To The Player
+    private Dictionary<Objectives, string> _roundStartStrings = new Dictionary<Objectives, string>()
+    {
+	    {Objectives.DefeatAllEnemies, "Defeat All The Enemies"},
+	    {Objectives.DefeatTheBoss, "Defeat The Boss Monster"}
+    };
+
+    // Start is called before the first frame update
+    void Start()
+    {
+	    _spawnedEntities = new List<GameObject>();
+	    _objectivesList = new List<Objectives>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+	    if (_isArenaStarted)
+	    {
+		    if (_currentRound == NUM_OF_ROUNDS)
+            {
+	            DialogManager.Instance.InstantSystemMessage("You Win!");
+	            EndArena();
+            }
+		    else if (CheckRoundStatus(_objectivesList[_currentRound]))
+		    {
+			    _currentRound++;
+
+				if (_currentRound < NUM_OF_ROUNDS)
+					StartRound(_objectivesList[_currentRound]);
+		    }
+	    }
+    }
+
+    // Initialize the objectives for the arena
+    public void StartArena(GameObject player)
+    {
+		// Clear Info From Last Round
+	    _currentRound = 0;
+	    _objectivesList.Clear();
+
+		// Randomize Objectives
+		for (int i = 0; i < NUM_OF_ROUNDS; ++i)
+        {
+	        _objectivesList.Add(ArenaObjectives[Random.Range(0, (ArenaObjectives.Length))] );
+        }
+
+        StartRound(_objectivesList[_currentRound]);
+
+        _isArenaStarted = true;
+        _player = player;
+
+    }
+
+    private void StartRound(Objectives objective)
+    {
+	    switch (objective)
+	    {
+            case Objectives.DefeatAllEnemies:
+	            StartDefeatAllEnemiesRound();
+	            break;
+
+            case Objectives.DefeatTheBoss:
+	            StartDefeatTheBossRound();
+	            break;
+	    }
+
+	    StartMessage();
+    }
+
+    private bool CheckRoundStatus(Objectives objective)
+    {
+	    switch (objective)
+	    {
+		    case Objectives.DefeatAllEnemies:
+			    return CheckSpawnedEntities();
+			    break;
+
+		    case Objectives.DefeatTheBoss:
+			    return CheckSpawnedEntities();
+			    break;
+
+            default:
+	            return false;
+	    }
+    }
+
+    private bool CheckSpawnedEntities()
+    {
+	    // Check for dead entities
+	    _spawnedEntities.RemoveAll(item => item == null);
+
+	    if (_spawnedEntities.Count == 0)
+		    return true;
+
+	    return false;
+    }
+
+    private void StartDefeatAllEnemiesRound()
+    {
+	    int numberOfEnemiesThisRound = Random.Range(2, MAX_NUM_DEFEAT_ALL_ENEMIES);
+
+	    for (int i = 0; i < numberOfEnemiesThisRound; ++i)
+	    {
+		    GameObject enemyToSpawn = _possibleEnemies[Random.Range(0, (_possibleEnemies.Count - 1))];
+            Spawn(enemyToSpawn);
+	    }
+    }
+
+    private void StartDefeatTheBossRound()
+    {
+	    int numberOfEnemiesThisRound = Random.Range(1, MAX_NUM_DEFEAT_BOSS_BOSSES);
+
+	    for (int i = 0; i < numberOfEnemiesThisRound; ++i)
+	    {
+		    GameObject bossToSpawn = _possibleBosses[Random.Range(0, (_possibleBosses.Count - 1))];
+		    Spawn(bossToSpawn);
+	    }
+    }
+
+    private void StartMessage()
+    {
+		DialogManager.Instance.InstantSystemMessage("\nRound " + (_currentRound + 1) + "/" + NUM_OF_ROUNDS + " - " + _roundStartStrings[_objectivesList[_currentRound]]);
+    }
+
+    // Clear out the arena and send the player back
+    private void EndArena()
+    {
+	    _isArenaStarted = false;
+	    _player.transform.position = (_hubStartPosition.position);
+    }
+
+    // Spawn An Enemy Into The List
+    private void Spawn(GameObject enemyToSpawn)
+    {
+	    GameObject spawnedEnemy = _enemySpawners[Random.Range(0, (_enemySpawners.Count - 1))].SpawnEnemy(enemyToSpawn);
+	    Weapon weaponToUse = _possibleWeapons[Random.Range(0, (_possibleWeapons.Count - 1))];
+
+	    // Outfit The Enemy
+	    spawnedEnemy.GetComponent<EntityWeapon>().MainWeapon = weaponToUse;
+
+	    _spawnedEntities.Add(spawnedEnemy);
+    }
+}

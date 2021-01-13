@@ -10,7 +10,7 @@ public class ActionShoot : AIAction
         DetermineAim(controller);
         ShootPlayer(controller);
 
-        ExclamationMark.Create(controller.SkillLoadingTransform.position, controller.gameObject.GetInstanceID());
+        ThoughtPopups.Create(controller.SkillLoadingTransform.position, controller.gameObject.GetInstanceID(), ThoughtTypes.ExclamationMark);
         controller.EntityMovement.RemoveFollowTarget();
     }
 

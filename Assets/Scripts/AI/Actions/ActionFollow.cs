@@ -12,7 +12,7 @@ public class ActionFollow : AIAction
 	public override void Act(AIStateController controller)
 	{
 		FollowTarget(controller);
-		ExclamationMark.Create(controller.SkillLoadingTransform.position, controller.gameObject.GetInstanceID());
+		ThoughtPopups.Create(controller.SkillLoadingTransform.position, controller.gameObject.GetInstanceID(), ThoughtTypes.ExclamationMark);
 	}
 
 	private void FollowTarget(AIStateController controller)

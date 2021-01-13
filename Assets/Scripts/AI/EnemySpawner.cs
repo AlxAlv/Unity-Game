@@ -12,12 +12,16 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int _maxNumberOfTotalSpawns = 0;
     [SerializeField] bool _summonAllAtOnce = false;
     [SerializeField] List<Weapon> _possibleWeapons;
+    [SerializeField] private bool _arenaSpawner = false;
 
     private float _nextSpawn = 0.0f;
     private int _currentSpawns = 0;
 
     void Update()
     {
+	    if (_arenaSpawner)
+		    return;
+
         if (    ((Time.time > _nextSpawn) || (transform.childCount == 0)) 
              && ((_currentSpawns < _maxNumberOfTotalSpawns) || (_summonAllAtOnce && _currentSpawns < _maxNumberOfTotalSpawns) || (_maxNumberOfTotalSpawns == 0))
              && (gameObject.transform.childCount < _maxNumberOfEnemies))
@@ -33,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private GameObject SpawnEnemy(GameObject enemyToSpawn)
+    public GameObject SpawnEnemy(GameObject enemyToSpawn)
     {
         Vector2 whereToSpawn;
 
@@ -48,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
             hit = Physics2D.BoxCast(whereToSpawn, enemyToSpawn.GetComponent<BoxCollider2D>().size, 0.0f, Vector2.zero, 0, LayerMask.GetMask("LevelComponents"));
         } while (hit.collider != null);
 	    
-        var objectCreated = Instantiate(_enemyObject, whereToSpawn, Quaternion.identity);
+        var objectCreated = Instantiate(enemyToSpawn, whereToSpawn, Quaternion.identity);
         objectCreated.transform.parent = transform;
         return objectCreated;
     }

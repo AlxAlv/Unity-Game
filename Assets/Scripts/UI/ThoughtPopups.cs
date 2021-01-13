@@ -3,23 +3,27 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExclamationMark : MonoBehaviour
+public enum ThoughtTypes { ExclamationMark, QuestionMark };
+
+public class ThoughtPopups : MonoBehaviour
 {
     private static List<int> instanceIds = new List<int>();
 
-    public static ExclamationMark Create(Vector3 position, int instanceId)
+    public static ThoughtPopups Create(Vector3 position, int instanceId, ThoughtTypes type)
     {
-        if (instanceIds.Contains(instanceId))
+	    string path = "Prefabs/NumberPopups/" + ((type == ThoughtTypes.ExclamationMark) ? "ExclamationMark" : "QuestionMark");
+
+	    if (instanceIds.Contains(instanceId))
         {
             return null;
         }
 
         instanceIds.Add(instanceId);
-        GameObject exclamationMarkPrefab = Instantiate((Resources.Load("Prefabs/NumberPopups/ExclamationMark") as GameObject), position, Quaternion.identity);
-        ExclamationMark exclamationMark = exclamationMarkPrefab.GetComponent<ExclamationMark>();
-        exclamationMark.Setup();
+        GameObject thoughtPrefab = Instantiate((Resources.Load(path) as GameObject), position, Quaternion.identity);
+        ThoughtPopups thought = thoughtPrefab.GetComponent<ThoughtPopups>();
+        thought.Setup();
 
-        return exclamationMark;
+        return thought;
     }
 
     public static void RemoveInstanceFromList(int instanceId)
