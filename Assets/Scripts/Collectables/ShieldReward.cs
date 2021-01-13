@@ -7,9 +7,10 @@ public class ShieldReward : Collectables
 	[SerializeField] private int _shieldToAdd = 1;
 	[SerializeField] private ParticleSystem _shieldFx;
 
-	protected override void Pick()
+	protected override bool Pick()
 	{
 		AddShield(_entity);
+		return true;
 	}
 
 	protected override void PlayEffects()

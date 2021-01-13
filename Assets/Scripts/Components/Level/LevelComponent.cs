@@ -33,7 +33,7 @@ public class LevelComponent : MonoBehaviour
 		}
 	}
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         _health.TakeDamage(damage, StaleMove.NonStaleMove);
 

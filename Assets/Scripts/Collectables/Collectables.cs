@@ -27,12 +27,14 @@ public class Collectables : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
     {
+	    if (!other.CompareTag("Player"))
+			return;
+
 	    _objectCollided = other.gameObject;
 
-	    if (IsPickable())
+	    if (IsPickable() && Pick())
 	    {
-			Pick();
-			PlayEffects();
+		    PlayEffects();
 
 			if (_canDestroyItem)
 			{
@@ -58,9 +60,9 @@ public class Collectables : MonoBehaviour
 	    return _entity.EntityType == Entity.EntityTypes.Player;
     }
 
-    protected virtual void Pick()
+    protected virtual bool Pick()
     {
-		
+	    return true;
     }
 
     protected virtual void PlayEffects()

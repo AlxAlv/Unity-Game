@@ -7,10 +7,12 @@ public class HealthReward : Collectables
 	[SerializeField] private int _healthToAdd = 1;
 	[SerializeField] private ParticleSystem _healthBonusFX;
 
-	protected override void Pick()
+	protected override bool Pick()
 	{
 		AddHealth(_entity);
 		SoundManager.Instance.Playsound("Audio/SoundEffects/HealFx");
+
+		return true;
 	}
 
 	protected override void PlayEffects()

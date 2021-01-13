@@ -13,6 +13,7 @@ public class EntityTarget : EntityComponent
 
     private GameObject _currentObjectUnderMouse { get; set; }
     private bool HasCancelled = true;
+    private bool HasMentionedSKey = false;
 
     protected override void Start()
     {
@@ -181,6 +182,12 @@ public class EntityTarget : EntityComponent
             CurrentTarget = target;
             HasCancelled = false;
             ChangeGameObjectSelections(CurrentTarget, true);
+
+            if (!HasMentionedSKey && !Input.GetKey(KeyCode.S))
+            {
+	            HasMentionedSKey = true;
+	            DialogManager.Instance.InstantSystemMessage("Hold the [S] key instead of having to manually hover over targets!");
+            }
         }
     }
 

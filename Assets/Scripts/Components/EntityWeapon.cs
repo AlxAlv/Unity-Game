@@ -89,30 +89,30 @@ public class EntityWeapon : EntityComponent
 
     private void UpdateRapidFire()
     {
-        if ((Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)) && IsTargettingSomething())
-        {
-            if (_currentTimer == 0.0f)
-            {
-                _currentTimer = Time.time + _doubleClickWaitTime;
-                //Debug.Log("Rapid Fire - OFF - First Click");
-                RapidFire = false;
-            }
-            else if (Time.time < _currentTimer)
-            {
-                //Debug.Log("Rapid Fire - ON");
-                RapidFire = true;
-            }
-        }
-        else if ((Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(0)) && RapidFire)
-        {
-            RapidFire = false;
-            _currentTimer = 0.0f;
-            //Debug.Log("Rapid Fire - OFF - Button Up");
-        }
-        else if (Time.time > _currentTimer)
-        {
-            _currentTimer = 0.0f;
-        }
+        //if ((Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)) && IsTargettingSomething())
+        //{
+        //    if (_currentTimer == 0.0f)
+        //    {
+        //        _currentTimer = Time.time + _doubleClickWaitTime;
+        //        Debug.Log("Rapid Fire - OFF - First Click");
+        //        RapidFire = false;
+        //    }
+        //    else if (Time.time < _currentTimer)
+        //    {
+        //        Debug.Log("Rapid Fire - ON");
+        //        RapidFire = true;
+        //    }
+        //}
+        //else if ((Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(0)) && RapidFire)
+        //{
+        //    RapidFire = false;
+        //    _currentTimer = 0.0f;
+        //    Debug.Log("Rapid Fire - OFF - Button Up");
+        //}
+        //else if (Time.time > _currentTimer)
+        //{
+        //    _currentTimer = 0.0f;
+        //}
     }
 
     public bool IsMainWeaponEquipped()
@@ -298,10 +298,12 @@ public class EntityWeapon : EntityComponent
         DestroyAllWeapons();
     }
 
-    public void AddWeaponToInventory(Weapon weaponToAdd, int damage, Color weaponColor)
+    public bool AddWeaponToInventory(Weapon weaponToAdd, int damage, Color weaponColor)
     {
-        if (m_entity.EntityType == Entity.EntityTypes.Player)
-            GetComponent<Inventory>().AddWeaponToInventory(weaponToAdd, new WeaponInfo(damage, weaponColor));
+	    if (m_entity.EntityType == Entity.EntityTypes.Player)
+		    return GetComponent<Inventory>().AddWeaponToInventory(weaponToAdd, new WeaponInfo(damage, weaponColor));
+	    else
+		    return false;
     }
 
     public bool IsMeleeWeaponAndBusy()

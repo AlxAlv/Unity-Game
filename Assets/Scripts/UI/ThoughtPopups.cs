@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ThoughtTypes { ExclamationMark, QuestionMark };
+public enum ThoughtTypes { ExclamationMark, QuestionMark, StandbyMark, BerserkerMark };
 
 public class ThoughtPopups : MonoBehaviour
 {
@@ -11,7 +11,16 @@ public class ThoughtPopups : MonoBehaviour
 
     public static ThoughtPopups Create(Vector3 position, int instanceId, ThoughtTypes type)
     {
-	    string path = "Prefabs/NumberPopups/" + ((type == ThoughtTypes.ExclamationMark) ? "ExclamationMark" : "QuestionMark");
+	    // Constant Strings To Display To The Player
+	    Dictionary<ThoughtTypes, string> _thoughtTypeToMark = new Dictionary<ThoughtTypes, string>()
+	    {
+		    {ThoughtTypes.ExclamationMark, "ExclamationMark"},
+		    {ThoughtTypes.QuestionMark, "QuestionMark"},
+		    {ThoughtTypes.StandbyMark, "StandbyMark"},
+		    {ThoughtTypes.BerserkerMark, "AggroMark"}
+	    };
+
+	    string path = "Prefabs/NumberPopups/" + _thoughtTypeToMark[type];
 
 	    if (instanceIds.Contains(instanceId))
         {

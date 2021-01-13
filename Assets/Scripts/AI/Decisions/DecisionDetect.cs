@@ -31,6 +31,9 @@ public class DecisionDetect : AIDecision
 			{
 				color = Color.red;
 				controller.Target = _targetCollider2D.transform;
+
+				controller.DrawPolygon(_numVerticies, DetectArea, controller.transform.position, _lineWidth, _lineWidth, color);
+
 				return true;
 			}
 		}

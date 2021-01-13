@@ -238,6 +238,11 @@ public partial class Weapon : MonoBehaviour
 		_currentEnemySkill.Trigger();
 	}
 
+	public SkillState GetEnemySkillState()
+	{
+		return _currentEnemySkill.CurrentState;
+	}
+
 	public virtual bool IsMeleeWeaponAndBusy()
 	{
 		return false;

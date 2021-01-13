@@ -1,24 +1,99 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Skills.Melee
 {
 	public class MeleeSkill : BaseSkill
 	{
+		// Resource Variables
 		protected Sword _swordToUse;
 		protected string _meleeFxPath;
+
+		// Distance Variables
+		protected float _distanceToAttack = 5.0f;
+
+		// Attack Variables
+		protected bool _pendingAttack = false;
+		protected string _skillName = "MeleeSkill";
 
 		protected MeleeSkill(Sword swordToUse) : base(swordToUse)
 		{
 			_swordToUse = swordToUse;
 		}
 
+		public override void Update()
+		{
+			if (_entityTarget.CurrentTarget != null)
+			{
+				if (!IsInReach() && IsLoadingOrLoaded() && _pendingAttack)
+				{
+					_entityMovement.SetIsWalking(true, _entityTarget.CurrentTarget);
+				}
+
+				if (IsInReach() && CurrentState != SkillState.available && _pendingAttack)
+				{
+					_entityMovement.RemoveDestination();
+
+					Execute();
+				}
+			}
+
+			base.Update();
+		}
+
+		protected bool IsInReach()
+		{
+			if (_entityTarget.CurrentTarget != null)
+			{
+				float distance = Vector3.Distance(_entityTarget.CurrentTarget.transform.position, _entity.transform.position);
+
+				return (distance < _distanceToAttack);
+			}
+
+			return false;
+		}
+
+		public override void Trigger()
+		{
+			base.Trigger();
+
+			_pendingAttack = true;
+
+			if (!IsInReach() && _entityTarget.CurrentTarget != null)
+				_entityMovement.SetIsWalking(true, _entityTarget.CurrentTarget);
+		}
+
 		protected override void Execute()
 		{
-			base.Execute();
-			_swordToUse.UseWeapon();
+			if (IsInReach() && IsLoaded() && _pendingAttack)
+			{
+				_swordToUse.ClearLastHitEnemies();
+				_swordToUse.UseWeapon();
 
-			if (_meleeFxPath.Length > 0)
-				SoundManager.Instance.Playsound(_meleeFxPath);
+				if (!String.IsNullOrEmpty(_meleeFxPath) && (_meleeFxPath.Length > 0))
+					SoundManager.Instance.Playsound(_meleeFxPath);
+
+				_weaponToUse.PlayAnimation();
+				SoundManager.Instance.Playsound(_soundPath);
+
+				_pendingAttack = false;
+
+				LevelComponent levelComponent = _entityTarget.CurrentTarget.GetComponent<LevelComponent>();
+				Health targetHealth = _entityTarget.CurrentTarget.GetComponent<Health>();
+
+				if (levelComponent)
+				{
+					levelComponent.TakeDamage(_damageAmount);
+				}
+				else if (targetHealth)
+				{
+					targetHealth.TakeDamage(_damageAmount, _skillName);
+					targetHealth.HitStun(_stunTime, _knockBackAmount, _entity.transform);
+					targetHealth.Attacker = _entity.gameObject;
+				}
+
+				CancelSkill();
+			}
 		}
 
 		protected override void UpdateDamage()

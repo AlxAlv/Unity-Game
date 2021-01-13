@@ -42,6 +42,9 @@ public class EntityMovement : EntityComponent
     private bool _canMove = true;
     private bool IsAI = false;
 
+    private bool _isCollidingWithWall = false;
+    public bool WallCollisionDetected => _isCollidingWithWall;
+
     protected override void Start()
     {
         base.Start();
@@ -209,7 +212,15 @@ public class EntityMovement : EntityComponent
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+	    _isCollidingWithWall = true;
+        Debug.Log("Colliding");
         _isMoving = false;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+	    Debug.Log("No Longer Colliding");
+        _isCollidingWithWall = false;
     }
 
     private void SetMouseDestination()

@@ -6,7 +6,6 @@ public class Sword : MeleeWeapon
 {
     [SerializeField] private float _attackDelay = 0.5f;
 
-    private Collider2D _damageAreaCollider2D;
     private bool _isAttacking;
 
     public void Awake()
@@ -24,10 +23,6 @@ public class Sword : MeleeWeapon
     protected override void Start()
     {
         base.Start();
-
-        _damageAreaCollider2D = GetComponentInChildren<Collider2D>();
-
-        _damageAreaCollider2D.enabled = false;
     }
 
     public void UseWeapon()

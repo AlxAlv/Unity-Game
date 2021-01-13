@@ -33,7 +33,7 @@ public class LootHelper : MonoBehaviour
         // Randomize Weapon Type
         if (rewardType > 0 && rewardType < 3)
         {
-            weaponReward = Resources.Load("Prefabs/Rewards/SwordReward");
+	        weaponReward = Resources.Load("Prefabs/Rewards/SwordReward");
             rewardWeapon = true;
         }
 		if (rewardType > 3 && rewardType < 6)
@@ -48,19 +48,19 @@ public class LootHelper : MonoBehaviour
 		}
 
 		// Randomize Equip Type
-		if (rewardType > 10 && rewardType < 18)
+		if (rewardType > 10 && rewardType < 15)
 		{
 			weaponReward = Resources.Load("Prefabs/Rewards/ArmorReward");
 			rewardEquip = true;
 			equipType = EquipType.Armor;
 		}
-		else if (rewardType > 18 && rewardType < 26)
+		else if (rewardType > 15 && rewardType < 20)
 		{
 			weaponReward = Resources.Load("Prefabs/Rewards/HelmetReward");
 			rewardEquip = true;
 			equipType = EquipType.Helmet;
 		}
-		else if (rewardType > 26 && rewardType < 34)
+		else if (rewardType > 20 && rewardType < 25)
 		{
 			weaponReward = Resources.Load("Prefabs/Rewards/FootwearReward");
 			rewardEquip = true;

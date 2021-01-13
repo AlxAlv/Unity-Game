@@ -30,9 +30,14 @@ public struct EquipInstance
 public class Inventory : MonoBehaviour
 {
     [Header("Panels")]
-    [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private GameObject _inventoryContainer;
-    [SerializeField] private int _maxNumberOfEquips = 15;
+    [SerializeField] private GameObject _weaponsPanel;
+    [SerializeField] private GameObject _armorPanel;
+    [SerializeField] private int _maxNumberOfItems = 15;
+
+    [Header("Arrows")]
+    [SerializeField] private GameObject _weaponsArrow;
+    [SerializeField] private GameObject _armorArrow;
 
     public List<WeaponInstance> WeaponsOwned { get; set; }
     public List<EquipInstance> EquipsOwned { get; set; }
@@ -44,7 +49,7 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        _inventoryPanel.SetActive(false);
+	    _inventoryContainer.SetActive(false);
         WeaponsOwned = new List<WeaponInstance>();
         EquipsOwned = new List<EquipInstance>();
     }
@@ -53,17 +58,14 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            _inventoryPanel.SetActive(!_inventoryPanel.activeSelf);
-            _inventoryContainer.SetActive(_inventoryPanel.activeSelf);
+	        _inventoryContainer.SetActive(!_inventoryContainer.activeSelf);
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _inventoryPanel.SetActive(false);
-            _inventoryContainer.SetActive(false);
-
+	        _inventoryContainer.SetActive(false);
         }
 
-        if (_inventoryPanel.activeSelf)
+        if (_inventoryContainer.activeSelf)
         {
             UpdateInventory();
         }
@@ -73,41 +75,63 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void AddWeaponToInventory(Weapon weapon, WeaponInfo weaponInfo)
+    public bool AddWeaponToInventory(Weapon weapon, WeaponInfo weaponInfo)
     {
-        weaponInfo.InternalName = weapon.name + _currentWeaponNumber.ToString();
-        _currentWeaponNumber++;
-
-        if (WeaponsOwned.Count + EquipsOwned.Count >= _maxNumberOfEquips)
-            DialogManager.Instance.InstantSystemMessage("Out of inventory space!");
+	    if (WeaponsOwned.Count >= _maxNumberOfItems)
+        {
+	        DialogManager.Instance.InstantSystemMessage("Out of weapon space!");
+	        return false;
+        }
         else
+        {
+	        weaponInfo.InternalName = weapon.name + _currentWeaponNumber.ToString();
+	        _currentWeaponNumber++;
+
             WeaponsOwned.Add(new WeaponInstance(weapon, weaponInfo));
+	        return true;
+        }
     }
 
-    public void AddEquipToInventory(Equip equip, EquipInfo equipInfo)
+    public bool AddEquipToInventory(Equip equip, EquipInfo equipInfo)
     {
-        equipInfo.InternalName = equip.equipName + _currentEquipNumber.ToString();
-        _currentEquipNumber++;
-
-        if (WeaponsOwned.Count + EquipsOwned.Count >= _maxNumberOfEquips)
-            DialogManager.Instance.InstantSystemMessage("Out of inventory space!");
+	    if (EquipsOwned.Count >= _maxNumberOfItems)
+        {
+	        DialogManager.Instance.InstantSystemMessage("Out of armor space!");
+	        return false;
+        }
         else
+        {
+	        equipInfo.InternalName = equip.equipName + _currentEquipNumber.ToString();
+	        _currentEquipNumber++;
+
             EquipsOwned.Add(new EquipInstance(equip, equipInfo));
+            return true;
+        }
     }
 
     void UpdateInventory()
     {
-        if (_numberOfItems != (WeaponsOwned.Count + EquipsOwned.Count))
+        if (_weaponsPanel.activeSelf && (_numberOfItems != WeaponsOwned.Count))
         {
-            foreach (Transform child in _inventoryContainer.transform)
+            foreach (Transform child in _weaponsPanel.transform)
             {
                 GameObject.Destroy(child.gameObject);
             }
 
             AddWeapons();
-            AddEquips();
 
-            _numberOfItems = WeaponsOwned.Count + EquipsOwned.Count;
+            _numberOfItems = WeaponsOwned.Count;
+        }
+        else if (_armorPanel.activeSelf && (_numberOfItems != EquipsOwned.Count))
+        {
+	        foreach (Transform child in _armorPanel.transform)
+	        {
+		        GameObject.Destroy(child.gameObject);
+	        }
+
+	        AddEquips();
+
+	        _numberOfItems = EquipsOwned.Count;
         }
     }
 
@@ -165,7 +189,7 @@ public class Inventory : MonoBehaviour
             itemImage.sprite = modelObject.GetComponent<SpriteRenderer>().sprite;
             itemImage.color = WeaponsOwned[i].WeaponInfo.Color;
 
-            itemSlot.GetComponent<RectTransform>().SetParent(_inventoryContainer.transform);
+            itemSlot.GetComponent<RectTransform>().SetParent(_weaponsPanel.transform);
             itemSlot.SetActive(true);
             itemObject.name = WeaponsOwned[i].WeaponInfo.InternalName;
 
@@ -206,7 +230,7 @@ public class Inventory : MonoBehaviour
             itemImage.sprite = modelObject.GetComponent<SpriteRenderer>().sprite;
             itemImage.color = EquipsOwned[i].EquipInfo.Color;
 
-            itemSlot.GetComponent<RectTransform>().SetParent(_inventoryContainer.transform);
+            itemSlot.GetComponent<RectTransform>().SetParent(_armorPanel.transform);
             itemSlot.SetActive(true);
             itemObject.name = EquipsOwned[i].EquipInfo.InternalName;
 
@@ -217,5 +241,27 @@ public class Inventory : MonoBehaviour
             itemObject.transform.localScale = new Vector3(.9f, .9f, 0);
             itemSlot.transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
         }
+    }
+
+    public void ShowWeaponsTab()
+    {
+	    _numberOfItems = 0;
+
+        _weaponsPanel.SetActive(true);
+	    _armorPanel.SetActive(false);
+
+	    _weaponsArrow.SetActive(true);
+	    _armorArrow.SetActive(false);
+    }
+
+    public void ShowArmorTab()
+    {
+	    _numberOfItems = 0;
+
+        _weaponsPanel.SetActive(false);
+	    _armorPanel.SetActive(true);
+
+	    _weaponsArrow.SetActive(false);
+	    _armorArrow.SetActive(true);
     }
 }

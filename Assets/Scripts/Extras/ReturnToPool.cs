@@ -36,7 +36,10 @@ public class ReturnToPool : MonoBehaviour
 			if (_projectile != null)
 			{
 				_projectile.DisableProjectile();
-				_impactPS.Play();
+				
+				if (_impactPS)
+					_impactPS.Play();
+
 				SoundManager.Instance.Playsound(_collisionSound);
 				Invoke(nameof(Return), _impactPS.main.duration);
 

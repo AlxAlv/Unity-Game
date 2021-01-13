@@ -24,10 +24,12 @@ public class EntityEquips : MonoBehaviour
         _statManager = GetComponent<StatManager>();
     }
 
-    public void AddEquipToInventory(Equip equipToEquip, int strBonus, int intBonus, int dexBonus, Color equipColor, EquipType type)
+    public bool AddEquipToInventory(Equip equipToEquip, int strBonus, int intBonus, int dexBonus, Color equipColor, EquipType type)
     {
-        if (_entity.EntityType == Entity.EntityTypes.Player)
-            GetComponent<Inventory>().AddEquipToInventory(equipToEquip, new EquipInfo(strBonus, dexBonus, intBonus, equipColor, type));
+	    if (_entity.EntityType == Entity.EntityTypes.Player)
+		    return GetComponent<Inventory>().AddEquipToInventory(equipToEquip, new EquipInfo(strBonus, dexBonus, intBonus, equipColor, type));
+	    else
+		    return false;
     }
 
     public void EquipHelmet(Equip equip, EquipInfo equipInfo)

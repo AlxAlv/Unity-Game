@@ -12,18 +12,20 @@ public class EquipReward : Collectables
 	private int _dexBonus;
 	private EquipType _equipType;
 
-	protected override void Pick()
+	protected override bool Pick()
 	{
-		Equip();
+		return Equip();
 	}
 
-	private void Equip()
+	private bool Equip()
 	{
 		if (_entity != null)
 		{
 			EntityEquips entityEquips = _entity.GetComponent<EntityEquips>();
-			entityEquips.AddEquipToInventory(_itemEquipData.equipToEquip, _strBonus, _intBonus, _dexBonus, _equipColor, _equipType);
+			return entityEquips.AddEquipToInventory(_itemEquipData.equipToEquip, _strBonus, _intBonus, _dexBonus, _equipColor, _equipType);
 		}
+		else
+			return false;
 	}
 
 	public void SetEquip(EquipData dataToReward)

@@ -4,11 +4,12 @@ public class CoinReward : Collectables
 {
 	[SerializeField] private int _coinsToAdd = 25;
 
-	protected override void Pick()
+	protected override bool Pick()
 	{
 		AddCoins();
-
 		SoundManager.Instance.Playsound("Audio/SoundEffects/CoinPickupFx");
+
+		return true;
 	}
 
 	private void AddCoins()

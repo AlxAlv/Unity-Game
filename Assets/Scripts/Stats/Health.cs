@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
 	[SerializeField] private SpriteRenderer m_spriteRenderer;
 	[SerializeField] private LootHelper _lootHelper;
 	[SerializeField] private Camera2DShake _cameraShake;
+	[SerializeField] private Transform _revivePosition;
 
 	private Entity m_entity;
 	private StatManager _statManager;
@@ -35,6 +36,7 @@ public class Health : MonoBehaviour
 
 	public float StunDamageModifier = 1.0f;
 	public float DodgeDamageModifier = 1.0f;
+	public float ShieldModifier = 1.0f;
 
 	private GameObject _player;
 	private bool _maxHealthSet = false;
@@ -45,7 +47,7 @@ public class Health : MonoBehaviour
 		//	_cameraShake.Shake();
 
 		if (m_entity != null && (m_entity.EntityType == Entity.EntityTypes.AI || m_entity.EntityType == Entity.EntityTypes.Player))
-			damage = (_staleMove.CalculateDamage(damage, attackName) * StunDamageModifier * DodgeDamageModifier);
+			damage = (_staleMove.CalculateDamage(damage, attackName) * StunDamageModifier * DodgeDamageModifier * ShieldModifier);
 
 		if (damage > 0 && _tintHelper != null)
 			_tintHelper.SetTintColor(new Color(1, 0, 0, 1f));
@@ -178,6 +180,8 @@ public class Health : MonoBehaviour
 
 			m_currentHealth = m_initialHealth;
 			m_currentShield = m_initialShield;
+
+			gameObject.transform.position = _revivePosition.position;
 
 			UpdateEntityHealth();
 		}

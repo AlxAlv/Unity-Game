@@ -7,7 +7,7 @@ public class ArenaManager : MonoBehaviour
 {
 	// Arena Constants
 	private const int NUM_OF_ROUNDS = 5;
-	private const int MAX_NUM_DEFEAT_ALL_ENEMIES = 8;
+	private const int MAX_NUM_DEFEAT_ALL_ENEMIES = 6;
 	private const int MAX_NUM_DEFEAT_BOSS_BOSSES = 1;
 
 
@@ -64,20 +64,21 @@ public class ArenaManager : MonoBehaviour
 
 		if (_isArenaStarted)
 		{
-			Objectives currentObjective = _objectivesList[_currentRound];
-			UpdateUI(currentObjective);
-
-		    if (_currentRound == NUM_OF_ROUNDS)
+			if (_currentRound < NUM_OF_ROUNDS)
+			{
+				UpdateUI(_objectivesList[_currentRound]);
+			}
+			else if (_currentRound == NUM_OF_ROUNDS)
             {
 	            DialogManager.Instance.InstantSystemMessage("You Win!");
 	            EndArena();
             }
-		    else if (CheckRoundStatus(currentObjective))
+		    else if (CheckRoundStatus(_objectivesList[_currentRound]))
 		    {
 			    _currentRound++;
 
 				if (_currentRound < NUM_OF_ROUNDS)
-					StartRound(currentObjective);
+					StartRound(_objectivesList[_currentRound]);
 		    }
 	    }
     }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿	using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -10,12 +10,15 @@ public class AIStateController : MonoBehaviour
     [SerializeField] private AIState _remainState;
     [SerializeField] public Transform SkillLoadingTransform;
 
+    [SerializeField] public LineRenderer AttackLineRenderer;
+
     public Transform Target { get; set; }
     public EntityMovement EntityMovement { get; set; }
     public Path Path { get; set; }
     public Collider2D Collider2D { get; set; }
     public EntityWeapon EntityWeapon { get; set; }
     public LineRenderer LineRenderer { get; set; }
+    public Health Health { get; set; }
 
     private void Awake()
     {
@@ -24,11 +27,30 @@ public class AIStateController : MonoBehaviour
         Path = GetComponent<Path>();
         Collider2D = GetComponent<Collider2D>();
         LineRenderer = GetComponent<LineRenderer>();
+        Health = GetComponent<Health>();
+
+        // Setup AttackLine
+        if (!AttackLineRenderer)
+	        return;
+
+        AttackLineRenderer.gameObject.transform.SetParent(transform, false);
+        AttackLineRenderer.gameObject.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+        AttackLineRenderer.startWidth = 1.0f;
+        AttackLineRenderer.endWidth = 1.0f;
+        AttackLineRenderer.startColor = Color.green;
+        AttackLineRenderer.endColor = Color.green;
     }
 
     private void Update()
     {
-	    _currentState.EvaluateState(this);
+        // Hide AttackLine (Should Only Be Active If ActionShoot Tells It To Be)
+        if (_currentState.name != "StateShoot" && AttackLineRenderer)
+        {
+	        AttackLineRenderer.SetPosition(0, new Vector3(0, 0, 0));
+	        AttackLineRenderer.SetPosition(1, new Vector3(0, 0, 0));
+        }
+
+        _currentState.EvaluateState(this);
     }
 
     public void TransitionToState(AIState nextState)
@@ -54,16 +76,8 @@ public class AIStateController : MonoBehaviour
     private float _timer = float.MaxValue;
     public float Timer => _timer;
     
-    public bool IsTimePassed()
-    {
-	    return (Time.time > _timer);
-
-    }
-
-    public void ResetTime(float timeToWait)
-    {
-	    _timer = Time.time + timeToWait;
-    }
+    public bool IsTimePassed() { return (Time.time > _timer); }
+    public void ResetTime(float timeToWait) { _timer = Time.time + timeToWait; }
 
     public void DrawPolygon(int vertexNumber, float radius, Vector3 centerPos, float startWidth, float endWidth, Color color)
     {
@@ -85,4 +99,17 @@ public class AIStateController : MonoBehaviour
 		    LineRenderer.SetPosition(i, centerPos + rotationMatrix.MultiplyPoint(initialRelativePosition));
 	    }
     }
+
+    /* Members Used By Combat */
+    public enum CombatState { ImmediateAttack, Standby, Berserker }
+
+    public CombatState CurrentCombatState = CombatState.ImmediateAttack;
+    public float SavedHealth = 0.0f;
+    public int NumberOfAttacksCompleted = 0;
+
+    private float _attackTimer = float.MaxValue;
+    public float AttackTimer => _attackTimer;
+
+    public bool IsAttackTimePassed() { return (Time.time > _attackTimer); }
+    public void ResetAttackTime(float timeToWait) { _attackTimer = Time.time + timeToWait; }
 }

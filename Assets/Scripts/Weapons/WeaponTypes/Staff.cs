@@ -27,6 +27,8 @@ public class Staff : Weapon
         {
             EnemySkill.Add(new EnemyIceBolt(this));
             EnemySkill.Add(new EnemyFireBolt(this));
+            EnemySkill.Add(new LightningBolt(this));
+            EnemySkill.Add(new BoulderToss(this));
 
             foreach (var skill in EnemySkill)
                 skill.SetOwner(owner);

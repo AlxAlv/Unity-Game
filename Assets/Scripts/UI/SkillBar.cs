@@ -91,7 +91,7 @@ public class SkillBar : MonoBehaviour
         { ArrowRevolverName, WeaponType.Bow },
         { ChargedShotName, WeaponType.Bow },
         { MeleeAttackName, WeaponType.Melee },
-        { ChargeName, WeaponType.Shield }
+        { ChargeName, WeaponType.Melee }
     };
 
     // Start is called before the first frame update
@@ -314,7 +314,7 @@ public class SkillBar : MonoBehaviour
         else if (iconName == MeleeAttackName)
             return new MeleeAttack(weapon as Sword);
         else if (iconName == ChargeName)
-            return new Charge(weapon as Shield);
+            return new Charge(weapon as Sword);
 
         return null;
     }

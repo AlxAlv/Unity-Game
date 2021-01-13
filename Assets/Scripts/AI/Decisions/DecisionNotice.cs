@@ -11,7 +11,7 @@ public class DecisionNotice : AIDecision
 	private Collider2D _targetCollider2D;
 	private AIStateController _controller;
 
-	private float _lineWidth = 0.025f;
+	private float _lineWidth = 0.05f;
 	private int _numVerticies = 64;
 
 	public override bool Decide(AIStateController controller)

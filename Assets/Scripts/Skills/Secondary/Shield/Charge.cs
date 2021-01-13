@@ -1,15 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Skills.Melee;
 using UnityEngine;
 
-public class Charge : ShieldSkill
+public class Charge : MeleeSkill
 {
     // Skillbar Helper Static
-    public static float ResourceAmount = 1.0f;
+    public static float ResourceAmount = 3.0f;
     public static Resource ResourceType = Resource.Stamina;
 
-    public Charge(Shield shieldToUse) : base(shieldToUse)
+    // Charge Specific
+    private float _chargeDistance = 15.0f;
+    private float _chargeSpeedModifier = 6.0f;
+
+    public Charge(Sword swordToUse) : base(swordToUse)
     {
+	    _skillName = "ChargeAttack";
+	    _distanceToAttack = 1.5f;
         _stunTime = 2.0f;
         _knockBackAmount = 100f;
         _loadingTime = 0.05f;
@@ -23,38 +30,37 @@ public class Charge : ShieldSkill
         _resourceToUse = ResourceType;
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     public override void Update()
     {
-        base.Update();
+	    if (IsLoaded() && IsInChargeReach() && _pendingAttack)
+		    _entityMovement.RunMovementModifier = _chargeSpeedModifier;
+
+	    base.Update();
     }
 
-    public override void Trigger()
+    public override void CancelSkill()
     {
-        base.Trigger();
-    }
+	    _entityMovement.RunMovementModifier = 1.0f;
 
-    protected override void Execute()
-    {
-        base.Execute();
-
-        // Alx TODO: Implement Charge Logic Here
-        DialogManager.Instance.InstantSystemMessage("Charge skill used but not implemented");
-    }
-
-    public override void SetOwner(Entity anEntity)
-    {
-        base.SetOwner(anEntity);
+	    base.CancelSkill();
     }
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Dexterity.TotalAmount * 2;
+        _damageAmount = _statManager.Strength.TotalAmount * 1;
 
         base.UpdateDamage();
+    }
+
+    protected bool IsInChargeReach()
+    {
+	    if (_entityTarget.CurrentTarget != null)
+	    {
+		    float distance = Vector3.Distance(_entityTarget.CurrentTarget.transform.position, _entity.transform.position);
+
+		    return (distance < _chargeDistance);
+	    }
+
+	    return false;
     }
 }

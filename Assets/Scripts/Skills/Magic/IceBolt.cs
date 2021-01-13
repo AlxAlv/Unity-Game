@@ -54,7 +54,7 @@ public class IceBolt : MagicSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Intelligence.TotalAmount * 3 + _staffToUse.WeaponInfo.Damage;
+        _damageAmount = (_statManager.Intelligence.TotalAmount * 3) + (_staffToUse.WeaponInfo.Damage * 2);
 
         base.UpdateDamage();
     }

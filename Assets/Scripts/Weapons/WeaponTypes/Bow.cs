@@ -27,6 +27,7 @@ public class Bow : Weapon
         {
             EnemySkill.Add(new EnemyRangedAttack(this));
             EnemySkill.Add(new EnemyChargedShot(this));
+            EnemySkill.Add(new ArrowRevolver(this));
 
             foreach (var skill in EnemySkill)
                 skill.SetOwner(owner);

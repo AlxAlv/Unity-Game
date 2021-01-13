@@ -9,10 +9,10 @@ public class ColliderHelper : MonoBehaviour
 
         // Forward to the parent (or just deal with it here).
         // Let's say it has a script called "PlayerCollisionHelper" on it:
-        MeleeWeapon parentScript = transform.parent.GetComponent<MeleeWeapon>();
+        //MeleeWeapon parentScript = transform.parent.GetComponent<MeleeWeapon>();
 
         // Let it know a collision happened:
-        parentScript.CollisionFromChild(collision);
+        //parentScript.CollisionFromChild(collision);
 
     }
 }

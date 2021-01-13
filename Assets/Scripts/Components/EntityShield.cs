@@ -9,6 +9,7 @@ public class EntityShield : EntityComponent
 	[SerializeField] private float _maxDodgeDistance = 3.0f;
 	[SerializeField] private float _dodgeDuration = 0.15f;
 	[SerializeField] private float _staminaAmount = 3.0f;
+	[SerializeField] private GameObject _shieldImGameObject;
 
 	private bool _isShielding = false;
 	private bool _dodging = false;
@@ -25,15 +26,20 @@ public class EntityShield : EntityComponent
 	float _rotationLeft = DEGREES_IN_CIRCLE;
 	float _rotationSpeed = 10;
 
+	public bool IsShielding => _isShielding;
+	public bool IsRolling => _dodging;
+
 	protected override void HandleInput()
 	{
-		if (Input.GetKeyDown(KeyCode.LeftShift) && !_dodging && !_isShielding)
+		if (Input.GetKeyDown(KeyCode.LeftShift) && !_dodging && !_isShielding && !_entityStunGuage.Stunned && !_entityStunGuage.KnockedBack)
 		{
 			StartShielding();
 		}
 		else if (Input.GetKeyUp(KeyCode.LeftShift) && _isShielding && _stamina.UseStamina(_staminaAmount))
 		{
 			_isShielding = false;
+			_health.ShieldModifier = 1.0f;
+
 			Dodge();
 		}
 	}
@@ -41,6 +47,8 @@ public class EntityShield : EntityComponent
 	protected override void HandleComponent()
 	{
 		base.HandleComponent();
+
+		_shieldImGameObject.SetActive(_isShielding);
 
 		if (_dodging)
 		{
@@ -94,6 +102,8 @@ public class EntityShield : EntityComponent
 		m_entityWeapon.CancelAllSkills();
 
 		_isShielding = true;
+
+		_health.ShieldModifier = 0.5f;
 	}
 
 	private void StopDodging()

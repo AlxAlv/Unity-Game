@@ -45,7 +45,7 @@ public class Tooltip : MonoBehaviour
         _tooltipText.text = tooltipString;
         _currentToolTipBeingViewed = currentUI;
 
-        float textPaddingSize = 5f;
+        float textPaddingSize = 10f;
         Vector2 backgorundSize = new Vector2(_tooltipText.preferredWidth + textPaddingSize * 2f, _tooltipText.preferredHeight + textPaddingSize * 2f);
         _backgroundRectTransform.sizeDelta = backgorundSize;
     }

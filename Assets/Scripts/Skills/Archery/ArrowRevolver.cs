@@ -82,7 +82,7 @@ public class ArrowRevolver : ArcherySkill
 
 	protected override void UpdateDamage()
 	{
-		_damageAmount = _statManager.Dexterity.TotalAmount * 1 + ((_bowToUse.WeaponInfo.Damage) * 2);
+		_damageAmount = _statManager.Dexterity.TotalAmount * 2 + _bowToUse.WeaponInfo.Damage;
 
 		base.UpdateDamage();
 	}

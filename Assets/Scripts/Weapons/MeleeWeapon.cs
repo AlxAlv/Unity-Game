@@ -52,8 +52,8 @@ public class MeleeWeapon : Weapon
 	{
 		base.PlayAnimation();
 
-		if (_armAnimator != null)
-			_armAnimator.SetTrigger(_armSwing);
+		//if (_armAnimator != null)
+		//	_armAnimator.SetTrigger(_armSwing);
 	}
 
 	public void ClearLastHitEnemies()

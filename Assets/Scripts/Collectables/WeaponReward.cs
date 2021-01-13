@@ -8,18 +8,20 @@ public class WeaponReward : Collectables
 	private Color _weaponColor;
 	private int _weaponDamage;
 
-	protected override void Pick()
+	protected override bool Pick()
 	{
-		EquipWeapon();
+		return EquipWeapon();
 	}
 
-	private void EquipWeapon()
+	private bool EquipWeapon()
 	{
 		if (_entity != null)
 		{
 			EntityWeapon entityWeapon = _entity.GetComponent<EntityWeapon>();
-			entityWeapon.AddWeaponToInventory(_itemWeaponData.WeaponToEquip, _weaponDamage, _weaponColor);
+			return entityWeapon.AddWeaponToInventory(_itemWeaponData.WeaponToEquip, _weaponDamage, _weaponColor);
 		}
+		else
+			return false;
 	}
 
 	public void SetWeapon(ItemData dataToReward)

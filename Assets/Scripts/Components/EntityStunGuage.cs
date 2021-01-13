@@ -136,7 +136,7 @@ public class EntityStunGuage : EntityComponent
     {
         _lastPlaceHitFrom = projectileLocation;
 
-        if (Invincible)
+        if (Invincible || (_entityShield != null && (_entityShield.IsShielding || _entityShield.IsRolling)))
         {
             SoundManager.Instance.Playsound("Audio/SoundEffects/InvincibleFx");
             return;
