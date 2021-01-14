@@ -34,6 +34,7 @@ GameObject:
   - component: {fileID: 7672847954848453238}
   - component: {fileID: -1261110383413717215}
   - component: {fileID: 7570333697059476636}
+  - component: {fileID: 6485603315858125002}
   m_Layer: 0
   m_Name: Lightningbolt
   m_TagString: Projectile
@@ -209,7 +210,20 @@ MonoBehaviour:
   - {x: -0.06885409, y: 0.07093742, z: 0}
   m_ShapePathHash: 791478453
   m_Mesh: {fileID: 0}
-  m_InstanceId: 71326
+  m_InstanceId: 68330
+--- !u!114 &6485603315858125002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8321050490716486963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62c2f6f3eb660854cb55d814be1f1a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 16
 --- !u!1001 &5706959884363732485
 PrefabInstance:
   m_ObjectHideFlags: 0

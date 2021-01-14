@@ -73,7 +73,9 @@ public class ArenaManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	    _objectivesPanel.active = _isArenaStarted;
+	    SoundManager.Instance.SetArenaStatus(_isArenaStarted);
+
+		_objectivesPanel.active = _isArenaStarted;
 
 		if (_isArenaStarted)
 		{

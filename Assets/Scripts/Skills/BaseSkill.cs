@@ -305,6 +305,9 @@ public class BaseSkill : MonoBehaviour
 
 	protected void UpdateOutlineRenderer()
 	{
+		if (_entity.EntityType == Entity.EntityTypes.AI)
+			return;
+
 		if (CurrentState == SkillState.loading || CurrentState == SkillState.loaded)
 		{
 			if (OutlineRendererObject == null)

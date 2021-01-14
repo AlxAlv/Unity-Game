@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 7672847954848453238}
   - component: {fileID: -1261110383413717215}
   - component: {fileID: 8009009965913293377}
+  - component: {fileID: 2721905380320989003}
   m_Layer: 0
   m_Name: Icebolt
   m_TagString: Projectile
@@ -263,7 +264,20 @@ MonoBehaviour:
   - {x: -0.068364464, y: 0.07100365, z: 0}
   m_ShapePathHash: -2030508880
   m_Mesh: {fileID: 0}
-  m_InstanceId: 240168
+  m_InstanceId: 68272
+--- !u!114 &2721905380320989003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8321050490716486963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62c2f6f3eb660854cb55d814be1f1a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 16
 --- !u!1001 &3399764013123105222
 PrefabInstance:
   m_ObjectHideFlags: 0

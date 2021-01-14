@@ -19,6 +19,19 @@ public class GoldNumbers : MonoBehaviour
     private Vector3 moveVector;
     private static int _sortingOrder;
 
+    // Game Feel Numbers
+    // Scale
+    private float _enlargeAmount = 16.0f;
+    private float _reduceAmount = 8.0f;
+
+    // Direction
+    private float _directionSpeed = 8.0f;
+
+    // Time
+    private float _precentSpentEnlarging = 0.7f;
+    private float _dissapearSpeed = 20.0f;
+    private float _timeAlive = 0.5f;
+
     private void Awake()
     {
         _text = transform.GetComponent<TextMeshPro>();
@@ -31,45 +44,40 @@ public class GoldNumbers : MonoBehaviour
     private void Setup(int damageAmount)
     {
         _text.SetText("+" + damageAmount.ToString() + "G");
-        moveVector = new Vector3(1, 1) * 3f;
+        moveVector = new Vector3(Random.Range(-2.5f, 2.5f), Random.Range(3.0f, 6.0f)) * 3f;
         _sortingOrder++;
         _text.sortingOrder = _sortingOrder;
     }
 
     private void Update()
     {
-        float moveYSpeed = 2f;
+	    transform.position += moveVector * Time.deltaTime;
+	    moveVector -= moveVector * _directionSpeed * Time.deltaTime;
 
-        transform.position += moveVector * Time.deltaTime;
-        moveVector -= moveVector * 8f * Time.deltaTime;
+	    _disappearTimer -= Time.deltaTime;
 
-        _disappearTimer -= Time.deltaTime;
+	    if (_disappearTimer > (_timeAlive * _precentSpentEnlarging))
+	    {
+		    // First half of the popup
+		    transform.localScale += Vector3.one * _enlargeAmount * Time.deltaTime;
+	    }
+	    else
+	    {
+		    // Second half
+		    transform.localScale -= Vector3.one * _reduceAmount * Time.deltaTime;
+	    }
 
-        if (_disappearTimer > DISAPPEAR_TIMER_MAX * .7f)
-        {
-            // First half of the popup
-            float increaseScaleAmount = 1.5f;
-            transform.localScale += Vector3.one * increaseScaleAmount * Time.deltaTime;
-        }
-        else
-        {
-            // Second half
-            float decreaseScaleAmount = 1f;
-            transform.localScale -= Vector3.one * decreaseScaleAmount * Time.deltaTime;
-        }
+	    if (_disappearTimer < 0)
+	    {
+		    // Start Disppearing
+		    _textColor.a -= _dissapearSpeed * Time.deltaTime;
 
-        if (_disappearTimer < 0)
-        {
-            // Start Disppearing
-            float disappearSpeed = 3f;
-            _textColor.a -= disappearSpeed * Time.deltaTime;
+		    _text.color = _textColor;
 
-            _text.color = _textColor;
-
-            if(_textColor.a < 0)
-            {
-                Destroy(gameObject);
-            }
-        }
+		    if (_textColor.a < 0)
+		    {
+			    Destroy(gameObject);
+		    }
+	    }
     }
 }

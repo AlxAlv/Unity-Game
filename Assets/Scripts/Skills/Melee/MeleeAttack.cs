@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Skills.Melee;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Scripts.Skills.Melee;
 using UnityEngine;
 
 public class MeleeAttack : MeleeSkill
@@ -12,6 +14,13 @@ public class MeleeAttack : MeleeSkill
 
     private float _timer = 0.0f;
     private float _timerDuration = .05f;
+
+    private List<String> _swingEffects = new List<string>
+    {
+	    "Audio/SoundEffects/SwordSwing3Fx",
+	    "Audio/SoundEffects/SwordSwing2Fx",
+	    "Audio/SoundEffects/SwordSwing1Fx"
+    };
 
     public MeleeAttack(Sword swordToUse) : base(swordToUse)
     {
@@ -54,10 +63,7 @@ public class MeleeAttack : MeleeSkill
 		        _swordToUse.ClearLastHitEnemies();
 		        _swordToUse.UseWeapon();
 
-		        if (_meleeFxPath.Length > 0)
-			        SoundManager.Instance.Playsound(_meleeFxPath);
-
-		        _weaponToUse.PlayAnimation();
+		        SoundManager.Instance.Playsound(_swingEffects[(_currentNumOfSwings - 1)]);
 		        SoundManager.Instance.Playsound(_soundPath);
 
 		        _currentNumOfSwings--;

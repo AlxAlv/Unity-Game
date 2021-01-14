@@ -18,6 +18,7 @@ public class EntityMovement : EntityComponent
     [SerializeField] private Transform _movementArrowTransform;
     [SerializeField] private Image _movementArrowImage;
     [SerializeField] private bool _isDummy = false;
+    [SerializeField] private Transform _feetLocation;
 
     public float m_moveSpeed { get; set; }
     public float SkillMovementModifier { get; set; }
@@ -227,12 +228,28 @@ public class EntityMovement : EntityComponent
         _destination.z = transform.position.z;
 
         _isMoving = true;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+	        GameObject dustObject = Instantiate((Resources.Load("Prefabs/Effects/WalkingDustPS") as GameObject), _feetLocation.transform.position, Quaternion.identity);
+	        dustObject.transform.localScale = new Vector3((_entityFlip.m_FacingLeft ? 1 : -1), dustObject.transform.localScale.y, dustObject.transform.localScale.z);
+
+	        dustObject.GetComponent<ParticleSystem>().Play();
+        }
     }
 
     public void SetAIDestination(Vector3 destination)
     {
         _destination = destination;
         _destination.z = transform.position.z;
+
+        if (!_isMoving)
+        {
+	        GameObject dustObject = Instantiate((Resources.Load("Prefabs/Effects/WalkingDustPS") as GameObject), _feetLocation.transform.position, Quaternion.identity);
+	        dustObject.transform.localScale = new Vector3((_entityFlip.m_FacingLeft ? 1 : -1), dustObject.transform.localScale.y, dustObject.transform.localScale.z);
+
+	        dustObject.GetComponent<ParticleSystem>().Play();
+        }
 
         _isMoving = true;
 

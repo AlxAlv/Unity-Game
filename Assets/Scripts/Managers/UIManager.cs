@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
@@ -15,7 +16,10 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI _currentExpText;
     [SerializeField] private Image _hungerBar;
 
-    [Header("Text")] [SerializeField] private TextMeshProUGUI _coinText;
+    [Header("Coins")] 
+    [SerializeField] private TextMeshProUGUI _coinText;
+    [SerializeField] private GameObject _coinImage;
+
 
     private float m_playerCurrentHealth;
     private float m_playerMaxHealth;
@@ -54,7 +58,8 @@ public class UIManager : Singleton<UIManager>
 	        m_currentStaminaText.text = m_playerCurrentStamina.ToString() + "/" + m_playerMaxStamina.ToString();
 
             _expBar.fillAmount = Mathf.Lerp(_expBar.fillAmount, _currentExp / _expNeededToLevelUp, 10f * Time.deltaTime);
-            _currentExpText.text = "Lv." + _currentLevel.ToString() + " - " +_currentExp.ToString() + "/" + _expNeededToLevelUp.ToString();
+            //_currentExpText.text = "Lv." + _currentLevel.ToString() + " - " +_currentExp.ToString() + "/" + _expNeededToLevelUp.ToString();
+            _currentExpText.text = "Lv." + _currentLevel.ToString();
 
             _hungerBar.fillAmount = Mathf.Lerp(_hungerBar.fillAmount, Mathf.Abs(1.0f -_currentHunger), 10f * Time.deltaTime);
 
@@ -96,5 +101,16 @@ public class UIManager : Singleton<UIManager>
     public void UpdateHunger(float currentModifier)
     {
         _currentHunger = currentModifier;
+    }
+
+    public void BounceHealthText()
+    {
+	    UIBounce.Instance.BounceUI(m_currentHealthText.gameObject);
+    }
+
+    public void BounceCoinText()
+    {
+	    UIBounce.Instance.BounceUI(_coinText.gameObject);
+        UIBounce.Instance.BounceUI(_coinImage);
     }
 }

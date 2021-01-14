@@ -28,11 +28,22 @@ public class EntityStunGuage : EntityComponent
     private Vector2 _currentKnockbackPosition;
     [SerializeField] private float _armorBreakDuration = 3.0f;
 
+    // Push
+    private const float _defaultPushDistance = 0.05f;
+    private const float _defaultPushTimer = 0.35f;
+    private float _currentPushTimer = _defaultPushTimer;
+    private float _currentPushDistance = _defaultPushDistance;
+    private float _currentPushDuration = _defaultPushTimer;
+    private Vector2 _pushOrigin;
+    private Vector2 _pushDestination;
+    private Vector2 _currentPushPosition;
+
     private Transform _lastPlaceHitFrom;
 
     public bool Stunned { get; set; }
     public bool KnockedBack { get; set; }
     public bool Invincible { get; set; }
+    public bool Pushed { get; set; }
 
     // Knockback Bar
     [SerializeField] private KnockdownBar _knockdownBar;
@@ -62,6 +73,12 @@ public class EntityStunGuage : EntityComponent
             UpdateInvincibleTimer();
         else
             UpdateStunTimer();
+
+        if (Pushed)
+        {
+	        UpdatePush();
+	        UpdatePushTimer();
+        }
 
         UpdateStunStars();
         UpdateKnockbackUI();
@@ -143,9 +160,11 @@ public class EntityStunGuage : EntityComponent
         }
 
         if (!KnockedBack)
-            _currentStunTimer = 0.0f;
+	        _currentStunTimer = 0.0f;
+	     
+        ApplyPush(knockBackAmount);
 
-        _barInstance.AddAmount(knockBackAmount);
+	    _barInstance.AddAmount(knockBackAmount);
 
         m_entityWeapon.CurrentWeapon.CancelSkills();
 
@@ -153,6 +172,44 @@ public class EntityStunGuage : EntityComponent
 
         if (m_entity.EntityType == Entity.EntityTypes.Player)
             m_movement.RemoveDestination();
+    }
+
+    private void ApplyPush(float pushAmount)
+    {
+	    if (Pushed || KnockedBack || Invincible)
+		    return;
+
+	    // Become Invincible
+	    _currentPushDuration = _defaultPushTimer;
+	    _currentPushTimer = 0.0f;
+
+	    Pushed = true;
+	    _currentPushDistance = (pushAmount / 75.0f);
+
+	    // Find Push Transforms
+	    _pushOrigin = transform.position;
+
+	    _pushDestination = Vector2.MoveTowards(transform.position, _lastPlaceHitFrom.position, -1 * _currentPushDistance);
+	}
+
+    private void UpdatePushTimer()
+    {
+	    _currentPushTimer += Time.deltaTime;
+
+	    if (_currentPushTimer > _currentPushDuration)
+	    {
+		    Pushed = false;
+	    }
+    }
+
+    private void UpdatePush()
+    {
+	    if (KnockedBack || Invincible)
+		    return;
+
+        _currentPushPosition = Vector2.Lerp(_pushOrigin, _pushDestination, Mathf.SmoothStep(0.0f, 1.0f, (_currentPushTimer / _currentPushDuration)));
+
+	    _rigidBody.MovePosition(_currentPushPosition);
     }
 
     public void BecomeKnockedback()

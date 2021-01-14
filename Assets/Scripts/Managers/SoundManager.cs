@@ -7,12 +7,14 @@ public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField] private AudioSource _backgroundMusic;
     [SerializeField] private AudioSource _combatMusic;
+    [SerializeField] private AudioSource _arenaMusic;
     [SerializeField] private float _combatDuration = 8.0f;
     
     private AudioSource _audioSource;
     private float _timer = 0.0f;
 
     private bool _isInCombat = false;
+    private bool _isInArena = false;
 
     private void Start()
     {
@@ -24,6 +26,10 @@ public class SoundManager : Singleton<SoundManager>
         AudioClip musicToPlay = Resources.Load<AudioClip>("Audio/Music/CombatMusic");
         _combatMusic.clip = musicToPlay;
         _combatMusic.volume = .2f;
+
+        AudioClip arenaMusicToPlay = Resources.Load<AudioClip>("Audio/Music/ArenaMusic");
+        _arenaMusic.clip = arenaMusicToPlay;
+        _arenaMusic.volume = .2f;
     }
 
     private void Update()
@@ -34,6 +40,7 @@ public class SoundManager : Singleton<SoundManager>
             {
                 _isInCombat = true;
                 _backgroundMusic.Pause();
+	            _arenaMusic.Pause();
                 _combatMusic.Play();
             }
 
@@ -43,7 +50,12 @@ public class SoundManager : Singleton<SoundManager>
         {
             _isInCombat = false;
             _combatMusic.Stop();
-            _backgroundMusic.Play();
+
+            if (!_isInArena)
+	            _backgroundMusic.Play();
+            else
+	            _arenaMusic.Play();
+
             SetHealthBars(false);
         }
     }
@@ -66,6 +78,26 @@ public class SoundManager : Singleton<SoundManager>
     public void UpdateCombatTimer()
     {
         _timer = Time.time + _combatDuration;
+    }
+
+    public void SetArenaStatus(bool isInArena)
+    {
+	    if (_isInArena && !isInArena)
+	    {
+		    _isInCombat = false;
+
+            _arenaMusic.Stop();
+		    _backgroundMusic.Play();
+        }
+        else if (!_isInArena && isInArena)
+	    {
+		    _isInCombat = false;
+
+		    _backgroundMusic.Stop();
+		    _arenaMusic.Play();
+	    }
+
+        _isInArena = isInArena;
     }
 
     void SetHealthBars(bool isActive)

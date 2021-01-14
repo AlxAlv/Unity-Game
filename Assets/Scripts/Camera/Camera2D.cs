@@ -20,10 +20,64 @@ public class Camera2D : MonoBehaviour
 	[Header("Mode")] 
 	[SerializeField] private CameraMode m_cameraMode = CameraMode.Update;
 
+	[Header("Game Feel")]
+	//_scaleFactor is to make the camera not go all the way to the mouse cursor position, tweak it until it feels right.
+	//_maxDistance limits how far the camera can go from the player, tweak it until it feels right.
+	[SerializeField] private float _scaleFactor = 0.5f;
+	[SerializeField] private float _maxDistance = 3.0f;
+	[SerializeField] private bool _smoothCamera = true;
+	[SerializeField] private float _smoothSpeed = 0.125f;
+
+	private Camera _camera;
+	private Ray _ray;
+
+	private Vector3 _defaultOffset;
+	private Vector3 _offsetForOffset;
+	private Vector3 _offset;
+	private Vector2 _mousePositionCoords;
+
+	private void Start()
+	{
+		_camera = GetComponent<Camera>();
+		_defaultOffset = new Vector3(0, _maxDistance, (-_maxDistance));
+		_offsetForOffset = new Vector3(0, _maxDistance, (-_maxDistance));
+		_offset = new Vector3(0, _maxDistance, (-_maxDistance));
+	}
+
 	private void FollowTarget()
 	{
 		Vector3 desiredPosition = new Vector3(m_targetTransform.position.x + m_offset.x, m_targetTransform.position.y + m_offset.y, transform.position.z);
 		transform.position = desiredPosition;
+	}
+
+	private void FollowLate()
+	{
+		RaycastHit hit;
+		_mousePositionCoords = Input.mousePosition;
+		_ray = _camera.ScreenPointToRay(_mousePositionCoords);
+
+		if (Physics.Raycast(_ray, out hit))
+		{
+				_offsetForOffset = (hit.point - m_targetTransform.position) * _scaleFactor;
+		}
+		else
+			_offsetForOffset = Vector3.zero; // This makes it so that if the camera raycast doesn't hit, we go to directly over the player.
+
+		if (_offsetForOffset.magnitude > _maxDistance)
+		{
+			_offsetForOffset.Normalize(); // Make the vector3 have a magnitude of 1
+			_offsetForOffset = _offsetForOffset * _maxDistance;
+		}
+
+		_offset = _defaultOffset + _offsetForOffset;
+
+		Vector3 desiredPosition = m_targetTransform.transform.position/* + _offset*/;
+
+		if (_smoothCamera)
+		{
+			transform.position = Vector3.Lerp(transform.position, desiredPosition, _smoothSpeed);
+			transform.position = new Vector3(transform.position.x, transform.position.y, -10.0f);
+		}
 	}
 
 	private void Update()
@@ -48,7 +102,7 @@ public class Camera2D : MonoBehaviour
 	{
 		if (m_cameraMode == CameraMode.LateUpdate)
 		{
-			FollowTarget();
+			FollowLate();
 		}
 	}
 

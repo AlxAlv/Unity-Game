@@ -20,12 +20,15 @@ public class Health : MonoBehaviour
 	[SerializeField] private LootHelper _lootHelper;
 	[SerializeField] private Camera2DShake _cameraShake;
 	[SerializeField] private Transform _revivePosition;
+	[SerializeField] private Transform _bottomOfSpritePosition;
+	[SerializeField] private GameObject _deathParticles;
 
 	private Entity m_entity;
 	private StatManager _statManager;
 	private EntityController m_controller;
 	private EntityStunGuage _entityStun;
 	private Collider2D m_collider2D;
+	private EntityFlip _entityFlip;
 	private bool _isPlayer;
 	private HealthBar _healthBarInstance;
 	private TintHelper _tintHelper;
@@ -44,14 +47,14 @@ public class Health : MonoBehaviour
 
 	public void TakeDamage(float damage, string attackName)
 	{
-		//if (m_entity != null && m_entity.EntityType == Entity.EntityTypes.Player && _cameraShake != null)
-		//	_cameraShake.Shake();
+		if (m_entity != null && m_entity.EntityType == Entity.EntityTypes.Player)
+			UIManager.Instance.BounceHealthText();
 
 		if (m_entity != null && (m_entity.EntityType == Entity.EntityTypes.AI || m_entity.EntityType == Entity.EntityTypes.Player))
 			damage = (_staleMove.CalculateDamage(damage, attackName) * StunDamageModifier * DodgeDamageModifier * ShieldModifier);
 
 		if (damage > 0 && _tintHelper != null)
-			_tintHelper.SetTintColor(new Color(1, 0, 0, 1f));
+			_tintHelper.SetTintColor(Color.white);
 
 		if (m_currentHealth <= 0)
 		{
@@ -79,6 +82,7 @@ public class Health : MonoBehaviour
 
 	private void Start()
 	{
+		_entityFlip = GetComponent<EntityFlip>();
 		m_entity = GetComponent<Entity>();
 		m_collider2D = GetComponent<Collider2D>();
 
@@ -146,6 +150,10 @@ public class Health : MonoBehaviour
 		{
 			if (_lootHelper != null)
 				_lootHelper.RandomizeLoot();
+
+			GameObject dustObject = Instantiate(_deathParticles, _bottomOfSpritePosition.transform.position, Quaternion.identity);
+			dustObject.transform.localScale = new Vector3((_entityFlip.m_FacingLeft ? 1 : -1), dustObject.transform.localScale.y, dustObject.transform.localScale.z);
+			dustObject.GetComponent<ParticleSystem>().Play();
 
 			FadeAwayToDeath.Instance.InitializeFadeAway(m_spriteRenderer);
 			DestroyObject();

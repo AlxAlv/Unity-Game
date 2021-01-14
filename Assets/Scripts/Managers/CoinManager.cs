@@ -8,11 +8,13 @@ public class CoinManager : Singleton<CoinManager>
 
 	public void AddCoins(int amount)
     {
-	    Coins += amount;
+	    UIManager.Instance.BounceCoinText();
+        Coins += amount;
     }
 
     public void RemoveCoins(int amount)
     {
-	    Coins -= amount;
+	    UIManager.Instance.BounceCoinText();
+        Coins -= amount;
     }
 }
