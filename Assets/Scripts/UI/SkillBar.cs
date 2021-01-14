@@ -39,9 +39,11 @@ public class SkillBar : MonoBehaviour
     const string RangedAttackName = "RangedAttackIcon";
     const string ArrowRevolverName = "ArrowRevolverIcon";
     const string ChargedShotName = "ChargedShotIcon";
+    const string PoisonArrowName = "PoisonArrowIcon";
 
     // Melee Skills
     const string MeleeAttackName = "MeleeAttackIcon";
+    const string SkyFallName = "SkyFallIcon";
 
     // Shield Skills
     const string ChargeName = "ChargeIcon";
@@ -60,8 +62,10 @@ public class SkillBar : MonoBehaviour
         { RangedAttackName, RangedAttack.ResourceAmount},
         { ArrowRevolverName, ArrowRevolver.ResourceAmount },
         { ChargedShotName, ChargedShot.ResourceAmount},
+        { PoisonArrowName, PoisonArrow.ResourceAmount },
         { MeleeAttackName, MeleeAttack.ResourceAmount},
-        { ChargeName, Charge.ResourceAmount }
+        { ChargeName, Charge.ResourceAmount },
+        { SkyFallName, SkyFall.ResourceAmount }
     };
 
     Dictionary<string, BaseSkill.Resource> _skillNameToResourceType = new Dictionary<string, BaseSkill.Resource>()
@@ -75,8 +79,10 @@ public class SkillBar : MonoBehaviour
         { RangedAttackName, RangedAttack.ResourceType},
         { ArrowRevolverName, ArrowRevolver.ResourceType },
         { ChargedShotName, ChargedShot.ResourceType},
+        { PoisonArrowName, PoisonArrow.ResourceType },
         { MeleeAttackName, MeleeAttack.ResourceType},
-        { ChargeName, Charge.ResourceType }
+        { ChargeName, Charge.ResourceType },
+        { SkyFallName, SkyFall.ResourceType },
     };
 
     Dictionary<string, WeaponType> _skillNameToType = new Dictionary<string, WeaponType>()
@@ -90,8 +96,10 @@ public class SkillBar : MonoBehaviour
         { RangedAttackName, WeaponType.Bow },
         { ArrowRevolverName, WeaponType.Bow },
         { ChargedShotName, WeaponType.Bow },
+        { PoisonArrowName, WeaponType.Bow },
         { MeleeAttackName, WeaponType.Melee },
-        { ChargeName, WeaponType.Melee }
+        { ChargeName, WeaponType.Melee },
+        { SkyFallName, WeaponType.Melee }
     };
 
     // Start is called before the first frame update
@@ -311,10 +319,14 @@ public class SkillBar : MonoBehaviour
             return new ChargedShot(weapon as Bow);
         else if (iconName == ArrowRevolverName)
             return new ArrowRevolver(weapon as Bow);
+        else if (iconName == PoisonArrowName)
+	        return new PoisonArrow(weapon as Bow);
         else if (iconName == MeleeAttackName)
             return new MeleeAttack(weapon as Sword);
         else if (iconName == ChargeName)
             return new Charge(weapon as Sword);
+        else if (iconName == SkyFallName)
+	        return new SkyFall(weapon as Sword);
 
         return null;
     }

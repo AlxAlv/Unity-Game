@@ -27,6 +27,9 @@ public class BaseSkill : MonoBehaviour
 	// Member Variables
 	public SkillState CurrentState { get; set; }
 	protected float _startTime = 0f;
+	protected int _numberOfVerticies = 64;
+	protected float _outlineWidth = 0.035f;
+	protected float _outlineRadius = 0.0f;
 	protected EntitySkill _entitySkill;
 	protected ObjectPooler _pooler;
 	protected Weapon _weaponToUse;
@@ -37,6 +40,15 @@ public class BaseSkill : MonoBehaviour
 	protected Mana _mana;
 	protected Stamina _stamina;
 	protected Health _health;
+	protected GameObject OutlineRendererObject = null;
+	protected bool _isSkillShot = false;
+	protected bool _isStatusProjectile = false;
+	protected bool _isAOEProjectile = false;
+
+	/* Status Info */
+	protected int _numberOfTicks = 0;
+	protected float _amountPerTick = 0.0f;
+	protected float _timePerTick = 0.0f;
 
 	// Resource Paths
 	protected string _spritePath = "";
@@ -46,7 +58,7 @@ public class BaseSkill : MonoBehaviour
 
 	protected int _damageAmount = 0;
 	protected string _skillName = "BaseSkill";
-	protected int _currentProjectileDamage = 0;
+	protected int _currentProjectileDamage = -1;
 	protected float _stunTime = 0.0f;
 	protected float _knockBackAmount = 0.0f;
 
@@ -173,6 +185,12 @@ public class BaseSkill : MonoBehaviour
 		_pooler.SetCollisionSound(_projectileCollisionsoundPath);
 		_pooler.SetLayerMask(GetLayerMaskToAssign());
 
+		if (_isStatusProjectile)
+			_pooler.SetStatusInfo(_amountPerTick, _numberOfTicks, _timePerTick);
+
+		if (_isAOEProjectile)
+			_pooler.SetAOEInfo(_outlineRadius);
+
 		if (_entity != null)
 		{
 			_pooler.SetOwner(_entity.transform.root.gameObject);
@@ -262,5 +280,85 @@ public class BaseSkill : MonoBehaviour
 	public float GetResourceAmount()
 	{
 		return _resourceAmount;
+	}
+
+	protected void DrawPolygon(LineRenderer LineRenderer, int vertexNumber, float radius, Vector3 centerPos, float width, Color color)
+	{
+		LineRenderer.startWidth = width;
+		LineRenderer.endWidth = width;
+		LineRenderer.startColor = color;
+		LineRenderer.endColor = color;
+		LineRenderer.loop = true;
+		float angle = 2 * Mathf.PI / vertexNumber;
+		LineRenderer.positionCount = vertexNumber;
+
+		for (int i = 0; i < vertexNumber; i++)
+		{
+			Matrix4x4 rotationMatrix = new Matrix4x4(new Vector4(Mathf.Cos(angle * i), Mathf.Sin(angle * i), 0, 0),
+				new Vector4(-1 * Mathf.Sin(angle * i), Mathf.Cos(angle * i), 0, 0),
+				new Vector4(0, 0, 1, 0),
+				new Vector4(0, 0, 0, 1));
+			Vector3 initialRelativePosition = new Vector3(0, radius, 0);
+			LineRenderer.SetPosition(i, centerPos + rotationMatrix.MultiplyPoint(initialRelativePosition));
+		}
+	}
+
+	protected void UpdateOutlineRenderer()
+	{
+		if (CurrentState == SkillState.loading || CurrentState == SkillState.loaded)
+		{
+			if (OutlineRendererObject == null)
+			{
+				Object outlineRenderer = Resources.Load("Prefabs/UI/OutlineLineRenderer");
+				OutlineRendererObject = (GameObject)Instantiate(outlineRenderer, _entity.transform.position, Quaternion.identity);
+			}
+
+			Transform position = null;
+			if ((_entityTarget._potentialTarget != null) && Input.GetKey(KeyCode.S))
+				position = _entityTarget._potentialTarget.transform;
+			else if (_entityTarget.CurrentTarget != null)
+				position = _entityTarget.CurrentTarget.transform;
+			else if (RaycastHelper.Instance.GetEnemyUnderCursor() != null)
+				position = RaycastHelper.Instance.GetEnemyUnderCursor().transform;
+
+			if (position != null)
+			{
+				DrawPolygon(OutlineRendererObject.GetComponent<LineRenderer>(), _numberOfVerticies, _outlineRadius, position.position, _outlineWidth, Color.red);
+				OutlineRendererObject.transform.position = position.position;
+			}
+			else
+				Destroy(OutlineRendererObject);
+		}
+		else
+			Destroy(OutlineRendererObject);
+	}
+
+	protected void ExecuteAOESkill()
+	{
+		SoundManager.Instance.Playsound(_soundPath);
+
+		Collider2D[] _targetCollider2D = Physics2D.OverlapCircleAll(OutlineRendererObject.transform.position, _outlineRadius, LayerMask.GetMask("LevelComponents", "Enemies"));
+
+		foreach (Collider2D collider in _targetCollider2D)
+		{
+			RaycastHit2D hit = Physics2D.Linecast(OutlineRendererObject.transform.position, collider.transform.position, LayerMask.GetMask("LevelComponents", "Enemies"));
+
+			if (hit)
+			{
+				LevelComponent levelComponent = collider.GetComponent<LevelComponent>();
+				Health targetHealth = collider.GetComponent<Health>();
+
+				if (levelComponent)
+					levelComponent.TakeDamage(_damageAmount);
+				else if (targetHealth)
+				{
+					targetHealth.TakeDamage(_damageAmount, _skillName);
+					targetHealth.HitStun(_stunTime, _knockBackAmount, _entity.transform);
+					targetHealth.Attacker = _entity.gameObject;
+				}
+			}
+		}
+
+		CancelSkill();
 	}
 }

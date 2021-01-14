@@ -9,8 +9,8 @@ public class ToggleUI : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
     {
         _uiWindow.SetActive(!_uiWindow.activeSelf);
 
-        if (_uiWindow.activeSelf)
-            SetChildrenToActive(_uiWindow.transform);
+        //if (_uiWindow.activeSelf)
+        //    SetChildrenToActive(_uiWindow.transform);
     }
 
     void SetChildrenToActive(Transform parent)

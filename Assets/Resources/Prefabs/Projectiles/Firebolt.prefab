@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 7672847954848453238}
   - component: {fileID: -1261110383413717215}
   - component: {fileID: 6212933274817228577}
+  - component: {fileID: 8535596517360811799}
   m_Layer: 0
   m_Name: Firebolt
   m_TagString: Projectile
@@ -263,7 +264,19 @@ MonoBehaviour:
   - {x: -0.06981269, y: 0.069812655, z: 0}
   m_ShapePathHash: -836119713
   m_Mesh: {fileID: 0}
-  m_InstanceId: 233004
+  m_InstanceId: 378508
+--- !u!114 &8535596517360811799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8321050490716486963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88fea3d687feda4faab92deb2c30c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7131376043076571495
 PrefabInstance:
   m_ObjectHideFlags: 0

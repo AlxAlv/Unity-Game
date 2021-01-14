@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 325348540033414236}
   - component: {fileID: 38019478769938699}
   - component: {fileID: 574079387768943286}
+  - component: {fileID: 7483551940891149475}
   m_Layer: 0
   m_Name: BoulderTossPrefab
   m_TagString: Projectile
@@ -190,7 +191,19 @@ MonoBehaviour:
   - {x: -0.06885409, y: 0.07093742, z: 0}
   m_ShapePathHash: 791478453
   m_Mesh: {fileID: 0}
-  m_InstanceId: -7574
+  m_InstanceId: 431626
+--- !u!114 &7483551940891149475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126542485391923993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6794043de93b24b971f91844e728bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3741360402325344820
 GameObject:
   m_ObjectHideFlags: 0

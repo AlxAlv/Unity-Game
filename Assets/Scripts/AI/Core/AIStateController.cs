@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class AIStateController : MonoBehaviour
 {
+    public enum Class { Ranged, Melee, Necromancer }
+
     [Header("State")]
     [SerializeField] private AIState _currentState;
     [SerializeField] private AIState _remainState;
     [SerializeField] public Transform SkillLoadingTransform;
+    [SerializeField] public Class EnemyClass;
 
     [SerializeField] public LineRenderer AttackLineRenderer;
 

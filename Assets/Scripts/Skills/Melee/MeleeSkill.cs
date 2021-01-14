@@ -83,10 +83,12 @@ namespace Assets.Scripts.Skills.Melee
 
 				if (levelComponent)
 				{
+					TriggerGameJuice();
 					levelComponent.TakeDamage(_damageAmount);
 				}
 				else if (targetHealth)
 				{
+					TriggerGameJuice();
 					targetHealth.TakeDamage(_damageAmount, _skillName);
 					targetHealth.HitStun(_stunTime, _knockBackAmount, _entity.transform);
 					targetHealth.Attacker = _entity.gameObject;
@@ -102,6 +104,12 @@ namespace Assets.Scripts.Skills.Melee
 			_swordToUse.StunTime = _stunTime;
 			_swordToUse.KnockbackAmount = _knockBackAmount;
 			base.UpdateDamage();
+		}
+
+		protected void TriggerGameJuice()
+		{
+			Camera2DShake.Instance.Shake();
+			ScreenPause.Instance.Freeze();
 		}
 
 		public override bool IsBase()

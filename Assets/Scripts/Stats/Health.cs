@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Health : MonoBehaviour
 {
@@ -126,10 +127,13 @@ public class Health : MonoBehaviour
 		{
 			m_collider2D.enabled = false;
 
-			if (m_spriteRenderer != null)
+			if (m_spriteRenderer != null && (m_entity.EntityType == Entity.EntityTypes.Player))
 				m_spriteRenderer.enabled = false;
-			else 
-				transform.Find("Sprite").GetComponent<SpriteRenderer>().enabled = false;
+			else
+			{
+				m_spriteRenderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
+				m_spriteRenderer.enabled = false;
+			}
 
 			m_entity.enabled = false;
 			m_controller.enabled = false;
@@ -138,19 +142,24 @@ public class Health : MonoBehaviour
 		if (m_entity != null && m_entity.EntityType == Entity.EntityTypes.Player)
 			DialogManager.Instance.InstantSystemMessage("You've Died! Press \"P\" To Revive");
 
-		if (m_destroyableObject || (m_entity != null &&m_entity.EntityType == Entity.EntityTypes.AI))
+		if (m_destroyableObject || (m_entity != null && m_entity.EntityType == Entity.EntityTypes.AI))
 		{
 			if (_lootHelper != null)
 				_lootHelper.RandomizeLoot();
 
+			FadeAwayToDeath.Instance.InitializeFadeAway(m_spriteRenderer);
 			DestroyObject();
 		}
 
 		if (m_entity != null)
 		{
-			if ((m_entity.EntityType == Entity.EntityTypes.AI))
-				DestroyObject();
-			else if ((m_entity.EntityType == Entity.EntityTypes.Player))
+			//if ((m_entity.EntityType == Entity.EntityTypes.AI))
+			//{
+			//	FadeAwayToDeath.Instance.InitializeFadeAway(m_spriteRenderer);
+			//	DestroyObject();
+			//}
+			//else
+			if ((m_entity.EntityType == Entity.EntityTypes.Player))
 				gameObject.SetActive(false);
 		}
 

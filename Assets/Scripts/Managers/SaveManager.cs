@@ -45,8 +45,6 @@ public class SaveManager : MonoBehaviour, IPointerClickHandler, IPointerDownHand
 		LoadCoins();
 		LoadEXPData();
 		LoadStatsData();
-
-		Debug.Log("Loaded All Data");
 	}
 
 	public void SaveAllData()
@@ -54,9 +52,7 @@ public class SaveManager : MonoBehaviour, IPointerClickHandler, IPointerDownHand
 	    SaveCoins();
 		SaveEXPData();
 		SaveStatsData();
-
-	    DialogManager.Instance.InstantSystemMessage("Your data has been saved!");
-	}
+    }
 
 	/* Coins */
     public void SaveCoins()

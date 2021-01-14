@@ -213,13 +213,11 @@ public class EntityMovement : EntityComponent
     private void OnCollisionEnter2D(Collision2D collision)
     {
 	    _isCollidingWithWall = true;
-        Debug.Log("Colliding");
         _isMoving = false;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-	    Debug.Log("No Longer Colliding");
         _isCollidingWithWall = false;
     }
 

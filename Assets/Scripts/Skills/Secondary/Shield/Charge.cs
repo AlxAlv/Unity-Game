@@ -19,12 +19,11 @@ public class Charge : MeleeSkill
 	    _distanceToAttack = 1.5f;
         _stunTime = 2.0f;
         _knockBackAmount = 100f;
-        _loadingTime = 0.05f;
+        _loadingTime = 0.15f;
         _loadingMovementSpeedModifier = 1.0f;
         _loadedMovementSpeedModifier = 1.0f;
         _spritePath = "SkillIcons/ChargeIcon";
         _soundPath = "Audio/SoundEffects/ChargeFx";
-        _skillName = "ChargeAttack";
 
         _resourceAmount = ResourceAmount;
         _resourceToUse = ResourceType;

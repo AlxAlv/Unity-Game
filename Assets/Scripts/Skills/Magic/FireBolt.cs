@@ -4,7 +4,7 @@ using UnityEngine;
 public class FireBolt : MagicSkill
 {
     // Skillbar Helper Static
-    public static float ResourceAmount = 4.0f;
+    public static float ResourceAmount = 5.0f;
     public static Resource ResourceType = Resource.Mana;
 
     public FireBolt(Staff staffToUse) : base(staffToUse)
@@ -12,7 +12,7 @@ public class FireBolt : MagicSkill
         _stunTime = 1.2f;
         _knockBackAmount = 60f;
         _staffToUse = staffToUse;
-        _loadingTime = 0.8f;
+        _loadingTime = 1.0f;
         _spritePath = "SkillIcons/FireboltIcon";
         _projectilePrefabPath = "Prefabs/Projectiles/Firebolt";
         _soundPath = "Audio/SoundEffects/FireBoltFx";
@@ -21,6 +21,11 @@ public class FireBolt : MagicSkill
 
         _resourceAmount = ResourceAmount;
         _resourceToUse = ResourceType;
+
+        /* This Is A Status Projectile Being Shot */
+        _isStatusProjectile = true;
+        _numberOfTicks = 5;
+        _timePerTick = 0.5f;
 
         SetProjectileGameObject(_projectilePrefabPath);
     }
@@ -64,7 +69,8 @@ public class FireBolt : MagicSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Intelligence.TotalAmount * 3;
+	    _amountPerTick = _statManager.Intelligence.TotalAmount * 1;
+        _damageAmount = _statManager.Intelligence.TotalAmount * 2;
 
         base.UpdateDamage();
     }

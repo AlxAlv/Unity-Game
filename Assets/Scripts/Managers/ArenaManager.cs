@@ -8,29 +8,39 @@ public class ArenaManager : MonoBehaviour
 	// Arena Constants
 	private const int NUM_OF_ROUNDS = 5;
 	private const int MAX_NUM_DEFEAT_ALL_ENEMIES = 6;
+	private const int MAX_NUM_CLEAR_THE_ROOM_ENEMIES = 6;
 	private const int MAX_NUM_DEFEAT_BOSS_BOSSES = 1;
+	private const int MAX_NUM_OF_NECROMANCERS = 1;
+	private const float CLEAR_THE_ROOM_TIME = 60.0f;
+	private const float NECROMANCER_TIME = 90.0f;
+	private const int COINS_PER_ROUND = 50;
 
 
 	enum Objectives
 	{
 		DefeatAllEnemies,
-		DefeatTheBoss
+		DefeatTheBoss,
+		ClearTheRoomCountdown,
+		DefeatTheNecromancer
 	};
 
-	Objectives[] ArenaObjectives = new Objectives[] { Objectives.DefeatAllEnemies, Objectives.DefeatTheBoss };
+	Objectives[] ArenaObjectives = new Objectives[] { Objectives.DefeatAllEnemies, Objectives.DefeatTheBoss, Objectives.ClearTheRoomCountdown, Objectives.DefeatTheNecromancer };
 
     // Locations And Possible Enemies
 	[SerializeField] private Transform _hubStartPosition;
 	[SerializeField] private List<EnemySpawner> _enemySpawners;
 	[SerializeField] private List<GameObject> _possibleEnemies;
 	[SerializeField] private List<GameObject> _possibleBosses;
+	[SerializeField] private List<GameObject> _possibleNecromancers;
     [SerializeField] private List<Weapon> _possibleWeapons;
 
 	// UI
 	[SerializeField] private GameObject _objectivesPanel;
 	[SerializeField] private TextMeshProUGUI _objectiveStatement;
 	[SerializeField] private TextMeshProUGUI _objectiveText;
+	[SerializeField] private TextMeshProUGUI _timerText;
 	[SerializeField] private Image _objectiveIcon;
+	[SerializeField] private Image _timerIcon;
 
 	// Player
 	private GameObject _player;
@@ -42,12 +52,15 @@ public class ArenaManager : MonoBehaviour
     private bool _isArenaStarted = false;
     private int _currentRound = 0;
     private List<Objectives> _objectivesList;
+    private float _countdownTimer;
 
     // Constant Strings To Display To The Player
     private Dictionary<Objectives, string> _roundStartStrings = new Dictionary<Objectives, string>()
     {
 	    {Objectives.DefeatAllEnemies, "Defeat All The Enemies"},
-	    {Objectives.DefeatTheBoss, "Defeat The Boss Monster"}
+	    {Objectives.DefeatTheBoss, "Defeat The Boss Monster"},
+	    {Objectives.ClearTheRoomCountdown, "Clear The Room Before Time Runs Out"},
+	    {Objectives.DefeatTheNecromancer, "Defeat The Necromancer Before Time Runs Out"}
     };
 
     // Start is called before the first frame update
@@ -68,12 +81,13 @@ public class ArenaManager : MonoBehaviour
 			{
 				UpdateUI(_objectivesList[_currentRound]);
 			}
-			else if (_currentRound == NUM_OF_ROUNDS)
+			
+			if (_currentRound == NUM_OF_ROUNDS)
             {
-	            DialogManager.Instance.InstantSystemMessage("You Win!");
+	            DialogManager.Instance.InstantSystemMessage("You Won!");
 	            EndArena();
             }
-		    else if (CheckRoundStatus(_objectivesList[_currentRound]))
+			else if (CheckRoundStatus(_objectivesList[_currentRound]))
 		    {
 			    _currentRound++;
 
@@ -114,6 +128,14 @@ public class ArenaManager : MonoBehaviour
             case Objectives.DefeatTheBoss:
 	            StartDefeatTheBossRound();
 	            break;
+
+			case Objectives.ClearTheRoomCountdown:
+				StartClearTheRoomCountdown();
+				break;
+
+			case Objectives.DefeatTheNecromancer:
+				StartDefeatTheNecromancer();
+				break;
 	    }
 
 	    StartMessage();
@@ -123,15 +145,15 @@ public class ArenaManager : MonoBehaviour
     {
 	    switch (objective)
 	    {
-		    case Objectives.DefeatAllEnemies:
-			    return CheckSpawnedEntities();
-			    break;
-
 		    case Objectives.DefeatTheBoss:
+			case Objectives.DefeatAllEnemies:
 			    return CheckSpawnedEntities();
-			    break;
 
-            default:
+			case Objectives.ClearTheRoomCountdown:
+			case Objectives.DefeatTheNecromancer:
+				return CheckSpawnedEntitiesAndTime();
+
+		    default:
 	            return false;
 	    }
     }
@@ -147,8 +169,27 @@ public class ArenaManager : MonoBehaviour
 	    return false;
     }
 
-    private void StartDefeatAllEnemiesRound()
+    private bool CheckSpawnedEntitiesAndTime()
     {
+		// Update Time
+		_countdownTimer -= Time.deltaTime;
+
+		// Check Time And Call End Arena If Time Ends
+		if (_countdownTimer < 0)
+		{
+			DialogManager.Instance.InstantSystemMessage("Failed To Defeat All Enemies In Time...");
+			EndArena();
+		}
+
+		return CheckSpawnedEntities();
+    }
+
+
+	private void StartDefeatAllEnemiesRound()
+    {
+		// Update UI
+		_timerIcon.gameObject.SetActive(false);
+
 	    int numberOfEnemiesThisRound = Random.Range(2, MAX_NUM_DEFEAT_ALL_ENEMIES);
 
 	    for (int i = 0; i < numberOfEnemiesThisRound; ++i)
@@ -158,9 +199,41 @@ public class ArenaManager : MonoBehaviour
 	    }
     }
 
-    private void StartDefeatTheBossRound()
+    private void StartClearTheRoomCountdown()
     {
-	    int numberOfEnemiesThisRound = Random.Range(1, MAX_NUM_DEFEAT_BOSS_BOSSES);
+	    // Update UI
+	    _timerIcon.gameObject.SetActive(true);
+	    _countdownTimer = Time.deltaTime + CLEAR_THE_ROOM_TIME;
+
+	    int numberOfEnemiesThisRound = Random.Range(2, MAX_NUM_CLEAR_THE_ROOM_ENEMIES);
+
+	    for (int i = 0; i < numberOfEnemiesThisRound; ++i)
+	    {
+		    GameObject enemyToSpawn = _possibleEnemies[Random.Range(0, (_possibleEnemies.Count - 1))];
+		    Spawn(enemyToSpawn);
+	    }
+	}
+
+    private void StartDefeatTheNecromancer()
+    {
+	    // Update UI
+	    _timerIcon.gameObject.SetActive(true);
+	    _countdownTimer = Time.deltaTime + NECROMANCER_TIME;
+
+	    int numberOfEnemiesThisRound = Random.Range(1, MAX_NUM_OF_NECROMANCERS);
+
+	    for (int i = 0; i < numberOfEnemiesThisRound; ++i)
+	    {
+		    GameObject enemyToSpawn = _possibleNecromancers[Random.Range(0, (_possibleNecromancers.Count - 1))];
+		    SpawnEnemyWithoutWeapon(enemyToSpawn);
+	    }
+	}
+
+	private void StartDefeatTheBossRound()
+    {
+	    _timerIcon.gameObject.SetActive(false);
+
+		int numberOfEnemiesThisRound = Random.Range(1, MAX_NUM_DEFEAT_BOSS_BOSSES);
 
 	    for (int i = 0; i < numberOfEnemiesThisRound; ++i)
 	    {
@@ -179,7 +252,17 @@ public class ArenaManager : MonoBehaviour
     {
 	    _isArenaStarted = false;
 	    _player.transform.position = (_hubStartPosition.position);
+
+	    AwardPrize();
     }
+
+    private void AwardPrize()
+    {
+	    int coinsWon = (COINS_PER_ROUND * NUM_OF_ROUNDS);
+
+		CoinManager.Instance.AddCoins(coinsWon);
+	    GoldNumbers.Create(_player.transform.position, (int)coinsWon);
+	}
 
     // Spawn An Enemy Into The List
     private void Spawn(GameObject enemyToSpawn)
@@ -193,6 +276,12 @@ public class ArenaManager : MonoBehaviour
 	    _spawnedEntities.Add(spawnedEnemy);
     }
 
+    private void SpawnEnemyWithoutWeapon(GameObject enemyToSpawn)
+    {
+	    GameObject spawnedEnemy = _enemySpawners[Random.Range(0, (_enemySpawners.Count - 1))].SpawnEnemy(enemyToSpawn);
+	    _spawnedEntities.Add(spawnedEnemy);
+	}
+
     private void UpdateUI(Objectives objective)
     {
 	    _objectiveStatement.text = "(" + (_currentRound + 1) + "/" + NUM_OF_ROUNDS + ") " +  _roundStartStrings[_objectivesList[_currentRound]];
@@ -200,11 +289,14 @@ public class ArenaManager : MonoBehaviour
 		switch (objective)
 		{
 			case Objectives.DefeatAllEnemies:
-				_objectiveText.text = "x" + _spawnedEntities.Count.ToString();
+			case Objectives.DefeatTheBoss:
+				_objectiveText.text = "x" + _spawnedEntities.Count;
 				break;
 
-			case Objectives.DefeatTheBoss:
-				_objectiveText.text = "x" + _spawnedEntities.Count.ToString();
+			case Objectives.DefeatTheNecromancer:
+			case Objectives.ClearTheRoomCountdown:
+				_objectiveText.text = "x" + _spawnedEntities.Count;
+				_timerText.text = Mathf.RoundToInt(_countdownTimer).ToString() + " SECONDS";
 				break;
 		}
 	}

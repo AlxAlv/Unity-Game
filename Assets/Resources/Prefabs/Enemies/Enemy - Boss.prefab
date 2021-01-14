@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 1540853159}
   - component: {fileID: 5192455205377774977}
   - component: {fileID: 3163642166533159252}
+  - component: {fileID: 9098165480830083987}
   m_Layer: 11
   m_Name: Enemy - Boss
   m_TagString: Player
@@ -419,6 +420,7 @@ MonoBehaviour:
   _currentState: {fileID: 11400000, guid: 9f83a5a456bac9d47bf7c528d15ef457, type: 2}
   _remainState: {fileID: 11400000, guid: dfa0bd6d44beac449bfec000c5d9bd68, type: 2}
   SkillLoadingTransform: {fileID: 5192455205667924582}
+  EnemyClass: 0
   AttackLineRenderer: {fileID: 2625957331297829714}
   CurrentCombatState: 0
   SavedHealth: 0
@@ -697,6 +699,18 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &9098165480830083987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192455206096082979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeafd52c0cda08642b3d0490a6999f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5192455206484375660
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +895,7 @@ MonoBehaviour:
   - {x: -0.5599508, y: -0.7499428, z: 0}
   m_ShapePathHash: 894878909
   m_Mesh: {fileID: 0}
-  m_InstanceId: 406750
+  m_InstanceId: 339724
 --- !u!1 &5192455206960124832
 GameObject:
   m_ObjectHideFlags: 0

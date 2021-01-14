@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera2DShake : MonoBehaviour
+public class Camera2DShake : Singleton<Camera2DShake>
 {
-	[SerializeField] private float m_shakeVibrato = .05f;
-	[SerializeField] private float m_shakeRandomness = 0.005f;
-	[SerializeField] private float m_shakeTime = 0.001f;
+	[SerializeField] private float m_shakeVibrato = 0.2f;
+	[SerializeField] private float m_shakeRandomness = 0.08f;
+	[SerializeField] private float m_shakeTime = 0.08f;
 
 	public void Shake()
 	{
@@ -20,7 +20,7 @@ public class Camera2DShake : MonoBehaviour
 		for (int i = 0; i < m_shakeVibrato; i++)
 		{
 			Vector3 shakePosition = currentPosition + Random.onUnitSphere * m_shakeRandomness;
-			yield return new WaitForSeconds(m_shakeTime);
+			yield return new WaitForSecondsRealtime(m_shakeTime);
 
 			transform.position = shakePosition;
 		}

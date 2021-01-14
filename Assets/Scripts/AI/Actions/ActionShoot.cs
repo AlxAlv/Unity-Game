@@ -11,7 +11,10 @@ public class ActionShoot : AIAction
     public override void Act(AIStateController controller)
     {
         DetermineAim(controller);
-        Combat(controller);
+
+        //if (controller.EnemyClass == AIStateController.Class.Ranged)
+	        RangedCombat(controller);
+
         UpdateAttackLine(controller);
 
         ThoughtPopups.Create(controller.SkillLoadingTransform.position, controller.gameObject.GetInstanceID(), ThoughtTypes.ExclamationMark);
@@ -50,7 +53,7 @@ public class ActionShoot : AIAction
 	    }
     }
 
-    private void Combat(AIStateController controller)
+    private void RangedCombat(AIStateController controller)
     {
         SoundManager.Instance.UpdateCombatTimer();
         controller.EntityMovement.StopAIMoving();

@@ -24,32 +24,12 @@ public class EnemyIceBolt : MagicSkill
         SetProjectileGameObject(_projectilePrefabPath);
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
-    public override void Update()
-    {
-        base.Update();
-    }
-
-    public override void Trigger()
-    {
-        base.Trigger();
-    }
-
     protected override void Execute()
     {
         base.Execute();
 
         _staffToUse.EvaluateProjectileSpawnPosition();
         _staffToUse.SpawnProjectile(_staffToUse.ProjectileSpawnPosition, _pooler);
-    }
-
-    public override void SetOwner(Entity anEntity)
-    {
-        base.SetOwner(anEntity);
     }
 
     protected override void UpdateDamage()

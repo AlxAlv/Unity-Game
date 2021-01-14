@@ -12,11 +12,14 @@ public class ReturnToPool : MonoBehaviour
 	[SerializeField] private ParticleSystem _impactPS;
 
 	private Projectile _projectile;
+	private StatusProjectile _statusProjectile;
+
 	private string _collisionSound;
 
 	private void Start()
 	{
 		_projectile = GetComponent<Projectile>();
+		_statusProjectile = GetComponent<StatusProjectile>();
 	}
 
 	private void Return()
@@ -43,11 +46,48 @@ public class ReturnToPool : MonoBehaviour
 				SoundManager.Instance.Playsound(_collisionSound);
 				Invoke(nameof(Return), _impactPS.main.duration);
 
-				if (collision.GetComponent<Entity>() != null)
+				ProjectileAOEOnImpact aoeComponent = _projectile.GetComponent<ProjectileAOEOnImpact>();
+
+				if (aoeComponent)
 				{
-					collision.GetComponent<Health>().TakeDamage(_projectile.DamageAmount, _projectile.SkillName);
-					collision.GetComponent<Health>().HitStun(_projectile.StunTime, _projectile.KnockBackAmount, _projectile.Owner.transform);
-					collision.GetComponent<Health>().Attacker = _projectile.Owner;
+					float radius = aoeComponent.AOESize;
+
+					Collider2D[] _targetCollider2D = Physics2D.OverlapCircleAll(collision.transform.position, radius, LayerMask.GetMask("LevelComponents", "Enemies"));
+
+					foreach (Collider2D collider in _targetCollider2D)
+					{
+						RaycastHit2D hit = Physics2D.Linecast(collision.transform.position, collider.transform.position, LayerMask.GetMask("LevelComponents", "Enemies"));
+
+						if (hit)
+						{
+							LevelComponent levelComponent = collider.GetComponent<LevelComponent>();
+							Health targetHealth = collider.GetComponent<Health>();
+
+							if (levelComponent)
+								levelComponent.TakeDamage(_projectile.DamageAmount);
+							else if (targetHealth)
+							{
+								targetHealth.TakeDamage(_projectile.DamageAmount, _projectile.SkillName);
+								targetHealth.HitStun(_projectile.StunTime, _projectile.KnockBackAmount, _projectile.Owner.transform);
+								targetHealth.Attacker = _projectile.Owner;
+							}
+						}
+					}
+				}
+				else
+				{
+					if (collision.GetComponent<Entity>() != null)
+					{
+						Camera2DShake.Instance.Shake();
+						ScreenPause.Instance.Freeze();
+						collision.GetComponent<Health>().TakeDamage(_projectile.DamageAmount, _projectile.SkillName);
+						collision.GetComponent<Health>().HitStun(_projectile.StunTime, _projectile.KnockBackAmount,
+							_projectile.Owner.transform);
+						collision.GetComponent<Health>().Attacker = _projectile.Owner;
+
+						if (_statusProjectile != null)
+							_statusProjectile.ApplyEffect(collision.GetComponent<EntityStatus>());
+					}
 				}
 			}
 		}

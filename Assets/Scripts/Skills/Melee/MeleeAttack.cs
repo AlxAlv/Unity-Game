@@ -11,7 +11,7 @@ public class MeleeAttack : MeleeSkill
     private int _currentNumOfSwings = 0;
 
     private float _timer = 0.0f;
-    private float _timerDuration = .15f;
+    private float _timerDuration = .05f;
 
     public MeleeAttack(Sword swordToUse) : base(swordToUse)
     {
@@ -19,7 +19,7 @@ public class MeleeAttack : MeleeSkill
         _distanceToAttack = 2.0f;
         _stunTime = 2.0f;
         _knockBackAmount = 40f;
-        _loadingTime = 0.75f;
+        _loadingTime = 0.4f;
         _loadingMovementSpeedModifier = 1.0f;
         _loadedMovementSpeedModifier = 1.0f;
         _spritePath = "SkillIcons/MeleeAttackIcon";
@@ -68,11 +68,13 @@ public class MeleeAttack : MeleeSkill
 
                 if (levelComponent)
                 {
-	                levelComponent.TakeDamage(_damageAmount);
+	                TriggerGameJuice();
+                    levelComponent.TakeDamage(_damageAmount);
                 }
                 else if (targetHealth)
 		        {
-			        targetHealth.TakeDamage(_damageAmount, "MeleeAttack");
+			        TriggerGameJuice();
+                    targetHealth.TakeDamage(_damageAmount, "MeleeAttack");
 					targetHealth.HitStun(_stunTime, _knockBackAmount, _entity.transform);
 			        targetHealth.Attacker = _entity.gameObject;
                 }

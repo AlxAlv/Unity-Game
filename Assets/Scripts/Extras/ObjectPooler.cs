@@ -17,6 +17,14 @@ public class ObjectPooler : MonoBehaviour
 	private string _collisionSound;
 	private GameObject _owner;
 
+	/* Status Info */
+	private int _numberOfTicks = 0;
+	private float _amountPerTick = 0.0f;
+	private float _timePerTick = 0.0f;
+
+	/* AOE Info */
+	private float _radius = 0.0f;
+
 	public LayerMask ProjectileMask;
 
 	private void Awake()
@@ -62,6 +70,8 @@ public class ObjectPooler : MonoBehaviour
 
 		var projectileComponent = newObject.transform.GetComponent<Projectile>();
 		var poolReturnComponent = newObject.transform.GetComponent<ReturnToPool>();
+		var statusComponent = newObject.transform.GetComponent<StatusProjectile>();
+		var aoeComponent = newObject.transform.GetComponent<ProjectileAOEOnImpact>();
 
 		if (projectileComponent != null)
 		{
@@ -70,6 +80,18 @@ public class ObjectPooler : MonoBehaviour
 			projectileComponent.StunTime = _stunTime;
 			projectileComponent.KnockBackAmount = _knockbackAmount;
 			projectileComponent.Owner = _owner;
+		}
+
+		if (statusComponent != null)
+		{
+			statusComponent.NumberOfTicks = _numberOfTicks;
+			statusComponent.AmountPerTick = _amountPerTick;
+			statusComponent.TimePerTick = _timePerTick;
+		}
+
+		if (aoeComponent != null)
+		{
+			aoeComponent.AOESize = _radius;
 		}
 
 		if (poolReturnComponent != null)
@@ -97,6 +119,18 @@ public class ObjectPooler : MonoBehaviour
 		{
 			m_pooledObjects[0].transform.parent.gameObject.name = ObjectPoolCleanup.OprhanedPoolName;
 		}
+	}
+
+	public void SetStatusInfo(float amountPerTick, int numberOfTicks, float timePerTick)
+	{
+		_amountPerTick = amountPerTick;
+		_numberOfTicks = numberOfTicks;
+		_timePerTick = timePerTick;
+	}
+
+	public void SetAOEInfo(float radius)
+	{
+		_radius = radius;
 	}
 
 	public void SetDamage(int damage)

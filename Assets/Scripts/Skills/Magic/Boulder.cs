@@ -3,7 +3,7 @@
 public class BoulderToss : MagicSkill
 {
     // Skillbar Helper Static
-    public static float ResourceAmount = 1.0f;
+    public static float ResourceAmount = 10.0f;
     public static Resource ResourceType = Resource.Mana;
 
     public BoulderToss(Staff staffToUse) : base(staffToUse)
@@ -11,13 +11,17 @@ public class BoulderToss : MagicSkill
         _loadingMovementSpeedModifier = 0.0f;
         _stunTime = 2.0f;
         _staffToUse = staffToUse;
-        _loadingTime = 1.0f;
-        _knockBackAmount = 75f;
+        _loadingTime = 1.25f;
+        _knockBackAmount = 100f;
         _spritePath = "SkillIcons/BoulderTossIcon";
         _projectilePrefabPath = "Prefabs/Projectiles/BoulderTossPrefab";
         _soundPath = "Audio/SoundEffects/BoulderTossFx";
-        _projectileCollisionsoundPath = "Audio/SoundEffects/BoltHitFx";
+        _projectileCollisionsoundPath = "Audio/SoundEffects/SkyFallFx";
         _skillName = "BoulderToss";
+
+        /* AOE Outliner */
+        _isAOEProjectile = true;
+        _outlineRadius = 6.5f;
 
         _resourceAmount = ResourceAmount;
         _resourceToUse = ResourceType;
@@ -25,19 +29,11 @@ public class BoulderToss : MagicSkill
         SetProjectileGameObject(_projectilePrefabPath);
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     public override void Update()
     {
-        base.Update();
-    }
+	    UpdateOutlineRenderer();
 
-    public override void Trigger()
-    {
-        base.Trigger();
+        base.Update();
     }
 
     protected override void Execute()
