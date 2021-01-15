@@ -48,6 +48,9 @@ public class RoomTemplate : MonoBehaviour
     // Can use the last room in boss to spawn some boss or prefab
     public void AddRoom(GameObject room)
     {
+	    if (Rooms.Count > 32)
+		    return;
+
         Rooms.Add(room);
         Debug.Log("Current size is " + Rooms.Count);
     }
