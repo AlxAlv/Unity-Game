@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public class DungeonGenerator : MonoBehaviour
+public class DungeonGenerator : Singleton<DungeonGenerator>
 {
 	[SerializeField] public Transform PlayerTransform;
 	[SerializeField] public int UnitsPerRoom;
@@ -15,6 +15,7 @@ public class DungeonGenerator : MonoBehaviour
 	[SerializeField] public LayerMask Room;
 	[SerializeField] public List<MaybeSpawnObject> EventSpawners;
 	[SerializeField] public List<SpawnObject> PossibleTiles;
+	[SerializeField] public GameObject FinalRoom;
 
 	public Transform[] StartingPositions;
 	public GameObject[] Rooms; // Index 0 --> LR, Index 1 --> LRB, Index 2 --> LRT, Index 3 --> LRBT
@@ -46,7 +47,7 @@ public class DungeonGenerator : MonoBehaviour
 		// Flooring
 		int randFloor = Random.Range(0, PossibleTiles.Count);
 		SpawnObject newFlooring = Instantiate(PossibleTiles[randFloor], transform.position, Quaternion.identity);
-		newRoom.transform.parent = newRoom.transform;
+		newFlooring.transform.parent = newRoom.transform;
 	}
 
 	public void EraseDungeon()
@@ -76,12 +77,8 @@ public class DungeonGenerator : MonoBehaviour
 	    {
 		    StartDungeon();
 	    }
-	    if (Input.GetKeyDown(KeyCode.M))
-	    {
-		    EraseDungeon();
-	    }
 
-		if (_timeBetweenRoom <= 0 && !StopGeneration)
+	    if (_timeBetweenRoom <= 0 && !StopGeneration)
 	    {
 		    Move();
 		    _timeBetweenRoom = _startTimeBetweenRoom;
@@ -102,7 +99,7 @@ public class DungeonGenerator : MonoBehaviour
 		// Flooring
 		int randFloor = Random.Range(0, PossibleTiles.Count);
 		SpawnObject newFlooring = Instantiate(PossibleTiles[randFloor], transform.position, Quaternion.identity);
-		newRoom.transform.parent = parentRoom.transform;
+		newFlooring.transform.parent = parentRoom.transform;
 	}
 
     private void Move()
@@ -182,7 +179,17 @@ public class DungeonGenerator : MonoBehaviour
 		    }
 		    else
 		    {
-			    AstarPath.active.Scan();
+				// Replace The Final Room With Exit Portal
+				Destroy(DungeonObjects.GetChild(DungeonObjects.childCount - 1).gameObject);
+
+				// Spawn Final Room
+				GameObject newRoom = Instantiate(FinalRoom, transform.position, Quaternion.identity);
+				newRoom.transform.parent = DungeonObjects;
+
+				// Flooring
+				int randFloor = Random.Range(0, PossibleTiles.Count);
+				SpawnObject newFlooring = Instantiate(PossibleTiles[randFloor], transform.position, Quaternion.identity);
+				newFlooring.transform.parent = newRoom.transform;
 
 				// Stop Level Generator
 				StopGeneration = true;

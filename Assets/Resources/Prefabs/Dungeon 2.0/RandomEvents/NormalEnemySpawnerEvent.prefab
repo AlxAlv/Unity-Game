@@ -48,8 +48,8 @@ MonoBehaviour:
   _spawnRate: 1
   _xOffset: 10
   _yOffset: 10
-  _maxNumberOfEnemies: 2
-  _maxNumberOfTotalSpawns: 2
+  _maxNumberOfEnemies: 1
+  _maxNumberOfTotalSpawns: 1
   _summonAllAtOnce: 0
   _possibleWeapons:
   - {fileID: -8459372455048898547, guid: a10adec08fd21d1409e761c54f61ed20, type: 3}

@@ -643,8 +643,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -991823193
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -900,7 +900,7 @@ MonoBehaviour:
   - {x: -0.5599508, y: -0.7499428, z: 0}
   m_ShapePathHash: 894878909
   m_Mesh: {fileID: 0}
-  m_InstanceId: 1027296
+  m_InstanceId: 229568
 --- !u!1 &5192455206960124832
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,8 +1169,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -991823193
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}

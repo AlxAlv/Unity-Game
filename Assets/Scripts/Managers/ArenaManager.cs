@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ArenaManager : MonoBehaviour
+public class ArenaManager : Singleton<ArenaManager>
 {
 	// Arena Constants
 	private const int NUM_OF_ROUNDS = 5;
@@ -27,10 +27,11 @@ public class ArenaManager : MonoBehaviour
 	Objectives[] ArenaObjectives = new Objectives[] { Objectives.DefeatAllEnemies, Objectives.DefeatTheBoss, Objectives.ClearTheRoomCountdown, Objectives.DefeatTheNecromancer };
 
     // Locations And Possible Enemies
-	[SerializeField] private Transform _hubStartPosition;
+    [SerializeField] private Transform _hubStartPosition;
 	[SerializeField] private List<EnemySpawner> _enemySpawners;
 	[SerializeField] private List<GameObject> _possibleEnemies;
 	[SerializeField] private List<GameObject> _possibleBosses;
+	[SerializeField] private List<GameObject> _possibleDungeonMasters;
 	[SerializeField] private List<GameObject> _possibleNecromancers;
     [SerializeField] private List<Weapon> _possibleWeapons;
 
@@ -43,7 +44,7 @@ public class ArenaManager : MonoBehaviour
 	[SerializeField] private Image _timerIcon;
 
 	// Player
-	private GameObject _player;
+	[SerializeField] private GameObject _player;
 
     // Objective Information
     private List<GameObject> _spawnedEntities;
@@ -54,7 +55,10 @@ public class ArenaManager : MonoBehaviour
     private List<Objectives> _objectivesList;
     private float _countdownTimer;
 
-    // Constant Strings To Display To The Player
+	// Dungeon Boss Battle State
+	private bool _isDungeonStarted = false;
+
+	// Constant Strings To Display To The Player
     private Dictionary<Objectives, string> _roundStartStrings = new Dictionary<Objectives, string>()
     {
 	    {Objectives.DefeatAllEnemies, "Defeat All The Enemies"},
@@ -73,7 +77,7 @@ public class ArenaManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	    SoundManager.Instance.SetArenaStatus(_isArenaStarted);
+	    SoundManager.Instance.SetArenaStatus(_isArenaStarted || DungeonGenerator.Instance.StartedGeneration);
 
 		_objectivesPanel.active = _isArenaStarted;
 
@@ -97,6 +101,20 @@ public class ArenaManager : MonoBehaviour
 					StartRound(_objectivesList[_currentRound]);
 		    }
 	    }
+		else if (_isDungeonStarted)
+		{
+			_objectivesPanel.active = true;
+
+			UpdateUI(Objectives.DefeatTheBoss);
+
+			if (CheckSpawnedEntities())
+			{
+				DialogManager.Instance.InstantSystemMessage("You Beat The Dungeon!");
+				DungeonGenerator.Instance.EraseDungeon();
+
+				EndArena();
+			}
+		}
     }
 
     // Initialize the objectives for the arena
@@ -116,7 +134,6 @@ public class ArenaManager : MonoBehaviour
 
         _isArenaStarted = true;
         _player = player;
-
     }
 
     private void StartRound(Objectives objective)
@@ -252,8 +269,13 @@ public class ArenaManager : MonoBehaviour
     // Clear out the arena and send the player back
     private void EndArena()
     {
+		if (_isDungeonStarted)
+			DungeonGenerator.Instance.EraseDungeon();
+
 	    _isArenaStarted = false;
-	    _player.transform.position = (_hubStartPosition.position);
+	    _isDungeonStarted = false;
+
+		_player.transform.position = (_hubStartPosition.position);
 
 	    AwardPrize();
     }
@@ -286,7 +308,10 @@ public class ArenaManager : MonoBehaviour
 
     private void UpdateUI(Objectives objective)
     {
-	    _objectiveStatement.text = "(" + (_currentRound + 1) + "/" + NUM_OF_ROUNDS + ") " +  _roundStartStrings[_objectivesList[_currentRound]];
+		if (_isArenaStarted)
+			_objectiveStatement.text = "(" + (_currentRound + 1) + "/" + NUM_OF_ROUNDS + ") " +  _roundStartStrings[_objectivesList[_currentRound]];
+		else
+			_objectiveStatement.text = "Defeat The Dungeon Master!";
 
 		switch (objective)
 		{
@@ -301,5 +326,22 @@ public class ArenaManager : MonoBehaviour
 				_timerText.text = Mathf.RoundToInt(_countdownTimer).ToString() + " SECONDS";
 				break;
 		}
+	}
+
+    // Start The Dungeon Boss Room
+    public void StartBossRoom()
+    {
+		_timerIcon.gameObject.SetActive(false);
+
+		int numberOfEnemiesThisRound = Random.Range(1, MAX_NUM_DEFEAT_BOSS_BOSSES);
+
+		for (int i = 0; i < numberOfEnemiesThisRound; ++i)
+		{
+			GameObject bossToSpawn = _possibleDungeonMasters[Random.Range(0, (_possibleDungeonMasters.Count - 1))];
+			Spawn(bossToSpawn);
+		}
+
+		_player.transform.position = transform.position;
+		_isDungeonStarted = true;
 	}
 }
