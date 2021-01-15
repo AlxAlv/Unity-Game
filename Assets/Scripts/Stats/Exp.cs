@@ -11,7 +11,7 @@ public class Exp : MonoBehaviour
 
     [SerializeField] public int ExpToGive = 10;
 
-    private int _pointsPerLevel = 2;
+    private int _pointsEveryLevel = 1;
 
 
     private int _currentStatPoints = 0;
@@ -53,13 +53,15 @@ public class Exp : MonoBehaviour
     {
         _currentExp = (_currentExp - _expForNextLevel);
         _currentLevel++;
-        _currentStatPoints += _pointsPerLevel;
+        _currentStatPoints += _pointsEveryLevel;
 
         _expForNextLevel = levelToExpNeeded[_currentLevel];
 
         DialogManager.Instance.InstantSystemMessage("Levled Up To Lv." + _currentLevel);
         DialogManager.Instance.AddSystemMessage("Press \"C\" To Use Points");
         SoundManager.Instance.Playsound("Audio/SoundEffects/LevelUpFx");
+        CameraFilter.Instance.Flash(Color.white, (1.025f), 1.0f);
+        ScreenParticleSystem.Instance.PlayCelebrationParticles();
 
         RefillResources();
     }
@@ -79,6 +81,7 @@ public class Exp : MonoBehaviour
     public void GainExp(int amount)
     {
         _currentExp += amount;
+        ExpNumbers.Create(gameObject.transform.position, (int)amount);
     }
 
     public bool UseStatPoints(int amount)

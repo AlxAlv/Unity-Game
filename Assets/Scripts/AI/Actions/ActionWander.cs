@@ -27,6 +27,9 @@ public class ActionWander : AIAction
         //EvaluateObstacles(controller);
         Wander(controller);
         controller.EntityMovement.RemoveFollowTarget();
+
+        if (!(controller.LineRenderer.startColor == Color.green))
+			controller.EntityMovement.StopAIMoving();
     }
 
     private void EvaluateObstacles(AIStateController controller)
@@ -46,7 +49,7 @@ public class ActionWander : AIAction
 
     private void Wander(AIStateController controller)
     {
-        if (_wanderCheckTime < _currentWanderTimer)
+        if (_wanderCheckTime < _currentWanderTimer && (controller.LineRenderer.startColor == Color.green))
         {
             Vector3 destination = 
             new Vector3(controller.transform.position.x + Random.Range(-WanderArea, WanderArea), 

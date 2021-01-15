@@ -12,6 +12,9 @@ public class ActionPatrol : AIAction
 
     private void Patrol (AIStateController controller)
     {
-        controller.EntityMovement.SetAIDestination(controller.Path.CurrentPoint);
+	    if (!(controller.LineRenderer.startColor == Color.green))
+	        controller.EntityMovement.StopAIMoving();
+        else
+			controller.EntityMovement.SetAIDestination(controller.Path.CurrentPoint);
     }
 }

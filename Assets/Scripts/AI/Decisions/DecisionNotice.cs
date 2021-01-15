@@ -39,9 +39,7 @@ public class DecisionNotice : AIDecision
 				if (controller.LineRenderer.startColor == Color.green)
 					ThoughtPopups.Create(controller.SkillLoadingTransform.position, controller.gameObject.GetInstanceID(), ThoughtTypes.QuestionMark);
 
-				color = Color.Lerp(Color.red, Color.green, ((controller.Timer - Time.time) / TimeUntilNotice));
-
-	            // And we see the player
+				// And we see the player
 				if (controller.IsTimePassed())
 				{
 					controller.Target = _targetCollider2D.transform;
@@ -57,12 +55,25 @@ public class DecisionNotice : AIDecision
 				ThoughtPopups.RemoveInstanceFromList(controller.gameObject.GetInstanceID());
 			}
 		}
+		else if (controller.NoticedAttacker != null)
+		{
+			ThoughtPopups.Create(controller.SkillLoadingTransform.position, controller.gameObject.GetInstanceID(), ThoughtTypes.ShockedMark);
+
+			if (controller.IsTimePassed())
+			{
+				controller.Target = controller.NoticedAttacker.transform;
+				controller.NoticedAttacker = null;
+
+				return true;
+			}
+		}
 		else
 		{
 			controller.ResetTime(TimeUntilNotice);
 			ThoughtPopups.RemoveInstanceFromList(controller.gameObject.GetInstanceID());
 		}
 
+		color = Color.Lerp(Color.red, Color.green, ((controller.Timer - Time.time) / TimeUntilNotice));
 		controller.DrawPolygon(_numVerticies, DetectArea, controller.transform.position, _lineWidth, _lineWidth, color);
 		return false;
 	}

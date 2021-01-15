@@ -275,7 +275,8 @@ public class SkillBar : MonoBehaviour
             BaseSkill skillToUse = (SkillToUse(iconPressed.sprite.name, (mainHandUsed ? _playerWeapons.CurrentWeapon : _playerWeapons.CurrentOffHand)));
             _playerWeapons.CurrentWeapon.UseSkill(skillToUse);
 
-            //Player.GetComponent<TintHelper>().SetTintColor(Color.white);
+            UIBounce.Instance.BounceUI(iconPressed.gameObject);
+            FadeAwayToDeath.Instance.InitializeFadeAway(iconPressed, 1.0005f);
 
             return true;
         }

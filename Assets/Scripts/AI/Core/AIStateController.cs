@@ -115,4 +115,7 @@ public class AIStateController : MonoBehaviour
 
     public bool IsAttackTimePassed() { return (Time.time > _attackTimer); }
     public void ResetAttackTime(float timeToWait) { _attackTimer = Time.time + timeToWait; }
+
+    /* Aggroing Decisions */
+    public GameObject NoticedAttacker = null;
 }

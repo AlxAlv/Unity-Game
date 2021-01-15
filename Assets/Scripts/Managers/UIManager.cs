@@ -106,6 +106,7 @@ public class UIManager : Singleton<UIManager>
     public void BounceHealthText()
     {
 	    UIBounce.Instance.BounceUI(m_currentHealthText.gameObject);
+	    //FadeAwayToDeath.Instance.InitializeFadeAway(m_currentHealthText);
     }
 
     public void BounceCoinText()

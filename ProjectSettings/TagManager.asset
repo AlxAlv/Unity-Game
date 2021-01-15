@@ -95,3 +95,9 @@ TagManager:
   - name: Top
     uniqueID: 2123880471
     locked: 0
+  - name: CameraFilter
+    uniqueID: 3545861341
+    locked: 0
+  - name: ParticleSystems
+    uniqueID: 1953485133
+    locked: 0

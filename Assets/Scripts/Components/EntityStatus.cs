@@ -65,6 +65,12 @@ public class EntityStatus : EntityComponent
 
 			SoundManager.Instance.Playsound(_poisonSoundFxPath);
 
+			// Poison Particles
+			GameObject poisonPS = Instantiate((Resources.Load("Prefabs/Effects/PoisonPS") as GameObject), transform.position, Quaternion.identity);
+			poisonPS.transform.localScale = new Vector3((_entityFlip.m_FacingLeft ? 1 : -1), poisonPS.transform.localScale.y, poisonPS.transform.localScale.z);
+
+			poisonPS.GetComponent<ParticleSystem>().Play();
+
 			if (_currentPoisonTick >= _numberOfPoisonTicks)
 				_isPoisoned = false;
 		}
@@ -94,6 +100,12 @@ public class EntityStatus : EntityComponent
 			++_currentBurnTick;
 
 			SoundManager.Instance.Playsound(_burnSoundFxPath);
+
+			// Burn Particles
+			GameObject FirePS = Instantiate((Resources.Load("Prefabs/Effects/FirePS") as GameObject), transform.position, Quaternion.identity);
+			FirePS.transform.localScale = new Vector3((_entityFlip.m_FacingLeft ? 1 : -1), FirePS.transform.localScale.y, FirePS.transform.localScale.z);
+
+			FirePS.GetComponent<ParticleSystem>().Play();
 
 			if (_currentBurnTick >= _numberOfBurnTicks)
 				_isBurned = false;

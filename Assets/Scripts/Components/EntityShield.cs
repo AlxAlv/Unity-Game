@@ -10,6 +10,7 @@ public class EntityShield : EntityComponent
 	[SerializeField] private float _dodgeDuration = 0.15f;
 	[SerializeField] private float _staminaAmount = 3.0f;
 	[SerializeField] private GameObject _shieldImGameObject;
+	[SerializeField] private LineRenderer _lineRenderer;
 
 	private bool _isShielding = false;
 	private bool _dodging = false;
@@ -35,12 +36,13 @@ public class EntityShield : EntityComponent
 		{
 			StartShielding();
 		}
-		else if (Input.GetKeyUp(KeyCode.LeftShift) && _isShielding && _stamina.UseStamina(_staminaAmount))
+		else if (Input.GetKeyUp(KeyCode.LeftShift) && _isShielding)
 		{
 			_isShielding = false;
 			_health.ShieldModifier = 1.0f;
 
-			Dodge();
+			if (_stamina.UseStamina(_staminaAmount))
+				Dodge();
 		}
 	}
 
@@ -48,7 +50,13 @@ public class EntityShield : EntityComponent
 	{
 		base.HandleComponent();
 
+		_lineRenderer.gameObject.SetActive(_isShielding);
 		_shieldImGameObject.SetActive(_isShielding);
+
+		if (_isShielding)
+		{
+			CalcualteAngle();
+		}
 
 		if (_dodging)
 		{
@@ -142,6 +150,8 @@ public class EntityShield : EntityComponent
 		else
 			targetPos.x = (Mathf.Max((transform.position.x - _maxDodgeDistance), mousePos.x));
 
+		DrawPolygon(32, 0.5f, targetPos, 0.05f, 0.05f, Color.white);
+
 		return targetPos;
 	}
 
@@ -153,5 +163,26 @@ public class EntityShield : EntityComponent
 	private void RemoveDodgeInvincibility()
 	{
 		_health.DodgeDamageModifier = 1.0f;
+	}
+
+	public void DrawPolygon(int vertexNumber, float radius, Vector3 centerPos, float startWidth, float endWidth, Color color)
+	{
+		_lineRenderer.startWidth = startWidth;
+		_lineRenderer.endWidth = endWidth;
+		_lineRenderer.startColor = color;
+		_lineRenderer.endColor = color;
+		_lineRenderer.loop = true;
+		float angle = 2 * Mathf.PI / vertexNumber;
+		_lineRenderer.positionCount = vertexNumber;
+
+		for (int i = 0; i < vertexNumber; i++)
+		{
+			Matrix4x4 rotationMatrix = new Matrix4x4(new Vector4(Mathf.Cos(angle * i), Mathf.Sin(angle * i), 0, 0),
+				new Vector4(-1 * Mathf.Sin(angle * i), Mathf.Cos(angle * i), 0, 0),
+				new Vector4(0, 0, 1, 0),
+				new Vector4(0, 0, 0, 1));
+			Vector3 initialRelativePosition = new Vector3(0, radius, 0);
+			_lineRenderer.SetPosition(i, centerPos + rotationMatrix.MultiplyPoint(initialRelativePosition));
+		}
 	}
 }
