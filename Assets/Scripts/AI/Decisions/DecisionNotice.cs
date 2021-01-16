@@ -53,6 +53,7 @@ public class DecisionNotice : AIDecision
             else
             {
 				ThoughtPopups.RemoveInstanceFromList(controller.gameObject.GetInstanceID());
+				controller.ResetTime(TimeUntilNotice);
 			}
 		}
 		else if (controller.NoticedAttacker != null)

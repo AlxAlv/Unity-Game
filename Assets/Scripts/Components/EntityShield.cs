@@ -7,7 +7,7 @@ using UnityEngine;
 public class EntityShield : EntityComponent
 {
 	[SerializeField] private float _maxDodgeDistance = 3.0f;
-	[SerializeField] private float _dodgeDuration = 0.15f;
+	[SerializeField] private float _dodgeDuration = (0.10f);
 	[SerializeField] private float _staminaAmount = 3.0f;
 	[SerializeField] private GameObject _shieldImGameObject;
 	[SerializeField] private LineRenderer _lineRenderer;

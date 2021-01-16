@@ -5,7 +5,7 @@ public class Exp : MonoBehaviour
 {
     private Dictionary<int, int> levelToExpNeeded = new Dictionary<int, int>()
     {
-        { 1, 40 }, { 2, 80 }, { 3, 200 }, { 4, 400 }, { 5, 700 },
+        { 1, 80 }, { 2, 160 }, { 3, 250 }, { 4, 400 }, { 5, 700 },
         { 6, 1000 }, { 7, 1500 }, { 8, 2000 }, { 9, 3500 }, { 10, 5000 }
     };
 
@@ -60,7 +60,7 @@ public class Exp : MonoBehaviour
         DialogManager.Instance.InstantSystemMessage("Levled Up To Lv." + _currentLevel);
         DialogManager.Instance.AddSystemMessage("Press \"C\" To Use Points");
         SoundManager.Instance.Playsound("Audio/SoundEffects/LevelUpFx");
-        CameraFilter.Instance.Flash(Color.white, (1.025f), 1.0f);
+        CameraFilter.Instance.Flash(Color.white, 1.075f, 1.0f);
         ScreenParticleSystem.Instance.PlayCelebrationParticles();
 
         RefillResources();

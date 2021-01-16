@@ -15,8 +15,7 @@ public class ArenaStairs : MonoBehaviour
 	{
 		if (_canGo && Input.GetKeyDown(KeyCode.F))
 		{
-			_player.transform.position = (_validPositions[Random.Range(0, _validPositions.Count)].position);
-			_arenaManager.StartArena(_player);
+			
 		}
 	}
 
@@ -36,5 +35,24 @@ public class ArenaStairs : MonoBehaviour
 			_toolTip.SetActive(false);
 			_canGo = false;
 		}
+	}
+
+	IEnumerator WaitForTimer()
+	{
+		DialogManager.Instance.InstantSystemMessage("3...");
+		yield return new WaitForSeconds(1);
+
+		DialogManager.Instance.InstantSystemMessage("2...");
+		yield return new WaitForSeconds(1);
+
+		DialogManager.Instance.InstantSystemMessage("1...");
+		yield return new WaitForSeconds(1);
+
+		// Recalculate all graphs
+		AstarPath.active.Scan();
+
+		// Move The Player And Start The Dungeon Run
+		_arenaManager.StartArena();
+		_player.transform.position = (_validPositions[Random.Range(0, _validPositions.Count)].position);
 	}
 }

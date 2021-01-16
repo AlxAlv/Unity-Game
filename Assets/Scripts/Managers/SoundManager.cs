@@ -8,6 +8,8 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioSource _backgroundMusic;
     [SerializeField] private AudioSource _combatMusic;
     [SerializeField] private AudioSource _arenaMusic;
+    [SerializeField] private AudioSource _dungeonMusic;
+    [SerializeField] private AudioSource _dungeonMasterMusic;
     [SerializeField] private float _combatDuration = 8.0f;
     
     private AudioSource _audioSource;
@@ -15,6 +17,8 @@ public class SoundManager : Singleton<SoundManager>
 
     private bool _isInCombat = false;
     private bool _isInArena = false;
+    private bool _isInDungeon = false;
+    private bool _isFightingDungeonMaster = false;
 
     private void Start()
     {
@@ -25,11 +29,19 @@ public class SoundManager : Singleton<SoundManager>
 
         AudioClip musicToPlay = Resources.Load<AudioClip>("Audio/Music/CombatMusic");
         _combatMusic.clip = musicToPlay;
-        _combatMusic.volume = .2f;
+        _combatMusic.volume = (0.5f);
 
         AudioClip arenaMusicToPlay = Resources.Load<AudioClip>("Audio/Music/ArenaMusic");
         _arenaMusic.clip = arenaMusicToPlay;
-        _arenaMusic.volume = .2f;
+        _arenaMusic.volume = (0.5f);
+
+        AudioClip dungeonMusicToPlay = Resources.Load<AudioClip>("Audio/Music/DungeonMusic");
+        _dungeonMusic.clip = dungeonMusicToPlay;
+        _dungeonMusic.volume = (0.5f);
+
+        AudioClip dungeonMasterMusicToPlay = Resources.Load<AudioClip>("Audio/Music/DungeonMasterMusic");
+        _dungeonMasterMusic.clip = dungeonMasterMusicToPlay;
+        _dungeonMasterMusic.volume = (0.5f);
     }
 
     private void Update()
@@ -41,6 +53,8 @@ public class SoundManager : Singleton<SoundManager>
                 _isInCombat = true;
                 _backgroundMusic.Pause();
 	            _arenaMusic.Pause();
+	            _dungeonMusic.Pause();
+	            _dungeonMasterMusic.Pause();
                 _combatMusic.Play();
             }
 
@@ -51,10 +65,14 @@ public class SoundManager : Singleton<SoundManager>
             _isInCombat = false;
             _combatMusic.Stop();
 
-            if (!_isInArena)
-	            _backgroundMusic.Play();
-            else
+            if (_isFightingDungeonMaster)
+	            _dungeonMasterMusic.Play();
+            else if (_isInDungeon)
+	            _dungeonMusic.Play();
+            else if (_isInArena)
 	            _arenaMusic.Play();
+            else
+	            _backgroundMusic.Play();
 
             SetHealthBars(false);
         }
@@ -70,7 +88,7 @@ public class SoundManager : Singleton<SoundManager>
     {
         AudioClip musicToPlay = Resources.Load<AudioClip>(songPath);
         _backgroundMusic.clip = musicToPlay;
-        _backgroundMusic.volume = .2f;
+        _backgroundMusic.volume = (0.5f);
 
         _backgroundMusic.Play();
     }
@@ -98,6 +116,49 @@ public class SoundManager : Singleton<SoundManager>
 	    }
 
         _isInArena = isInArena;
+    }
+
+    public void SetDungeonStatus(bool isInDungeon)
+    {
+	    if (_isInDungeon && !isInDungeon)
+	    {
+		    _isInCombat = false;
+
+		    _dungeonMusic.Stop();
+		    _backgroundMusic.Play();
+	    }
+	    else if (!_isInDungeon && isInDungeon)
+	    {
+		    _isInCombat = false;
+
+		    _backgroundMusic.Stop();
+		    _dungeonMusic.Play();
+	    }
+
+	    _isInDungeon = isInDungeon;
+    }
+
+    public void SetDungeonMasterStatus(bool isFightingDungeonMaster)
+    {
+	    if (_isFightingDungeonMaster && !isFightingDungeonMaster)
+	    {
+		    _isInCombat = false;
+
+		    _dungeonMasterMusic.Stop();
+		    _backgroundMusic.Play();
+	    }
+	    else if (!_isFightingDungeonMaster && isFightingDungeonMaster)
+	    {
+		    _isInCombat = false;
+
+		    _dungeonMusic.Stop();
+		    _backgroundMusic.Stop();
+		    _combatMusic.Stop();
+		    _arenaMusic.Stop();
+		    _dungeonMasterMusic.Play();
+	    }
+
+	    _isFightingDungeonMaster = isFightingDungeonMaster;
     }
 
     void SetHealthBars(bool isActive)

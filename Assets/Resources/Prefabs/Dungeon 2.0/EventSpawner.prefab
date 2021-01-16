@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1c878d33a0fd942a8f0551ed22c209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChanceDivider: 3
+  ChanceDivider: 4
   objects:
-  - {fileID: 7544610238430577726, guid: ad2ecb74767d3524bb584f4961451cdb, type: 3}
+  - {fileID: 7544610238430577726, guid: 6dbdd91e83bbfb647a91fccf715f5ada, type: 3}

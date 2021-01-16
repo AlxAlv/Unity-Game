@@ -48,15 +48,14 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 		int randFloor = Random.Range(0, PossibleTiles.Count);
 		SpawnObject newFlooring = Instantiate(PossibleTiles[randFloor], transform.position, Quaternion.identity);
 		newFlooring.transform.parent = newRoom.transform;
+
+		SoundManager.Instance.SetDungeonStatus(StartedGeneration);
 	}
 
 	public void EraseDungeon()
 	{
 		StartedGeneration = false;
 		StopGeneration = true;
-
-		// Move The Player Back
-		PlayerTransform.position = _playerOriginalPosition;
 
 		// Erase All Dungeon Rooms
 		foreach (Transform child in DungeonObjects.transform)
@@ -69,6 +68,9 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 		{
 			child.GetComponent<SpawnRoom>().ResetObject();
 		}
+
+		SoundManager.Instance.SetDungeonMasterStatus(false);
+		SoundManager.Instance.SetDungeonStatus(false);
 	}
 
     private void Update()
@@ -155,6 +157,7 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 		    {
 				// Make sure the room right above has an opening!
 				Collider2D roomDetection = Physics2D.OverlapCircle(transform.position, 1, Room);
+
 				if (roomDetection.GetComponent<RoomType>().Type != 1 &&
 				    roomDetection.GetComponent<RoomType>().Type != 3)
 				{
@@ -195,6 +198,8 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 				StopGeneration = true;
 
 				StartCoroutine(WaitForDungeonGeneration());
+
+				CameraFilter.Instance.BlackScreenFade();
 		    }
 	    }
     }
@@ -214,7 +219,24 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 		AstarPath.active.Scan();
 
 		// Move The Player And Start The Dungeon Run
-		_playerOriginalPosition = PlayerTransform.position;
-	    PlayerTransform.position = _beginningRoom;
+		FindPositionForPlayer();
     }
+
+    private void FindPositionForPlayer()
+    {
+	    Vector2 whereToSpawn;
+		RaycastHit2D hit;
+
+	    do
+	    {
+		    float randXPos = Random.Range(-5, 5);
+		    float randYPos = Random.Range(-5, 5);
+		    whereToSpawn = new Vector2(randXPos + _beginningRoom.x, randYPos + _beginningRoom.y);
+
+		    hit = Physics2D.BoxCast(whereToSpawn, PlayerTransform.GetComponent<BoxCollider2D>().size, 0.0f, Vector2.zero, 0, LayerMask.GetMask("LevelComponents"));
+	    } while (hit.collider != null);
+
+	    _playerOriginalPosition = PlayerTransform.position;
+	    PlayerTransform.position = whereToSpawn;
+	}
 }

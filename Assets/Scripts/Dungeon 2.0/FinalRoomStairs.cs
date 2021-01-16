@@ -12,7 +12,8 @@ public class FinalRoomStairs : MonoBehaviour
 	{
 		if (_canGo && Input.GetKeyDown(KeyCode.F))
 		{
-			ArenaManager.Instance.StartBossRoom();
+			StartCoroutine(WaitForTimer());
+			CameraFilter.Instance.BlackScreenFade();
 		}
 	}
 
@@ -32,5 +33,24 @@ public class FinalRoomStairs : MonoBehaviour
 			_stairsInfo.SetActive(false);
 			_canGo = false;
 		}
+	}
+
+	IEnumerator WaitForTimer()
+	{
+		DialogManager.Instance.InstantSystemMessage("3...");
+		yield return new WaitForSeconds(1);
+
+		DialogManager.Instance.InstantSystemMessage("2...");
+		yield return new WaitForSeconds(1);
+
+		DialogManager.Instance.InstantSystemMessage("1...");
+		yield return new WaitForSeconds(1);
+
+		// Recalculate all graphs
+		AstarPath.active.Scan();
+
+		// Move The Player And Start The Boss Room
+		ArenaManager.Instance.StartBossRoom();
+		SoundManager.Instance.SetDungeonMasterStatus(true);
 	}
 }

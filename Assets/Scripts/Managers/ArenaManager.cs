@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,8 +47,10 @@ public class ArenaManager : Singleton<ArenaManager>
 	// Player
 	[SerializeField] private GameObject _player;
 
-    // Objective Information
-    private List<GameObject> _spawnedEntities;
+	[SerializeField] private List<Transform> _validPositions;
+
+	// Objective Information
+	private List<GameObject> _spawnedEntities;
 
     // Arena State
     private bool _isArenaStarted = false;
@@ -77,9 +80,7 @@ public class ArenaManager : Singleton<ArenaManager>
     // Update is called once per frame
     void Update()
     {
-	    SoundManager.Instance.SetArenaStatus(_isArenaStarted || DungeonGenerator.Instance.StartedGeneration);
-
-		_objectivesPanel.active = _isArenaStarted;
+	    _objectivesPanel.active = _isArenaStarted;
 
 		if (_isArenaStarted)
 		{
@@ -118,10 +119,10 @@ public class ArenaManager : Singleton<ArenaManager>
     }
 
     // Initialize the objectives for the arena
-    public void StartArena(GameObject player)
+    public void StartArena()
     {
-		// Clear Info From Last Round
-	    _currentRound = 0;
+	    // Clear Info From Last Round
+		_currentRound = 0;
 	    _objectivesList.Clear();
 
 		// Randomize Objectives
@@ -133,7 +134,8 @@ public class ArenaManager : Singleton<ArenaManager>
         StartRound(_objectivesList[_currentRound]);
 
         _isArenaStarted = true;
-        _player = player;
+
+        SoundManager.Instance.SetArenaStatus(_isArenaStarted);
     }
 
     private void StartRound(Objectives objective)
@@ -275,7 +277,10 @@ public class ArenaManager : Singleton<ArenaManager>
 	    _isArenaStarted = false;
 	    _isDungeonStarted = false;
 
-		_player.transform.position = (_hubStartPosition.position);
+	    SoundManager.Instance.SetArenaStatus(_isArenaStarted);
+
+	    StartCoroutine(WaitSeconds());
+		CameraFilter.Instance.BlackScreenFade();
 
 	    AwardPrize();
     }
@@ -286,6 +291,7 @@ public class ArenaManager : Singleton<ArenaManager>
 
 		CoinManager.Instance.AddCoins(coinsWon);
 	    GoldNumbers.Create(_player.transform.position, (int)coinsWon);
+	    SoundManager.Instance.Playsound("Audio/SoundEffects/VictoryFx");
 	}
 
     // Spawn An Enemy Into The List
@@ -344,4 +350,40 @@ public class ArenaManager : Singleton<ArenaManager>
 		_player.transform.position = transform.position;
 		_isDungeonStarted = true;
 	}
+
+    public void StartArenaFromButton()
+    {
+	    StartCoroutine(WaitForTimer());
+	    CameraFilter.Instance.BlackScreenFade();
+	}
+
+    IEnumerator WaitSeconds()
+    {
+	    yield return new WaitForSeconds(3);
+
+	    // Recalculate all graphs
+	    AstarPath.active.Scan();
+
+		// Move The Player And Start The Dungeon Run
+		_player.transform.position = (_hubStartPosition.position);
+	}
+
+    IEnumerator WaitForTimer()
+    {
+	    DialogManager.Instance.InstantSystemMessage("3...");
+	    yield return new WaitForSeconds(1);
+
+	    DialogManager.Instance.InstantSystemMessage("2...");
+	    yield return new WaitForSeconds(1);
+
+	    DialogManager.Instance.InstantSystemMessage("1...");
+	    yield return new WaitForSeconds(1);
+
+	    // Recalculate all graphs
+	    AstarPath.active.Scan();
+
+	    // Move The Player And Start The Dungeon Run
+	    StartArena();
+	    _player.transform.position = (_validPositions[Random.Range(0, _validPositions.Count)].position);
+    }
 }
