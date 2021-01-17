@@ -69,6 +69,9 @@ public class EntityStatus : EntityComponent
 			GameObject poisonPS = Instantiate((Resources.Load("Prefabs/Effects/PoisonPS") as GameObject), transform.position, Quaternion.identity);
 			poisonPS.transform.localScale = new Vector3((_entityFlip.m_FacingLeft ? 1 : -1), poisonPS.transform.localScale.y, poisonPS.transform.localScale.z);
 
+			if (GetComponent<Entity>().EntityType == Entity.EntityTypes.Player)
+				CameraFilter.Instance.Flash(Color.magenta, (1.75f), (0.45f));
+
 			poisonPS.GetComponent<ParticleSystem>().Play();
 
 			if (_currentPoisonTick >= _numberOfPoisonTicks)
@@ -104,6 +107,9 @@ public class EntityStatus : EntityComponent
 			// Burn Particles
 			GameObject FirePS = Instantiate((Resources.Load("Prefabs/Effects/FirePS") as GameObject), transform.position, Quaternion.identity);
 			FirePS.transform.localScale = new Vector3((_entityFlip.m_FacingLeft ? 1 : -1), FirePS.transform.localScale.y, FirePS.transform.localScale.z);
+
+			if (GetComponent<Entity>().EntityType == Entity.EntityTypes.Player)
+				CameraFilter.Instance.Flash(Color.red, (1.75f), (0.45f));
 
 			FirePS.GetComponent<ParticleSystem>().Play();
 

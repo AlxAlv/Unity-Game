@@ -244,7 +244,7 @@ public class EntityStunGuage : EntityComponent
         Invincible = true;
     }
 
-    private void ResetGauges()
+    public void ResetGauges()
     {
         RemoveKnockbackGuage();
 
@@ -257,7 +257,7 @@ public class EntityStunGuage : EntityComponent
         GetComponent<Health>().StunDamageModifier = 1.0f;
     }
 
-    private void RemoveKnockbackGuage()
+    public void RemoveKnockbackGuage()
     {
         KnockedBack = false;
         _currentKnockbackDuration = 0.0f;

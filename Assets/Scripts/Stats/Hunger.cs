@@ -11,17 +11,17 @@ public class Hunger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateStamina();
+		UpdateStamina();
 
-        if (_timer == 0.0f)
-            _timer = Time.time + _secondsPerPercentageDrop;
+		if (_timer == 0.0f)
+			_timer = Time.time + _secondsPerPercentageDrop;
 
-        if (IsTimerDone())
-            _currentModifier = Mathf.Max(.20f, (_currentModifier - 0.01f));
+		//if (IsTimerDone())
+		//	_currentModifier = Mathf.Max(.20f, (_currentModifier - 0.01f));
 
-        // Update UI
-        UIManager.Instance.UpdateHunger(_currentModifier);
-    }
+		// Update UI
+		UIManager.Instance.UpdateHunger(_currentModifier);
+	}
 
     private void UpdateStamina()
     {

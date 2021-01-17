@@ -171,6 +171,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4923936480316432935, guid: 0baff06824bff044a8b097cb29c63746,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4923936482264048668, guid: 0baff06824bff044a8b097cb29c63746,
         type: 3}
       propertyPath: m_Name

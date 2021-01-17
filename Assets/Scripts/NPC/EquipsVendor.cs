@@ -5,7 +5,7 @@ using UnityEngine;
 public class EquipsVendor : MonoBehaviour
 {
     private DialogueTrigger _dialogueTrigger;
-    private string name = "EquipsVendor";
+    private string name = "Equips Vendor";
 
     // Start is called before the first frame update
     void Start()

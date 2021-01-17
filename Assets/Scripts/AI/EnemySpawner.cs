@@ -29,12 +29,21 @@ public class EnemySpawner : MonoBehaviour
             _nextSpawn = Time.time + _spawnRate;
 
             var objectCreated = SpawnEnemy(_enemyObject);
-            
+
             Weapon weaponToUse = _possibleWeapons[Random.Range(0, (_possibleWeapons.Count -1))];
             objectCreated.GetComponent<EntityWeapon>().MainWeapon = weaponToUse;
 
             _currentSpawns++;
         }
+    }
+
+    private void SetLevel(GameObject enemy)
+    {
+		enemy.GetComponent<StatManager>().SetLevel(LevelManager.Instance.CurrentLevel);
+		enemy.GetComponent<Health>().CalculateMaxHealth();
+		enemy.GetComponent<Health>().RefillHealth();
+		enemy.GetComponent<Exp>()._currentLevel = LevelManager.Instance.CurrentLevel;
+        enemy.GetComponent<Exp>().ExpToGive *= LevelManager.Instance.CurrentLevel;
     }
 
     public GameObject SpawnEnemy(GameObject enemyToSpawn)
@@ -54,6 +63,9 @@ public class EnemySpawner : MonoBehaviour
 	    
         var objectCreated = Instantiate(enemyToSpawn, whereToSpawn, Quaternion.identity);
         objectCreated.transform.parent = transform;
+
+        SetLevel(objectCreated);
+
         return objectCreated;
     }
 }

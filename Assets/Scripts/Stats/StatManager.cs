@@ -19,6 +19,12 @@ public class StatManager : MonoBehaviour
     [SerializeField] private OnClickStat _intelligenceButton;
     [SerializeField] private OnClickStat _strengthButton;
 
+    [Header("AI")]
+    [SerializeField] private int _intPerLevel = 1;
+    [SerializeField] private int _dexPerLevel = 1;
+    [SerializeField] private int _strPerLevel = 1;
+    [SerializeField] public int HealthPerLevel = 0;
+
     public Intelligence Intelligence;
     public Dexterity Dexterity;
     public Strength Strength;
@@ -121,5 +127,20 @@ public class StatManager : MonoBehaviour
 	    Intelligence.StatAmount = intelligence;
 	    Dexterity.StatAmount = dexterity;
 	    Strength.StatAmount = strength;
+    }
+
+    public void RemoveStats()
+    {
+	    Dexterity.StatAmount = 0;
+	    Intelligence.StatAmount = 0;
+	    Strength.StatAmount = 0;
+    }
+
+    public void SetLevel(int level)
+    {
+	    Intelligence.StatAmount += (_intPerLevel * level);
+	    Dexterity.StatAmount += (_dexPerLevel * level);
+	    Strength.StatAmount += (_strPerLevel * level);
+	    HealthPerLevel *= level;
     }
 }

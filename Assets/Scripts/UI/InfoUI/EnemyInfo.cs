@@ -11,7 +11,7 @@
 
         if (_showInfo && GetComponent<LootHelper>() != null && GetComponent<Health>() != null)
         {
-            _textObject.text = "Lv " + GetComponent<LootHelper>().EnemyLevel.ToString() + " (" + GetComponent<Health>().m_currentHealth + "/" + GetComponent<Health>().m_maxHealth + ")";
+            _textObject.text = "Lv " + GetComponent<Exp>().CurrentLevel.ToString() + " (" + GetComponent<Health>().m_currentHealth + "/" + GetComponent<Health>().m_maxHealth + ")";
         }
     }
 }

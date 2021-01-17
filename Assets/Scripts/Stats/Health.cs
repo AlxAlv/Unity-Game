@@ -48,10 +48,21 @@ public class Health : MonoBehaviour
 	public void TakeDamage(float damage, string attackName)
 	{
 		if (m_entity != null && m_entity.EntityType == Entity.EntityTypes.Player)
+		{
 			UIManager.Instance.BounceHealthText();
+			CameraFilter.Instance.Flash(Color.white, (1.75f), (0.45f));
+		}
 
-		if (m_entity != null && (m_entity.EntityType == Entity.EntityTypes.AI || m_entity.EntityType == Entity.EntityTypes.Player))
-			damage = (_staleMove.CalculateDamage(damage, attackName) * StunDamageModifier * DodgeDamageModifier * ShieldModifier);
+		if (m_entity != null && (m_entity.EntityType == Entity.EntityTypes.AI ||
+		                         m_entity.EntityType == Entity.EntityTypes.Player))
+		{
+			if (m_entity.EntityType == Entity.EntityTypes.Player)
+			{
+				Debug.Log("Taking damage from " + attackName + " for dmg = " + damage + " * stun of " + StunDamageModifier + " * dodge of " + DodgeDamageModifier + " * shield of " + ShieldModifier);
+			}
+
+			damage = (damage * StunDamageModifier * DodgeDamageModifier * ShieldModifier);
+		}
 
 		if (damage > 0 && _tintHelper != null)
 			_tintHelper.SetTintColor(Color.white);
@@ -114,13 +125,15 @@ public class Health : MonoBehaviour
 			_healthBarInstance.transform.parent = _healthBarPosition;
 		}
 
+		ShieldModifier = 1.0f;
+
 		_player = GameObject.Find("Player");
 	}
 
-	private float CalculateMaxHealth()
+	public float CalculateMaxHealth()
 	{
 		if (_statManager != null)
-			return m_initialHealth + (_statManager.Strength.TotalAmount * 3);
+			return m_initialHealth + (_statManager.Strength.TotalAmount * 3) + (_statManager.HealthPerLevel);
 
 		return m_maxHealth;
 	}
@@ -144,7 +157,10 @@ public class Health : MonoBehaviour
 		}
 
 		if (m_entity != null && m_entity.EntityType == Entity.EntityTypes.Player)
-			DialogManager.Instance.InstantSystemMessage("You've Died! Press \"P\" To Revive");
+		{
+			DialogManager.Instance.InstantSystemMessage("You've Died! Press \"M\" To Revive");
+			ArenaManager.Instance.PlayerDied();
+		}
 
 		if (m_destroyableObject || (m_entity != null && m_entity.EntityType == Entity.EntityTypes.AI))
 		{
@@ -197,6 +213,18 @@ public class Health : MonoBehaviour
 
 			m_currentHealth = m_initialHealth;
 			m_currentShield = m_initialShield;
+
+			EntityStunGuage stunGuage = gameObject.GetComponent<EntityStunGuage>();
+			Exp exp = gameObject.GetComponent<Exp>();
+			StatManager statManager = gameObject.GetComponent<StatManager>();
+
+			exp.ResetData();
+			statManager.RemoveStats();
+
+			stunGuage.ResetGauges();
+			stunGuage.RemoveKnockbackGuage();
+
+			CoinManager.Instance.DeleteCoins();
 
 			gameObject.transform.position = _revivePosition.position;
 

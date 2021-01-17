@@ -11,7 +11,7 @@ public class ArrowRevolver : ArcherySkill
 	private int _currentNumOfArrows = 0;
 
 	private float _timer = 0.0f;
-	private float _timerDuration = .12f;
+	private float _timerDuration = (.05f);
 
 	public ArrowRevolver(Bow bowToUse) : base(bowToUse)
 	{

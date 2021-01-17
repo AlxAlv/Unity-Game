@@ -6,7 +6,8 @@ using UnityEngine.PlayerLoop;
 public class DungeonGenerator : Singleton<DungeonGenerator>
 {
 	[SerializeField] public Transform PlayerTransform;
-	[SerializeField] public int UnitsPerRoom;
+	[SerializeField] public int XUnitsPerRoom;
+	[SerializeField] public int YUnitsPerRoom;
 	[SerializeField] public float MinX;
 	[SerializeField] public float MaxX;
 	[SerializeField] public float MinY;
@@ -22,6 +23,7 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 
 	public bool StartedGeneration = false;
 	public bool StopGeneration = true;
+	private bool _goingDown = false;
 
 	private int _direction;
 	private float _timeBetweenRoom;
@@ -29,9 +31,13 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 
 	private Vector3 _playerOriginalPosition;
 	private Vector3 _beginningRoom;
+	private Vector3 _finalRoom;
 
 	public void StartDungeon()
 	{
+		if (_goingDown)
+			StartCoroutine(WaitOneSecond());
+
 		int randStartingPos = Random.Range(0, StartingPositions.Length);
 		transform.position = StartingPositions[randStartingPos].position;
 
@@ -73,7 +79,29 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 		SoundManager.Instance.SetDungeonStatus(false);
 	}
 
-    private void Update()
+	public void NextFloor()
+	{
+		StartedGeneration = false;
+		StopGeneration = true;
+		_goingDown = true;
+
+		// Erase All Dungeon Rooms
+		foreach (Transform child in DungeonObjects.transform)
+		{
+			GameObject.Destroy(child.gameObject);
+		}
+
+		// Reset All Dungeon Positions
+		foreach (Transform child in DungeonPositions.transform)
+		{
+			child.GetComponent<SpawnRoom>().ResetObject();
+		}
+
+		StartCoroutine(WaitForFloorGeneration());
+		CameraFilter.Instance.FirstHalfBlackScreenFade();
+	}
+
+	private void Update()
     {
 	    if (_timeBetweenRoom <= 0 && !StopGeneration)
 	    {
@@ -83,6 +111,11 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 	    else
 	    {
 		    _timeBetweenRoom -= Time.deltaTime;
+	    }
+
+	    if (Input.GetKeyDown(KeyCode.B) && _finalRoom != null)
+	    {
+		    PlayerTransform.position = _finalRoom;
 	    }
     }
 
@@ -105,7 +138,7 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 	    {
 		    if (transform.position.x < MaxX)
 		    {
-			    Vector2 newPos = new Vector2(transform.position.x + UnitsPerRoom, transform.position.y);
+			    Vector2 newPos = new Vector2(transform.position.x + XUnitsPerRoom, transform.position.y);
 			    transform.position = newPos;
 
 			    int rand = Random.Range(0, Rooms.Length);
@@ -130,7 +163,7 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 	    {
 		    if (transform.position.x > MinX)
 		    {
-			    Vector2 newPos = new Vector2(transform.position.x - UnitsPerRoom, transform.position.y);
+			    Vector2 newPos = new Vector2(transform.position.x - XUnitsPerRoom, transform.position.y);
 			    transform.position = newPos;
 
 			    int rand = Random.Range(0, Rooms.Length);
@@ -164,7 +197,7 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 					SpawnExtras(newBottomRoom);
 				}
 
-			    Vector2 newPos = new Vector2(transform.position.x, transform.position.y - UnitsPerRoom);
+			    Vector2 newPos = new Vector2(transform.position.x, transform.position.y - YUnitsPerRoom);
 			    transform.position = newPos;
 
 			    int rand = Random.Range(2, 4);
@@ -189,12 +222,16 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 				SpawnObject newFlooring = Instantiate(PossibleTiles[randFloor], transform.position, Quaternion.identity);
 				newFlooring.transform.parent = newRoom.transform;
 
+				_finalRoom = newRoom.transform.position;
+
 				// Stop Level Generator
 				StopGeneration = true;
 
-				StartCoroutine(WaitForDungeonGeneration());
-
-				CameraFilter.Instance.BlackScreenFade();
+				if (!_goingDown)
+				{
+					StartCoroutine(WaitForDungeonGeneration());
+					CameraFilter.Instance.BlackScreenFade();
+				}
 		    }
 	    }
     }
@@ -217,7 +254,34 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 		FindPositionForPlayer();
     }
 
-    private void FindPositionForPlayer()
+    IEnumerator WaitForFloorGeneration()
+    {
+	    DialogManager.Instance.InstantSystemMessage("3...");
+	    yield return new WaitForSeconds(1);
+
+	    DialogManager.Instance.InstantSystemMessage("2...");
+	    yield return new WaitForSeconds(1);
+
+	    DialogManager.Instance.InstantSystemMessage("1...");
+	    yield return new WaitForSeconds(1);
+
+		StartDungeon();
+    }
+
+    IEnumerator WaitOneSecond()
+    {
+	    yield return new WaitForSeconds(1);
+
+	    CameraFilter.Instance.SecondHalfBlackScreenFade();
+
+		// Recalculate all graphs
+		AstarPath.active.Scan();
+
+	    // Move The Player And Start The Dungeon Run
+	    FindPositionForPlayer();
+	}
+
+	private void FindPositionForPlayer()
     {
 	    Vector2 whereToSpawn;
 		RaycastHit2D hit;

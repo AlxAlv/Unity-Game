@@ -22,4 +22,9 @@ public class CoinManager : Singleton<CoinManager>
 
         return true;
     }
+
+    public void DeleteCoins()
+    {
+	    Coins = 0;
+    }
 }

@@ -39,7 +39,7 @@ public class DungeonMaster : MonoBehaviour
 
 		message1.Name = name;
 		message1.Emotion = Dialogue.Emotions.Happy;
-		message1.Sentence = "Thank you so much!\nFight your way to the bottom of the dungeon and defeat the leader.";
+		message1.Sentence = "Thank you so much!\nJust so you know, descending a floor will cause all future enemies to be stronger than before!";
 
 		DialogueButton button1_2 = new DialogueButton("I'm on it!", 2, ButtonType.Action);
 		button1_2.ButtonAction = DialogueOption.ButtonActions.StartDungeon;

@@ -58,6 +58,9 @@ public class ArenaManager : Singleton<ArenaManager>
     private List<Objectives> _objectivesList;
     private float _countdownTimer;
 
+    public bool IsArenaStarted => _isArenaStarted;
+    public bool IsDungeonStarted => _isDungeonStarted;
+
 	// Dungeon Boss Battle State
 	private bool _isDungeonStarted = false;
 
@@ -284,6 +287,17 @@ public class ArenaManager : Singleton<ArenaManager>
 
 	    AwardPrize();
     }
+
+    public void PlayerDied()
+    {
+	    if (_isDungeonStarted)
+		    DungeonGenerator.Instance.EraseDungeon();
+
+	    _isArenaStarted = false;
+	    _isDungeonStarted = false;
+
+	    SoundManager.Instance.SetArenaStatus(_isArenaStarted);
+	}
 
     private void AwardPrize()
     {

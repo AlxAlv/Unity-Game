@@ -15,9 +15,9 @@ public class Exp : MonoBehaviour
 
 
     private int _currentStatPoints = 0;
-    private int _expForNextLevel = 40;
+    private int _expForNextLevel = 80;
     private int _currentExp = 0;
-    private int _currentLevel = 1;
+    public int _currentLevel = 1;
 
     public int CurrentStatPoints => _currentStatPoints;
     public int CurrentEXP => _currentExp;
@@ -33,6 +33,14 @@ public class Exp : MonoBehaviour
         }
         
         UpdateExp();
+    }
+
+    public void ResetData()
+    {
+	    _currentStatPoints = 0;
+	    _currentExp = 0;
+	    _currentLevel = 1;
+	    _expForNextLevel = levelToExpNeeded[1];
     }
 
     public void SetEXPData(int statPoints, int currentEXP, int targetEXP, int currentLevel)

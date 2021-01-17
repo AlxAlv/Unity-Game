@@ -15,6 +15,11 @@ public class FinalRoomStairs : MonoBehaviour
 			StartCoroutine(WaitForTimer());
 			CameraFilter.Instance.BlackScreenFade();
 		}
+		else if (_canGo && Input.GetKeyDown(KeyCode.G))
+		{
+			LevelManager.Instance.CurrentLevel++;
+			DungeonGenerator.Instance.NextFloor();
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)

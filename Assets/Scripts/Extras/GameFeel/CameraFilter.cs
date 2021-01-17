@@ -7,6 +7,8 @@ public class CameraFilter : Singleton<CameraFilter>
 {
 	private const float SLOW_BLACK_SCREEN_SPEED = 1.000000005f;
 
+	private Coroutine _currentCoroutine = null;
+
 	private Image _image = null;
 	private float _filterSpeed = 1.10f;
 
@@ -22,7 +24,10 @@ public class CameraFilter : Singleton<CameraFilter>
 		color.a = startingAlpha;
 		_image.color = color;
 
-		StartCoroutine(FadeAway());
+		if (_currentCoroutine != null)
+			StopCoroutine(_currentCoroutine);
+
+		_currentCoroutine = StartCoroutine(FadeAway());
 	}
 
 	public void BlackScreenFade()
@@ -32,7 +37,31 @@ public class CameraFilter : Singleton<CameraFilter>
 
 		_image.color = color;
 
-		StartCoroutine(FadeIntoAndAway());
+		if (_currentCoroutine != null)
+			StopCoroutine(_currentCoroutine);
+
+		_currentCoroutine = StartCoroutine(FadeIntoAndAway());
+	}
+
+	public void FirstHalfBlackScreenFade()
+	{
+		Color color = Color.black;
+		color.a = 0.0f;
+
+		_image.color = color;
+
+		if (_currentCoroutine != null)
+			StopCoroutine(_currentCoroutine);
+
+		_currentCoroutine = StartCoroutine(FadeSlowInto());
+	}
+
+	public void SecondHalfBlackScreenFade()
+	{
+		if (_currentCoroutine != null)
+			StopCoroutine(_currentCoroutine);
+
+		_currentCoroutine = StartCoroutine(FadeSlowOutOf());
 	}
 
 	private IEnumerator FadeIntoAndAway()
@@ -49,6 +78,32 @@ public class CameraFilter : Singleton<CameraFilter>
 
 		yield return new WaitForSeconds(1.0f);
 
+		Color reverse = _image.color;
+
+		while (reverse.a > (0))
+		{
+			reverse.a -= ((SLOW_BLACK_SCREEN_SPEED * Time.deltaTime) / 1.5f);
+			_image.color = reverse;
+
+			yield return null;
+		}
+	}
+
+	private IEnumerator FadeSlowInto()
+	{
+		Color color = _image.color;
+
+		while (color.a < (1))
+		{
+			color.a += ((SLOW_BLACK_SCREEN_SPEED * Time.deltaTime) / 3.0f);
+			_image.color = color;
+
+			yield return null;
+		}
+	}
+
+	private IEnumerator FadeSlowOutOf()
+	{
 		Color reverse = _image.color;
 
 		while (reverse.a > (0))
