@@ -19,7 +19,7 @@ public class FrozenDaggers : MagicSkill
 
 	// Charging Timer
 	private float _chargeTimer = 0.0f;
-	private float _extraChargeTime = 0.1f;
+	private float _extraChargeTime = (0.05f);
 
 	private int _mouseButton = 0;
 
@@ -112,7 +112,7 @@ public class FrozenDaggers : MagicSkill
 
 	protected override void UpdateDamage()
 	{
-		_damageAmount = (_statManager.Intelligence.TotalAmount * 1) + (_staffToUse.WeaponInfo.Damage / 3);
+		_damageAmount = (_statManager.Intelligence.TotalAmount * 2) + (_staffToUse.WeaponInfo.Damage / 2);
 
 		base.UpdateDamage();
 	}

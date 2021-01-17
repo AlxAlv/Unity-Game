@@ -13,7 +13,7 @@ public class ChargedShot : ArcherySkill
     {
         _stunTime = 1.0f;
         _knockBackAmount = 100f;
-        _loadingTime = 1.5f;
+        _loadingTime = (1.0f);
         _spritePath = "SkillIcons/ChargedShotIcon";
         _projectilePrefabPath = "Prefabs/Projectiles/Arrow";
         _soundPath = "Audio/SoundEffects/RangedAttackFx";

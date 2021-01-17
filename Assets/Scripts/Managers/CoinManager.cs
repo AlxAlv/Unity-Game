@@ -12,9 +12,14 @@ public class CoinManager : Singleton<CoinManager>
         Coins += amount;
     }
 
-    public void RemoveCoins(int amount)
+    public bool RemoveCoins(int amount)
     {
+	    if (amount > Coins)
+		    return false;
+
 	    UIManager.Instance.BounceCoinText();
         Coins -= amount;
+
+        return true;
     }
 }

@@ -12,7 +12,7 @@ public class FireBolt : MagicSkill
         _stunTime = 1.2f;
         _knockBackAmount = 60f;
         _staffToUse = staffToUse;
-        _loadingTime = 1.0f;
+        _loadingTime = (0.75f);
         _spritePath = "SkillIcons/FireboltIcon";
         _projectilePrefabPath = "Prefabs/Projectiles/Firebolt";
         _soundPath = "Audio/SoundEffects/FireBoltFx";

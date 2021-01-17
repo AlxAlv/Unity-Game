@@ -26,7 +26,7 @@ public class Tooltip : MonoBehaviour
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent.GetComponent<RectTransform>(), Input.mousePosition, _uiCamera, out localPoint);
 
-        transform.localPosition = localPoint;
+        transform.localPosition = new Vector2(localPoint.x, localPoint.y + (50.0f));
 
 
         if (_currentToolTipBeingViewed.gameObject.activeInHierarchy == false)

@@ -22,6 +22,9 @@ public class DialogueButton
 
 public class Dialogue
 {
+	public enum Emotions { Happy, Neutral, Sad, Shocked, Angry, Dissapointed }
+
+	public Emotions Emotion;
 	public string Name;
 	public string Sentence;
 	public List<DialogueButton> Buttons;

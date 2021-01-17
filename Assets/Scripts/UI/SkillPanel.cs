@@ -46,5 +46,4 @@ public class SkillPanel : MonoBehaviour
 		_magicArrow.SetActive(false);
 		_meleeArrow.SetActive(true);
 	}
-
 }

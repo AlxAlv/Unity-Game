@@ -11,7 +11,7 @@ public class BoulderToss : MagicSkill
         _loadingMovementSpeedModifier = 0.0f;
         _stunTime = 2.0f;
         _staffToUse = staffToUse;
-        _loadingTime = 1.25f;
+        _loadingTime = (1.0f);
         _knockBackAmount = 100f;
         _spritePath = "SkillIcons/BoulderTossIcon";
         _projectilePrefabPath = "Prefabs/Projectiles/BoulderTossPrefab";

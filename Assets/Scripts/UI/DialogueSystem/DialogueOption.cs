@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DialogueOption : MonoBehaviour
 {
-	public enum ButtonActions { Nothing, StartArena }
+	public enum ButtonActions { Nothing, StartArena, StartDungeon, OpenEquipsVendor, OpenSkillTeacher }
 
 	public ButtonActions buttonAction;
 	public ButtonType buttonType;
@@ -31,6 +31,20 @@ public class DialogueOption : MonoBehaviour
 
 			case ButtonActions.StartArena:
 				ArenaManager.Instance.StartArenaFromButton();
+				DialogueManager.Instance.EndDialogue();
+				break;
+
+			case ButtonActions.StartDungeon:
+				DungeonGenerator.Instance.StartDungeon();
+				DialogueManager.Instance.EndDialogue();
+				break;
+
+			case ButtonActions.OpenEquipsVendor:
+				DialogueManager.Instance.EndDialogue();
+				break;
+
+			case ButtonActions.OpenSkillTeacher:
+				SkillUnlockerManager.Instance.OpenShop();
 				DialogueManager.Instance.EndDialogue();
 				break;
 		}

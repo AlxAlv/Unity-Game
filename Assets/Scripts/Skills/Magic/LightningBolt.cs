@@ -10,7 +10,7 @@ public class LightningBolt : MagicSkill
     {
         _stunTime = 2.5f;
         _staffToUse = staffToUse;
-        _loadingTime = 0.1f;
+        _loadingTime = (0.15f);
         _knockBackAmount = 10f;
         _spritePath = "SkillIcons/LightningboltIcon";
         _projectilePrefabPath = "Prefabs/Projectiles/Lightningbolt";

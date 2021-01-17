@@ -10,7 +10,7 @@ public class IceBolt : MagicSkill
     {
         _stunTime = 0.8f;
         _staffToUse = staffToUse;
-        _loadingTime = 0.4f;
+        _loadingTime = (0.25f);
         _knockBackAmount = 35f;
         _spritePath = "SkillIcons/IceboltIcon";
         _projectilePrefabPath = "Prefabs/Projectiles/Icebolt";
@@ -54,7 +54,7 @@ public class IceBolt : MagicSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = (_statManager.Intelligence.TotalAmount * 3) + (_staffToUse.WeaponInfo.Damage * 2);
+        _damageAmount = (_statManager.Intelligence.TotalAmount * 3) + (_staffToUse.WeaponInfo.Damage * 3);
 
         base.UpdateDamage();
     }

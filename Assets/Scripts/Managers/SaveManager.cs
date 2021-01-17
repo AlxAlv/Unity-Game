@@ -52,7 +52,9 @@ public class SaveManager : MonoBehaviour, IPointerClickHandler, IPointerDownHand
 	    SaveCoins();
 		SaveEXPData();
 		SaveStatsData();
-    }
+
+		DialogManager.Instance.InstantSystemMessage("All Data Has Been Saved!");
+	}
 
 	/* Coins */
     public void SaveCoins()

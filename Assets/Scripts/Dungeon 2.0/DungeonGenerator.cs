@@ -75,11 +75,6 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 
     private void Update()
     {
-	    if (Input.GetKeyDown(KeyCode.O))
-	    {
-		    StartDungeon();
-	    }
-
 	    if (_timeBetweenRoom <= 0 && !StopGeneration)
 	    {
 		    Move();

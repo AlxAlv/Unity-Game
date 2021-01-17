@@ -10,7 +10,7 @@ public class RangedAttack : ArcherySkill
 	{
         _stunTime = 1.0f;
         _knockBackAmount = 50f;
-        _loadingTime = 0.4f;
+        _loadingTime = (0.3f);
         _loadingMovementSpeedModifier = 1.0f;
         _spritePath = "SkillIcons/RangedAttackIcon";
         _projectilePrefabPath = "Prefabs/Projectiles/Arrow";
