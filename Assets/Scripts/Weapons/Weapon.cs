@@ -21,14 +21,10 @@ public partial class Weapon : MonoBehaviour
 
 	public Vector3 ProjectileSpawnPosition { get; set; }
 	private Vector3 m_projectileSpawnOffset;
-	private Vector3 m_randomProjectileSpread;
 
 	public WeaponAim WeaponAim { get; set; }
-
-	protected Animator _armAnimator;
 	public BaseSkill _skillToUse;
 
-	public float m_currentSpeedModifier { get; set; }
 	private bool m_facingLeft;
 
 	public Entity m_weaponOwner { get; set; }
@@ -37,14 +33,8 @@ public partial class Weapon : MonoBehaviour
 	private BaseSkill _currentEnemySkill;
 
 	public string WeaponName => _weaponName;
-	public Sprite WeaponSprite => _weaponSprite;
 	public BaseSkill SkillToUse => _skillToUse;
 	public BaseSkill CurrentEnemySkill => _currentEnemySkill;
-	public Animator ArmAnimator => _armAnimator;
-	private readonly int _weaponUseParamter = Animator.StringToHash("WeaponUse");
-	protected readonly int _armSwing = Animator.StringToHash("ArmSwing");
-	private Animator _animator;
-	private Animator _spriteAnimator;
 	public bool IsBusy { get; set; }
 
 	// Weapon Information
@@ -55,11 +45,6 @@ public partial class Weapon : MonoBehaviour
 		EnemySkill = new List<BaseSkill>();
 		_currentEnemySkill = new BaseSkill(this);
 
-		_animator = GetComponent<Animator>();
-		if (_animator == null)
-			_animator = GetComponentInChildren<Animator>();
-
-		_spriteAnimator = GetComponentInChildren<Animator>();
 		WeaponAim = GetComponent<WeaponAim>();
 
 		WeaponInfo = new WeaponInfo(_damage, Color.white);
@@ -109,18 +94,6 @@ public partial class Weapon : MonoBehaviour
 		}
 	}
 
-	public virtual void PlayAnimation()
-	{
-		if (_weaponPs != null)
-			_weaponPs.Play();
-
-		if (_animator != null)
-			_animator.SetTrigger(_weaponUseParamter);
-
-		if (_spriteAnimator != null)
-			_spriteAnimator.SetTrigger(_weaponUseParamter);
-	}
-
 	protected virtual void RotateWeapon()
 	{
 		if ((m_weaponOwner.GetComponent<EntityFlip>().m_FacingLeft) && !m_facingLeft)
@@ -133,25 +106,6 @@ public partial class Weapon : MonoBehaviour
 			m_facingLeft = false;
 			transform.localScale = new Vector3(1, 1, 1);
 		}
-	}
-
-
-	public void SpawnProjectile(Vector2 spawnPosition, ObjectPooler poolOfObjects)
-	{
-		GameObject projectilePooled = poolOfObjects.GetObjectFromPool();
-
-		projectilePooled.transform.position = spawnPosition;
-		projectilePooled.SetActive(true);
-
-		// Spread logic
-		m_randomProjectileSpread.z = Random.Range(-m_projectileSpread.z, m_projectileSpread.z);
-		Quaternion spread = Quaternion.Euler(m_randomProjectileSpread);
-
-		Projectile projectile = projectilePooled.GetComponent<Projectile>();
-		projectile.EnableProjectile();
-		Vector2 newDirection = m_weaponOwner.GetComponent<EntityFlip>().m_FacingLeft ? (spread * transform.right * -1) : (spread * transform.right * -1);
-
-		projectile.SetDirection(newDirection, transform.rotation, m_weaponOwner.GetComponent<EntityFlip>().m_FacingLeft);
 	}
 
 	public void EvaluateProjectileSpawnPosition()
@@ -169,11 +123,6 @@ public partial class Weapon : MonoBehaviour
 
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(ProjectileSpawnPosition, 0.1f);
-	}
-
-	public void DeletePooledObjects()
-	{
-		_skillToUse.DeletePooledObjects();
 	}
 
 	public virtual bool IsMeleeWeapon()
@@ -194,13 +143,6 @@ public partial class Weapon : MonoBehaviour
 	public virtual bool IsShield()
 	{
 		return false;
-	}
-
-	public void SetArm(GameObject arm)
-	{
-		_armAnimator = arm.GetComponentInChildren<Animator>();
-		if (_armAnimator != null)
-			gameObject.transform.parent = _armAnimator.transform;
 	}
 
 	public void UseSkill(BaseSkill skill)

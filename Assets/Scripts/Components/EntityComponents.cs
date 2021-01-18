@@ -14,7 +14,6 @@ public class EntityComponent : MonoBehaviour
 	protected Stamina _stamina;
 	protected Health _health;
 	protected Entity m_entity;
-	protected EntityArm _entityArm;
 	protected EntityTarget _entityTarget;
 	protected EntityStunGuage _entityStunGuage;
 	protected Rigidbody2D _rigidBody;
@@ -32,7 +31,6 @@ public class EntityComponent : MonoBehaviour
 		m_entity = GetComponent<Entity>();
 		m_entityWeapon = GetComponent<EntityWeapon>();
 		_stamina = GetComponent<Stamina>();
-		_entityArm = GetComponent<EntityArm>();
 		_entityTarget = GetComponent<EntityTarget>();
 		_entityStunGuage = GetComponent<EntityStunGuage>();
 		_rigidBody = GetComponent<Rigidbody2D>();

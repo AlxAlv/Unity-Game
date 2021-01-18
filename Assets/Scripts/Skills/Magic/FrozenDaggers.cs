@@ -42,8 +42,6 @@ public class FrozenDaggers : MagicSkill
 
 		_resourceAmount = ResourceAmount;
 		_resourceToUse = ResourceType;
-
-		SetProjectileGameObject(_projectilePrefabPath);
 	}
 
 	protected override void Awake()
@@ -94,9 +92,8 @@ public class FrozenDaggers : MagicSkill
 			SoundManager.Instance.Playsound(_soundPath);
 			_currentNumOfDaggers--;
 
-			_staffToUse.PlayAnimation();
 			_staffToUse.EvaluateProjectileSpawnPosition();
-			_staffToUse.SpawnProjectile(_staffToUse.ProjectileSpawnPosition, _pooler);
+			ShootProjectile(_staffToUse.ProjectileSpawnPosition);
 
 			if (_currentNumOfDaggers == 0)
 			{

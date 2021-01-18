@@ -66,7 +66,7 @@ public class EntityController : MonoBehaviour
 
     private void UpdateStates()
     {
-        if (_entityWeapon != null)
+        if (_entityWeapon != null && _entityWeapon.CurrentWeapon != null && _entityWeapon.CurrentWeapon.SkillToUse != null)
         {
             _skillToUseState = _entityWeapon.CurrentWeapon.SkillToUse.CurrentState;
         }

@@ -25,8 +25,6 @@ public class BoulderToss : MagicSkill
 
         _resourceAmount = ResourceAmount;
         _resourceToUse = ResourceType;
-
-        SetProjectileGameObject(_projectilePrefabPath);
     }
 
     public override void Update()
@@ -41,7 +39,7 @@ public class BoulderToss : MagicSkill
         base.Execute();
 
         _staffToUse.EvaluateProjectileSpawnPosition();
-        _staffToUse.SpawnProjectile(_staffToUse.ProjectileSpawnPosition, _pooler);
+        ShootProjectile(_staffToUse.ProjectileSpawnPosition);
     }
 
     public override void SetOwner(Entity anEntity)

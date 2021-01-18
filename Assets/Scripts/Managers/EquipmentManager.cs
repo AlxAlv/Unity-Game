@@ -89,25 +89,25 @@ public class EquipmentManager : MonoBehaviour
         else
             _currentMainImage.sprite = Resources.Load<Sprite>("Sprites/UI/Equipment/Weapon_Icon");
 
-        if (_entityWeapon.CurrentOffHand != null)
+        if (_entityWeapon.CurrentOffHandWeapon != null)
         {
-            WeaponInstance currentOff = new WeaponInstance(_entityWeapon.CurrentOffHand, _entityWeapon.CurrentOffHand.WeaponInfo);
+            WeaponInstance currentOff = new WeaponInstance(_entityWeapon.CurrentOffHandWeapon, _entityWeapon.CurrentOffHandWeapon.WeaponInfo);
             UpdateImage(currentOff, _currentOffImage);
         }
         else
             _currentOffImage.sprite = Resources.Load<Sprite>("Sprites/UI/Equipment/Reversed_Weapon_Icon");
 
-        if (_entityWeapon.AlternateWeapon != null)
+        if (_entityWeapon.CurrentAlternateWeapon != null)
         {
-            WeaponInstance alternateMain = new WeaponInstance(_entityWeapon.AlternateWeapon, _entityWeapon.AlternateWeaponInfo);
+            WeaponInstance alternateMain = new WeaponInstance(_entityWeapon.CurrentAlternateWeapon, _entityWeapon.AlternateWeaponInfo);
             UpdateImage(alternateMain, _alternateMainImage);
         }
         else
             _alternateMainImage.sprite = Resources.Load<Sprite>("Sprites/UI/Equipment/Weapon_Icon");
 
-        if (_entityWeapon.AlternateOffHand != null)
+        if (_entityWeapon.CurrentAlternateOffHandWeapon != null)
         {
-            WeaponInstance alternateOff = new WeaponInstance(_entityWeapon.AlternateOffHand, _entityWeapon.AlternateOffHandInfo);
+            WeaponInstance alternateOff = new WeaponInstance(_entityWeapon.CurrentAlternateOffHandWeapon, _entityWeapon.AlternateOffHandInfo);
             UpdateImage(alternateOff, _alternateOffImage);
         }
         else
@@ -217,23 +217,19 @@ public class EquipmentManager : MonoBehaviour
     {
         if (weaponSlot == EquipmentSlots.CurrentMainWeapon)
         {
-            _entityWeapon.MainWeapon = weapon.Weapon;
-            _entityWeapon.EquipWeapon(weapon.Weapon, _entityWeapon.WeaponHolderPosition, weapon.WeaponInfo);
+            _entityWeapon.EquipWeapon(weapon.Weapon, weapon.WeaponInfo);
         }
         else if (weaponSlot == EquipmentSlots.AlternateMainWeapon)
         {
-            _entityWeapon.AlternateWeapon = weapon.Weapon;
-            _entityWeapon.AlternateWeaponInfo = weapon.WeaponInfo;
+            _entityWeapon.EquipAlternateWeapon(weapon.Weapon, weapon.WeaponInfo);
         }
         else if (weaponSlot == EquipmentSlots.CurrentOffWeapon)
         {
-            _entityWeapon.MainOffHand = weapon.Weapon;
-            _entityWeapon.EquipOffhandWeapon(weapon.Weapon, _entityWeapon.OffHandHolderPosition, weapon.WeaponInfo);
+            _entityWeapon.EquipOffhandWeapon(weapon.Weapon, weapon.WeaponInfo);
         }
         else if (weaponSlot == EquipmentSlots.AlternateOffWeapon)
         {
-            _entityWeapon.AlternateOffHand = weapon.Weapon;
-            _entityWeapon.AlternateWeaponInfo = weapon.WeaponInfo;
+	        _entityWeapon.EquipAlternateOffhandWeapon(weapon.Weapon, weapon.WeaponInfo);
         }
     }
 }

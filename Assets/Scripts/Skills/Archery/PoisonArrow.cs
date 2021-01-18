@@ -28,8 +28,6 @@ public class PoisonArrow : ArcherySkill
 		_numberOfTicks = 5;
 		_amountPerTick = 0.025f;
 		_timePerTick = 1.0f;
-
-		SetProjectileGameObject(_projectilePrefabPath);
 	}
 
 	protected override void Execute()
@@ -37,7 +35,7 @@ public class PoisonArrow : ArcherySkill
 		base.Execute();
 
 		_bowToUse.EvaluateProjectileSpawnPosition();
-		_bowToUse.SpawnProjectile(_bowToUse.ProjectileSpawnPosition, _pooler);
+		ShootProjectile(_bowToUse.ProjectileSpawnPosition);
 	}
 
 	public override void SetOwner(Entity anEntity)

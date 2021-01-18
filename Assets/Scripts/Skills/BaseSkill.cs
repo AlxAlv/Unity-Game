@@ -31,7 +31,6 @@ public class BaseSkill : MonoBehaviour
 	protected float _outlineWidth = 0.035f;
 	protected float _outlineRadius = 0.0f;
 	protected EntitySkill _entitySkill;
-	protected ObjectPooler _pooler;
 	protected Weapon _weaponToUse;
 	protected Entity _entity;
 	protected EntityMovement _entityMovement;
@@ -65,7 +64,6 @@ public class BaseSkill : MonoBehaviour
 	public BaseSkill(Weapon weaponToUse)
 	{
 		_weaponToUse = weaponToUse;
-		_pooler = new ObjectPooler();
 	}
 
 	protected virtual void Awake()
@@ -131,8 +129,6 @@ public class BaseSkill : MonoBehaviour
 
 	protected virtual void Execute()
 	{
-		_weaponToUse.PlayAnimation();
-
 		SoundManager.Instance.Playsound(_soundPath);
 
 		CancelSkill();
@@ -174,28 +170,64 @@ public class BaseSkill : MonoBehaviour
 		}
 	}
 
-	protected virtual void SetProjectileGameObject(string projectilePrefabPath)
+	protected virtual void ShootProjectile(Vector2 spawnPosition)
 	{
-		GameObject prefabToUse = Resources.Load(projectilePrefabPath) as GameObject;
+		GameObject projectileCreated = SpawnProjectile();
 
-		_pooler.SetDamage(_damageAmount);
-		_pooler.SetSkillName(_skillName);
-		_pooler.SetStunTime(_stunTime);
-		_pooler.SetKnockbackAmount(_knockBackAmount);
-		_pooler.SetCollisionSound(_projectileCollisionsoundPath);
-		_pooler.SetLayerMask(GetLayerMaskToAssign());
+		projectileCreated.transform.position = spawnPosition;
+		projectileCreated.SetActive(true);
 
-		if (_isStatusProjectile)
-			_pooler.SetStatusInfo(_amountPerTick, _numberOfTicks, _timePerTick);
+		// Spread logic
+		Vector3 m_randomProjectileSpread = new Vector3();
+		Vector3 m_projectileSpread = new Vector3(0,0,0);
+		m_randomProjectileSpread.z = Random.Range(-m_projectileSpread.z, m_projectileSpread.z);
+		Quaternion spread = Quaternion.Euler(m_randomProjectileSpread);
 
-		if (_isAOEProjectile)
-			_pooler.SetAOEInfo(_outlineRadius);
+		Projectile projectile = projectileCreated.GetComponent<Projectile>();
+		projectile.EnableProjectile();
+		Vector2 newDirection = _entity.GetComponent<EntityFlip>().m_FacingLeft ? (spread * _weaponToUse.transform.right * -1) : (spread * _weaponToUse.transform.right * -1);
 
-		if (_entity != null)
+		projectile.SetDirection(newDirection, _weaponToUse.transform.rotation, _entity.GetComponent<EntityFlip>().m_FacingLeft);
+	}
+
+	protected virtual GameObject SpawnProjectile()
+	{
+		GameObject prefabToUse = Resources.Load(_projectilePrefabPath) as GameObject;
+		GameObject newObject = Instantiate(prefabToUse);
+
+		var projectileComponent = newObject.transform.GetComponent<Projectile>();
+		var poolReturnComponent = newObject.transform.GetComponent<ReturnToPool>();
+		var statusComponent = newObject.transform.GetComponent<StatusProjectile>();
+		var aoeComponent = newObject.transform.GetComponent<ProjectileAOEOnImpact>();
+
+		if (projectileComponent != null)
 		{
-			_pooler.SetOwner(_entity.transform.root.gameObject);
-			_pooler.ChangeProjectile(prefabToUse, (_entity.EntityType == Entity.EntityTypes.Player ? "Pool" : "EnemyPool"));
+			projectileComponent.DamageAmount = _damageAmount;
+			projectileComponent.SkillName = _skillName;
+			projectileComponent.StunTime = _stunTime;
+			projectileComponent.KnockBackAmount = _knockBackAmount;
+			projectileComponent.Owner = _entity.gameObject;
 		}
+
+		if (statusComponent != null)
+		{
+			statusComponent.NumberOfTicks = _numberOfTicks;
+			statusComponent.AmountPerTick = _amountPerTick;
+			statusComponent.TimePerTick = _timePerTick;
+		}
+
+		if (aoeComponent != null)
+		{
+			aoeComponent.AOESize = _outlineRadius;
+		}
+
+		if (poolReturnComponent != null)
+		{
+			poolReturnComponent.SetLayerMask(GetLayerMaskToAssign());
+			poolReturnComponent.SetCollisionSound(_projectileCollisionsoundPath);
+		}
+
+		return newObject;
 	}
 
 	protected virtual bool UseAbilityResource(float amount)
@@ -228,15 +260,9 @@ public class BaseSkill : MonoBehaviour
 		{
 			if (_damageAmount != _currentProjectileDamage)
 			{
-				SetProjectileGameObject(_projectilePrefabPath);
 				_currentProjectileDamage = _damageAmount;
 			}
 		}
-	}
-
-	public void DeletePooledObjects()
-	{
-		_pooler.DeletePooledObjects();
 	}
 
 	protected virtual LayerMask GetLayerMaskToAssign()

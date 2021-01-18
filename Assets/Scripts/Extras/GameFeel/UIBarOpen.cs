@@ -20,7 +20,7 @@ public class UIBarOpen : Singleton<UIBarOpen>
 		float TARGET;
 
 
-		while (theGameObject.transform.localScale.x < 1)
+		while (theGameObject != null && theGameObject.transform.localScale.x < 1)
 		{ 
 			currentTime += Time.deltaTime;
 			TARGET = Mathf.Lerp(startValue, endValue, currentTime / time);

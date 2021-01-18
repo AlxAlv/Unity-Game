@@ -42,7 +42,7 @@ public class LootHelper : MonoBehaviour
             weaponReward = Resources.Load("Prefabs/Rewards/SwordReward");
             rewardWeapon = true;
         }
-        if (rewardType > 25 && rewardType < 35)
+        if (rewardType > 3 && rewardType < 6)
         {
             weaponReward = Resources.Load("Prefabs/Rewards/BowReward");
             rewardWeapon = true;

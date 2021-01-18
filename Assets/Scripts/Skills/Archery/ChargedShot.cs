@@ -22,8 +22,6 @@ public class ChargedShot : ArcherySkill
 
         _resourceAmount = ResourceAmount;
         _resourceToUse = ResourceType;
-
-        SetProjectileGameObject(_projectilePrefabPath);
     }
 
     protected override void Awake()
@@ -46,7 +44,7 @@ public class ChargedShot : ArcherySkill
         base.Execute();
 
         _bowToUse.EvaluateProjectileSpawnPosition();
-        _bowToUse.SpawnProjectile(_bowToUse.ProjectileSpawnPosition, _pooler);
+        ShootProjectile(_bowToUse.ProjectileSpawnPosition);
     }
 
     public override void SetOwner(Entity anEntity)

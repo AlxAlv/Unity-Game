@@ -16,8 +16,6 @@ public class EnemyRangedAttack : ArcherySkill
 
         _resourceAmount = 1.0f;
         _resourceToUse = Resource.Stamina;
-
-        SetProjectileGameObject(_projectilePrefabPath);
     }
 
     protected override void Awake()
@@ -40,7 +38,7 @@ public class EnemyRangedAttack : ArcherySkill
         base.Execute();
 
         _bowToUse.EvaluateProjectileSpawnPosition();
-        _bowToUse.SpawnProjectile(_bowToUse.ProjectileSpawnPosition, _pooler);
+        ShootProjectile(_bowToUse.ProjectileSpawnPosition);
     }
 
     public override void SetOwner(Entity anEntity)

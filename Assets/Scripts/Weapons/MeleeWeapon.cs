@@ -48,14 +48,6 @@ public class MeleeWeapon : Weapon
 		return true;
 	}
 
-	public override void PlayAnimation()
-	{
-		base.PlayAnimation();
-
-		//if (_armAnimator != null)
-		//	_armAnimator.SetTrigger(_armSwing);
-	}
-
 	public void ClearLastHitEnemies()
 	{
 		_enemiesHit.Clear();

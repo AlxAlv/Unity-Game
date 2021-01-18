@@ -26,8 +26,6 @@ public class EnemyFireBolt : MagicSkill
         _isStatusProjectile = true;
         _numberOfTicks = 5;
         _timePerTick = 0.5f;
-
-        SetProjectileGameObject(_projectilePrefabPath);
     }
 
     protected override void Awake()
@@ -57,9 +55,9 @@ public class EnemyFireBolt : MagicSkill
         firstBoltSpawn.y += 0.3f;
         secondBoltSpawn.y -= 0.3f;
 
-        _staffToUse.SpawnProjectile(firstBoltSpawn, _pooler);
-        _staffToUse.SpawnProjectile(_staffToUse.ProjectileSpawnPosition, _pooler);
-        _staffToUse.SpawnProjectile(secondBoltSpawn, _pooler);
+        ShootProjectile(firstBoltSpawn);
+        ShootProjectile(_staffToUse.ProjectileSpawnPosition);
+        ShootProjectile(secondBoltSpawn);
     }
 
     public override void SetOwner(Entity anEntity)

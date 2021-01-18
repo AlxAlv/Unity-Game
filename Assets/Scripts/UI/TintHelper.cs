@@ -31,8 +31,6 @@ public class TintHelper : MonoBehaviour
         {
             _materialTintcolor.a = Mathf.Clamp01(_materialTintcolor.a - _tintFadeSpeed * Time.deltaTime);
             _material.SetColor("_Tint", _materialTintcolor);
-            gameObject.GetComponent<EntityArm>().m_armToUse.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Tint", _materialTintcolor);
-            gameObject.GetComponent<EntityOffHand>().m_armToUse.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Tint", _materialTintcolor);
         }
 
         EntityStunGuage stunGuage = GetComponent<EntityStunGuage>();
@@ -45,8 +43,6 @@ public class TintHelper : MonoBehaviour
     {
         _materialTintcolor = color;
         _material.SetColor("_Tint", _materialTintcolor);
-        gameObject.GetComponent<EntityArm>().m_armToUse.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Tint", _materialTintcolor);
-        gameObject.GetComponent<EntityOffHand>().m_armToUse.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Tint", _materialTintcolor);
     }
 
     public void SetTintFadeSpeed(float tintFadeSpeed)

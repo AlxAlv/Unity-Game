@@ -4,22 +4,16 @@ using UnityEngine;
 
 public class WeaponAim : MonoBehaviour
 {
-    [SerializeField] private GameObject m_reticlePrefab;
-
-    public float m_currentAimAngleAbsolute { get; set; }
+	public float m_currentAimAngleAbsolute { get; set; }
     public float m_currentAimAngle { get; set; }
 
     private Camera m_mainCamera;
-    private GameObject m_reticle;
     private Weapon m_weapon;
-    private Arm m_arm;
-    private OffArm m_offArm;
     private Entity _entity;
     private EntityTarget _entityTarget = null;
 
     private Vector3 m_direction;
     private Vector3 m_mousePosition;
-    private Vector3 m_reticlePosition;
     private Vector3 m_currentAim = Vector3.zero;
     private Vector3 m_currentAimAbsolute = Vector3.zero;
     private Quaternion m_initialRotation;
@@ -31,25 +25,7 @@ public class WeaponAim : MonoBehaviour
         m_weapon = GetComponent<Weapon>();
 
         // Check Weapon
-        if (m_weapon == null)
-	        m_arm = GetComponent<Arm>();
-        else
-            _entity = m_weapon.m_weaponOwner;
-
-        // Check Arm
-        if (m_arm == null)
-	        m_offArm = GetComponent<OffArm>();
-        else
-            _entity = m_arm.m_armOwner;
-
-        // Check Off Arm
-        if (m_offArm != null)
-            _entity = m_offArm.m_armOwner;
-
-        if (IsPlayer())
-        {
-            InstantiateReticle();
-        }
+	    _entity = m_weapon.m_weaponOwner;
 
         m_initialRotation = transform.rotation;
         _entityTarget = _entity.GetComponent<EntityTarget>();
@@ -60,7 +36,6 @@ public class WeaponAim : MonoBehaviour
         if (IsPlayer())
         {
             GetMousePosition();
-            MoveReticle();
         }
         else
             EnemyAim();
@@ -110,7 +85,6 @@ public class WeaponAim : MonoBehaviour
         m_direction = m_mainCamera.ScreenToWorldPoint(m_mousePosition);
         m_direction.z = parentTransform.position.z;
 
-        m_reticlePosition = m_direction;
         m_currentAimAbsolute = m_direction - parentTransform.position;
         m_currentAim = parentTransform.position - m_direction;
     }
@@ -123,19 +97,7 @@ public class WeaponAim : MonoBehaviour
             m_currentAimAngle = Mathf.Atan2(m_currentAim.y, m_currentAim.x) * Mathf.Rad2Deg;
             m_currentAimAngleAbsolute = Mathf.Atan2(m_currentAimAbsolute.y, m_currentAimAbsolute.x) * Mathf.Rad2Deg;
 
-            // Clamping our angle
-            if (m_arm != null)
-            {
-	            if (m_arm.m_armOwner.GetComponent<EntityFlip>().m_FacingLeft)
-	            {
-		            m_currentAimAngle = Mathf.Clamp(m_currentAimAngle, -180, 180);
-	            }
-	            else
-	            {
-		            m_currentAimAngle = Mathf.Clamp(m_currentAimAngle, -180, 180);
-	            }
-            }
-            else if (m_weapon != null)
+            if (m_weapon != null)
             {
 	            if (m_weapon.m_weaponOwner.GetComponent<EntityFlip>().m_FacingLeft)
 	            {
@@ -154,17 +116,6 @@ public class WeaponAim : MonoBehaviour
                     m_currentAimAngle = Mathf.Clamp(m_currentAimAngle, -180, 180);
 	            }
             }
-            else if (m_offArm != null)
-            {
-	            if (m_offArm.m_armOwner.GetComponent<EntityFlip>().m_FacingLeft)
-	            {
-		            m_currentAimAngle = Mathf.Clamp(m_currentAimAngle, -180, 180);
-	            }
-	            else
-	            {
-		            m_currentAimAngle = Mathf.Clamp(m_currentAimAngle, -180, 180);
-	            }
-            }
 
             // Apply the calculated angle
             m_lookRotation = Quaternion.Euler(m_currentAimAngle * Vector3.forward);
@@ -175,17 +126,6 @@ public class WeaponAim : MonoBehaviour
             m_currentAimAngle = 0f;
             transform.rotation = m_initialRotation;
         }
-    }
-
-    private void MoveReticle()
-    {
-        m_reticle.transform.rotation = Quaternion.identity;
-        m_reticle.transform.position = m_reticlePosition;
-    }
-
-    public void DestroyReticle()
-    {
-        Destroy(m_reticle);
     }
 
     private void EnemyAim()
@@ -213,12 +153,6 @@ public class WeaponAim : MonoBehaviour
     public void SetAim(Vector2 newAim)
     {
         m_currentAim =  newAim;
-    }
-
-    private void InstantiateReticle()
-    {
-        if (m_reticlePrefab != null)
-            m_reticle = Instantiate(m_reticlePrefab);
     }
 
     private bool IsPlayer()

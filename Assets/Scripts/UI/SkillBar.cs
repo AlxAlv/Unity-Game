@@ -145,46 +145,44 @@ public class SkillBar : MonoBehaviour
 
     private Image GetSkillImage()
     {
-        bool RapidFire = Player.GetComponent<EntityWeapon>().RapidFire;
-
-        if (currentlySelectedGroup == 0)
+	    if (currentlySelectedGroup == 0)
         {
-            if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && RapidFire))
+            if (Input.GetMouseButtonDown(0))
                 return G1_L_Icon;
-            else if (Input.GetMouseButtonDown(1) || (Input.GetMouseButton(1) && RapidFire))
+            else if (Input.GetMouseButtonDown(1))
                 return G1_R_Icon;
         }
 
         if (currentlySelectedGroup == 1)
         {
-            if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && RapidFire))
+            if (Input.GetMouseButtonDown(0))
                 return G2_L_Icon;
-            else if (Input.GetMouseButtonDown(1) || (Input.GetMouseButton(1) && RapidFire))
+            else if (Input.GetMouseButtonDown(1))
                 return G2_R_Icon;
         }
 
         if (currentlySelectedGroup == 2)
         {
-            if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && RapidFire))
+            if (Input.GetMouseButtonDown(0))
                 return G3_L_Icon;
-            else if (Input.GetMouseButtonDown(1) || (Input.GetMouseButton(1) && RapidFire))
+            else if (Input.GetMouseButtonDown(1))
                 return G3_R_Icon;
         }
 
         if (currentlySelectedGroup == 3)
         {
-            if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && RapidFire))
+            if (Input.GetMouseButtonDown(0))
                 return G4_L_Icon;
-            else if (Input.GetMouseButtonDown(1) || (Input.GetMouseButton(1) && RapidFire))
+            else if (Input.GetMouseButtonDown(1))
                 return G4_R_Icon;
         }
 
 
         if (currentlySelectedGroup == 4)
         {
-            if (Input.GetMouseButtonDown(0) || (Input.GetMouseButton(0) && RapidFire))
+            if (Input.GetMouseButtonDown(0))
                 return G5_L_Icon;
-            else if (Input.GetMouseButtonDown(1) || (Input.GetMouseButton(1) && RapidFire))
+            else if (Input.GetMouseButtonDown(1))
                 return G5_R_Icon;
         }
 
@@ -240,10 +238,10 @@ public class SkillBar : MonoBehaviour
         WeaponType weaponType = _skillNameToType[iconPressed.sprite.name];
 
         bool isWeaponFound = false;
-        Weapon mainWeapon = _playerWeapons.MainWeapon;
-        Weapon primaryOff = _playerWeapons.CurrentOffHand;
-        Weapon secondaryWeapon = _playerWeapons.AlternateWeapon;
-        Weapon alternateOff = _playerWeapons.AlternateOffHand;
+        Weapon mainWeapon = _playerWeapons.CurrentWeapon;
+        Weapon primaryOff = _playerWeapons.CurrentOffHandWeapon;
+        Weapon secondaryWeapon = _playerWeapons.CurrentAlternateWeapon;
+        Weapon alternateOff = _playerWeapons.CurrentOffHandWeapon;
 
         bool primaryWeaponUsed = true;
         bool mainHandUsed = true;
@@ -269,10 +267,10 @@ public class SkillBar : MonoBehaviour
 
         if (isWeaponFound)
         {
-            if ((!primaryWeaponUsed && _playerWeapons.IsMainWeaponEquipped()) || (primaryWeaponUsed && !_playerWeapons.IsMainWeaponEquipped()))
+            if (!primaryWeaponUsed)
                 _playerWeapons.SwitchWeapons();
 
-            BaseSkill skillToUse = (SkillToUse(iconPressed.sprite.name, (mainHandUsed ? _playerWeapons.CurrentWeapon : _playerWeapons.CurrentOffHand)));
+            BaseSkill skillToUse = (SkillToUse(iconPressed.sprite.name, (mainHandUsed ? _playerWeapons.CurrentWeapon : _playerWeapons.CurrentOffHandWeapon)));
             _playerWeapons.CurrentWeapon.UseSkill(skillToUse);
 
             UIBounce.Instance.BounceUI(iconPressed.gameObject);

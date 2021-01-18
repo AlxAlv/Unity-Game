@@ -20,8 +20,6 @@ public class EnemyIceBolt : MagicSkill
 
         _resourceAmount = ResourceAmount;
         _resourceToUse = ResourceType;
-
-        SetProjectileGameObject(_projectilePrefabPath);
     }
 
     protected override void Execute()
@@ -29,7 +27,7 @@ public class EnemyIceBolt : MagicSkill
         base.Execute();
 
         _staffToUse.EvaluateProjectileSpawnPosition();
-        _staffToUse.SpawnProjectile(_staffToUse.ProjectileSpawnPosition, _pooler);
+        ShootProjectile(_staffToUse.ProjectileSpawnPosition);
     }
 
     protected override void UpdateDamage()

@@ -320,7 +320,7 @@ public class ArenaManager : Singleton<ArenaManager>
 	    Weapon weaponToUse = _possibleWeapons[Random.Range(0, (_possibleWeapons.Count - 1))];
 
 	    // Outfit The Enemy
-	    spawnedEnemy.GetComponent<EntityWeapon>().MainWeapon = weaponToUse;
+	    spawnedEnemy.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
 
 	    _spawnedEntities.Add(spawnedEnemy);
     }

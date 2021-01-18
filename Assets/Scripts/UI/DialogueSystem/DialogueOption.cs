@@ -87,7 +87,8 @@ public class DialogueOption : MonoBehaviour
 				break;
 
 			case ButtonActions.LowerLevel:
-				LevelManager.Instance.CurrentLevel--;
+				if (LevelManager.Instance.CurrentLevel > 1)
+					LevelManager.Instance.CurrentLevel--;
 				break;
 
 			case ButtonActions.CurrentLevel:

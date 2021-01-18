@@ -57,7 +57,8 @@ public class EntityFlip : EntityComponent
     {
         if (m_entityWeapon != null)
         {
-            float weaponAngle = _entityArm.m_armAim.m_currentAimAngleAbsolute;
+	        WeaponAim weaponAim = GetComponentInChildren<WeaponAim>();
+            float weaponAngle = weaponAim.m_currentAimAngleAbsolute;
 
             // TODO: ALX - Yo, fix this! The enemy sprites shouldn't need this correction!
             int normalize = 1;

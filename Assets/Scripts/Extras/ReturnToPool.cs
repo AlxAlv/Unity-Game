@@ -29,7 +29,7 @@ public class ReturnToPool : MonoBehaviour
 			_projectile.ResetProjectile();
 		}
 
-		gameObject.SetActive(false);
+		Destroy(gameObject);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

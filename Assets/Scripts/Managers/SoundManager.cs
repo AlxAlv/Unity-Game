@@ -177,12 +177,7 @@ public class SoundManager : Singleton<SoundManager>
     {
         foreach (Transform child in parent.transform)
         {
-	        if (!child.gameObject.activeSelf && isActive)
-	        {
-		        UIBarOpen.Instance.OpenUpBar(parent.gameObject);
-            }
-
-            child.gameObject.SetActive(isActive);
+	        child.gameObject.SetActive(isActive);
             SetChildrenToActive(child, isActive);
         }
     }

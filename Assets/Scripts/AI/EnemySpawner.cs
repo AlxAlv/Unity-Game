@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
             var objectCreated = SpawnEnemy(_enemyObject);
 
             Weapon weaponToUse = _possibleWeapons[Random.Range(0, (_possibleWeapons.Count -1))];
-            objectCreated.GetComponent<EntityWeapon>().MainWeapon = weaponToUse;
+            objectCreated.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
 
             _currentSpawns++;
         }

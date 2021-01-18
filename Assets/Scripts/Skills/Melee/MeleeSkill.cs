@@ -73,7 +73,6 @@ namespace Assets.Scripts.Skills.Melee
 				if (!String.IsNullOrEmpty(_meleeFxPath) && (_meleeFxPath.Length > 0))
 					SoundManager.Instance.Playsound(_meleeFxPath);
 
-				_weaponToUse.PlayAnimation();
 				SoundManager.Instance.Playsound(_soundPath);
 
 				_pendingAttack = false;

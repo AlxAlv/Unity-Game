@@ -27,8 +27,6 @@ public class ArrowRevolver : ArcherySkill
 
 		_resourceAmount = ResourceAmount;
 		_resourceToUse = Resource.Stamina;
-
-		SetProjectileGameObject(_projectilePrefabPath);
 	}
 
 	protected override void Awake()
@@ -64,9 +62,8 @@ public class ArrowRevolver : ArcherySkill
 			SoundManager.Instance.Playsound(_soundPath);
 			_currentNumOfArrows--;
 
-			_bowToUse.PlayAnimation();
 			_bowToUse.EvaluateProjectileSpawnPosition();
-			_bowToUse.SpawnProjectile(_bowToUse.ProjectileSpawnPosition, _pooler);
+			ShootProjectile(_bowToUse.ProjectileSpawnPosition);
 
 			if (_currentNumOfArrows == 0)
 			{

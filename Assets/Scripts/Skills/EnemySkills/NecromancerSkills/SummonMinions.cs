@@ -70,7 +70,7 @@ public class SummonMinions : NecromancerSkill
 			objectCreated.transform.localScale = scaleTmp;
 
 			// Give The Minion A Weapon
-			objectCreated.GetComponent<EntityWeapon>().MainWeapon = _necromancerWeaponToUse.MinionWeapon;
+			objectCreated.GetComponent<EntityWeapon>().EquipWeapon(_necromancerWeaponToUse.MinionWeapon);
 
 			// Set Target To Player
 			objectCreated.GetComponent<AIStateController>().Target = _entityTarget.CurrentTarget.transform;

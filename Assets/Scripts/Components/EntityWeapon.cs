@@ -4,20 +4,22 @@ using UnityEngine;
 public class EntityWeapon : EntityComponent
 {
     [Header("Weapon Settings")]
-    [SerializeField] public Weapon MainWeapon;
-    [SerializeField] public Weapon MainOffHand;
-    [SerializeField] public Weapon AlternateWeapon;
-    [SerializeField] public Weapon AlternateOffHand;
+    [SerializeField] private Weapon _mainWeaponToStart;
+    [SerializeField] private Weapon _mainOffHandToStart;
+    [SerializeField] private Weapon _alternateWeaponToStart;
+    [SerializeField] private Weapon _alternateOffHandToStart;
 
     [SerializeField] public List<Weapon> _ownedWeapons;
-    [SerializeField] public Transform m_weaponHolderPosition;
-    [SerializeField] public Transform _offHandHolderPosition;
-    [SerializeField] private GameObject _armObject;
-    [SerializeField] private GameObject _offArmObject;
 
     // Current Weapons
     public Weapon CurrentWeapon { get; set; }
-    public Weapon CurrentOffHand { get; set; }
+    public Weapon CurrentOffHandWeapon { get; set; }
+
+    // Prefabs
+    public Weapon CurrentWeaponPrefab;
+    public Weapon CurrentOffHandWeaponPrefab;
+    public Weapon CurrentAlternateWeapon { get; set; }
+    public Weapon CurrentAlternateOffHandWeapon { get; set; }
 
     // Current Alternate Info
     public WeaponInfo AlternateWeaponInfo;
@@ -26,25 +28,32 @@ public class EntityWeapon : EntityComponent
     public WeaponAim m_weaponAim { get; set; }
     public WeaponAim OffHandWeaponAim { get; set; }
 
-    public Transform WeaponHolderPosition => m_weaponHolderPosition;
-    public Transform OffHandHolderPosition => _offHandHolderPosition;
-
-    // Rapid Fire
-    public bool RapidFire = false;
-    private float _currentTimer = 0.0f;
-    private float _doubleClickWaitTime = 0.35f;
-
     protected override void Start()
     {
         base.Start();
 
-        EquipWeapon(MainWeapon, m_weaponHolderPosition);
-        AddWeaponToInventory(MainWeapon, CurrentWeapon.WeaponInfo.Damage, CurrentWeapon.WeaponInfo.Color);
-
-        if (MainOffHand != null)
+        if (_mainWeaponToStart != null)
         {
-            EquipOffhandWeapon(MainOffHand, _offHandHolderPosition);
-            AddWeaponToInventory(MainOffHand, CurrentOffHand.WeaponInfo.Damage, CurrentOffHand.WeaponInfo.Color);
+	        EquipWeapon(_mainWeaponToStart);
+	        AddWeaponToInventory(_mainWeaponToStart, CurrentWeapon.WeaponInfo.Damage, CurrentWeapon.WeaponInfo.Color);
+        }
+
+        if (_mainOffHandToStart != null)
+        {
+	        EquipOffhandWeapon(_mainOffHandToStart);
+            AddWeaponToInventory(_mainOffHandToStart, CurrentOffHandWeapon.WeaponInfo.Damage, CurrentOffHandWeapon.WeaponInfo.Color);
+        }
+
+        if (_alternateWeaponToStart != null)
+        {
+	        EquipAlternateWeapon(_alternateWeaponToStart);
+	        AddWeaponToInventory(_alternateWeaponToStart, AlternateWeaponInfo.Damage, AlternateWeaponInfo.Color);
+        }
+
+        if (_alternateOffHandToStart != null)
+        {
+	        EquipAlternateOffhandWeapon(_alternateOffHandToStart);
+	        AddWeaponToInventory(_alternateOffHandToStart, AlternateOffHandInfo.Damage, AlternateOffHandInfo.Color);
         }
     }
 
@@ -58,22 +67,20 @@ public class EntityWeapon : EntityComponent
     {
         if (m_entity.EntityType == Entity.EntityTypes.Player)
         {
-            UpdateRapidFire();
-
-            if ((Input.GetKeyDown(KeyCode.Tab)) && (AlternateWeapon != null))
+	        if ((Input.GetKeyDown(KeyCode.Tab)) && ((CurrentAlternateWeapon != null) || (CurrentAlternateOffHandWeapon != null)))
             {
                 SwitchWeapons();
             }
 
             if (IsTargettingSomething())
             {
-                if ((Input.GetMouseButtonDown(0) || RapidFire) && (!IsAnySkillLoaded() || !_entityStunGuage.Stunned))
+                if ((Input.GetMouseButtonDown(0)) && (!IsAnySkillLoaded() || !_entityStunGuage.Stunned))
                 {
                     // If a hotkey was pressed go for that otherwise do the normal main ability
                     if (!CurrentWeapon.SkillToUse.IsBase() && CurrentWeapon.SkillToUse.IsLoadingOrLoaded())
                         CurrentWeapon.SkillToUse.Trigger();
                 }
-                else if ((Input.GetMouseButtonDown(1) || RapidFire) && (!IsAnySkillLoaded() || !_entityStunGuage.Stunned))
+                else if ((Input.GetMouseButtonDown(1)) && (!IsAnySkillLoaded() || !_entityStunGuage.Stunned))
                 {
                     // Do we have an offhand weapon?
                     if (!CurrentWeapon.SkillToUse.IsBase() && CurrentWeapon.SkillToUse.IsLoadingOrLoaded())
@@ -87,51 +94,26 @@ public class EntityWeapon : EntityComponent
         }
     }
 
-    private void UpdateRapidFire()
-    {
-        //if ((Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)) && IsTargettingSomething())
-        //{
-        //    if (_currentTimer == 0.0f)
-        //    {
-        //        _currentTimer = Time.time + _doubleClickWaitTime;
-        //        Debug.Log("Rapid Fire - OFF - First Click");
-        //        RapidFire = false;
-        //    }
-        //    else if (Time.time < _currentTimer)
-        //    {
-        //        Debug.Log("Rapid Fire - ON");
-        //        RapidFire = true;
-        //    }
-        //}
-        //else if ((Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(0)) && RapidFire)
-        //{
-        //    RapidFire = false;
-        //    _currentTimer = 0.0f;
-        //    Debug.Log("Rapid Fire - OFF - Button Up");
-        //}
-        //else if (Time.time > _currentTimer)
-        //{
-        //    _currentTimer = 0.0f;
-        //}
-    }
-
-    public bool IsMainWeaponEquipped()
-    {
-        return (CurrentWeapon.WeaponName == MainWeapon.WeaponName);
-    }
-
     public void SwitchWeapons()
     {
         WeaponInfo tempInfo = CurrentWeapon.WeaponInfo;
         WeaponInfo tempInfoTwo = null;
-        bool currentOffHandExists = (CurrentOffHand != null);
+        bool currentOffHandExists = (CurrentOffHandWeapon != null);
 
         if (currentOffHandExists)
-            tempInfoTwo = CurrentOffHand.WeaponInfo;
+            tempInfoTwo = CurrentOffHandWeapon.WeaponInfo;
 
-        EquipWeapon(AlternateWeapon, m_weaponHolderPosition, AlternateWeaponInfo);
-        EquipOffhandWeapon(AlternateOffHand, _offHandHolderPosition, AlternateOffHandInfo);
-        SwapWeapons();
+        Weapon tempWeapon = CurrentWeaponPrefab;
+        Weapon tempWeapon2 = CurrentOffHandWeaponPrefab;
+
+        CurrentWeaponPrefab = CurrentAlternateWeapon;
+        CurrentOffHandWeaponPrefab = CurrentAlternateOffHandWeapon;
+
+        CurrentAlternateWeapon = tempWeapon;
+        CurrentAlternateOffHandWeapon = tempWeapon2;
+
+        EquipWeapon(CurrentWeaponPrefab, AlternateWeaponInfo);
+        EquipOffhandWeapon(CurrentOffHandWeaponPrefab, AlternateOffHandInfo);
 
         AlternateWeaponInfo = tempInfo;
 
@@ -144,71 +126,87 @@ public class EntityWeapon : EntityComponent
         base.Update();
     }
 
-    private void SwapWeapons()
+    public void EquipWeapon(Weapon weapon, WeaponInfo weaponInfo = null)
     {
-        Weapon temp = AlternateWeapon;
-        AlternateWeapon = MainWeapon;
-        MainWeapon = temp;
-
-        Weapon tempOff = AlternateOffHand;
-        AlternateOffHand = MainOffHand;
-        MainOffHand = tempOff;
-    }
-
-    public void EquipWeapon(Weapon weapon, Transform weaponPosition, WeaponInfo weaponInfo = null)
-    {
-        if (m_controller.CanSwitchWeapons())
+        if (GetComponent<EntityController>().CanSwitchWeapons())
         {
             DestroyMainHand();
 
-            CurrentWeapon = Instantiate(weapon, weaponPosition.position, weaponPosition.rotation);
-            CurrentWeapon.transform.parent = weaponPosition;
+            CurrentWeaponPrefab = weapon;
 
-            foreach (Transform child in _armObject.transform)
-            {
-                CurrentWeapon.transform.localScale = child.localScale;
-                CurrentWeapon.transform.localRotation = child.localRotation;
-            }
+            CurrentWeapon = Instantiate(weapon, transform.position, transform.rotation);
+            CurrentWeapon.transform.parent = transform;
 
             if (weaponInfo != null)
                 CurrentWeapon.SetWeaponInfo(weaponInfo);
-            CurrentWeapon.SetOwner(m_entity);
-            CurrentWeapon.SetArm(_armObject);
+
+            CurrentWeapon.SetOwner((m_entity == null ? GetComponent<Entity>() : m_entity));
             m_weaponAim = CurrentWeapon.GetComponent<WeaponAim>();
         }
 
         if (GetComponent<WeaponsHeld>())
-	        GetComponent<WeaponsHeld>().UpdateWeapons();
+	        GetComponent<WeaponsHeld>().UpdateWeapons(this);
     }
 
-    public void EquipOffhandWeapon(Weapon weapon, Transform weaponPosition, WeaponInfo weaponInfo = null)
+    public void EquipAlternateWeapon(Weapon weapon, WeaponInfo weaponInfo = null)
+    {
+	    if (GetComponent<EntityController>().CanSwitchWeapons())
+	    {
+		    CurrentAlternateWeapon = weapon;
+
+		    Weapon tempWeapon = Instantiate(weapon, transform.position, transform.rotation);
+
+		    AlternateWeaponInfo = new WeaponInfo(tempWeapon.WeaponInfo.Damage, (weaponInfo == null? tempWeapon.WeaponInfo.Color : weaponInfo.Color));
+
+		    Destroy(tempWeapon.gameObject);
+        }
+
+	    if (GetComponent<WeaponsHeld>())
+		    GetComponent<WeaponsHeld>().UpdateWeapons(this);
+    }
+
+    public void EquipAlternateOffhandWeapon(Weapon weapon, WeaponInfo weaponInfo = null)
+    {
+	    if (GetComponent<EntityController>().CanSwitchWeapons())
+	    {
+		    CurrentAlternateOffHandWeapon = weapon;
+
+		    Weapon tempWeapon = Instantiate(weapon, transform.position, transform.rotation);
+
+		    AlternateOffHandInfo = new WeaponInfo(tempWeapon.WeaponInfo.Damage, (weaponInfo == null ? tempWeapon.WeaponInfo.Color : weaponInfo.Color));
+
+            Destroy(tempWeapon.gameObject);
+        }
+    }
+
+    public void EquipOffhandWeapon(Weapon weapon, WeaponInfo weaponInfo = null)
     {
         if (m_controller.CanSwitchWeapons())
         {
+	        CurrentOffHandWeaponPrefab = weapon;
+
             DestroyOffHand();
 
             if (weapon == null)
-                return;
-
-            CurrentOffHand = Instantiate(weapon, weaponPosition.position, weaponPosition.rotation);
-            CurrentOffHand.transform.parent = weaponPosition;
-
-            foreach (Transform child in _offArmObject.transform)
             {
-                CurrentOffHand.transform.localScale = child.localScale;
-                CurrentOffHand.transform.localRotation = child.localRotation;
+	            if (GetComponent<WeaponsHeld>())
+		            GetComponent<WeaponsHeld>().UpdateWeapons(this);
+
+                return;
             }
 
-            CurrentOffHand.SetOwner(m_entity);
-            CurrentOffHand.SetArm(_offArmObject);
-            OffHandWeaponAim = CurrentOffHand.GetComponent<WeaponAim>();
+            CurrentOffHandWeapon = Instantiate(weapon, transform.position, transform.rotation);
+            CurrentOffHandWeapon.transform.parent = transform;
+
+            CurrentOffHandWeapon.SetOwner(m_entity);
+            OffHandWeaponAim = CurrentOffHandWeapon.GetComponent<WeaponAim>();
 
             if (weaponInfo != null)
-                CurrentOffHand.SetWeaponInfo(weaponInfo);
+	            CurrentOffHandWeapon.SetWeaponInfo(weaponInfo);
         }
 
         if (GetComponent<WeaponsHeld>())
-	        GetComponent<WeaponsHeld>().UpdateWeapons();
+	        GetComponent<WeaponsHeld>().UpdateWeapons(this);
     }
 
     public void CancelAllSkills()
@@ -220,9 +218,9 @@ public class EntityWeapon : EntityComponent
         }
 
         // Cancel the off hand skills
-        if (CurrentOffHand != null)
+        if (CurrentOffHandWeapon != null)
         {
-            CurrentOffHand.CancelSkills();
+	        CurrentOffHandWeapon.CancelSkills();
         }
     }
 
@@ -233,8 +231,8 @@ public class EntityWeapon : EntityComponent
         if (CurrentWeapon != null)
             isAnySkillLoading = (CurrentWeapon.SkillToUse.IsLoading());
 
-        if (CurrentOffHand != null)
-            isAnySkillLoading |= (CurrentOffHand.SkillToUse.IsLoading());
+        if (CurrentOffHandWeapon != null)
+            isAnySkillLoading |= (CurrentOffHandWeapon.SkillToUse.IsLoading());
 
         return isAnySkillLoading;
     }
@@ -246,8 +244,8 @@ public class EntityWeapon : EntityComponent
         if (CurrentWeapon != null)
             isAnySkillLoaded = (CurrentWeapon.SkillToUse.IsLoaded());
 
-        if (CurrentOffHand != null)
-            isAnySkillLoaded |= (CurrentOffHand.SkillToUse.IsLoaded());
+        if (CurrentOffHandWeapon != null)
+            isAnySkillLoaded |= (CurrentOffHandWeapon.SkillToUse.IsLoaded());
 
         if (m_entity.EntityType == Entity.EntityTypes.AI)
             isAnySkillLoaded |= (CurrentWeapon.CurrentEnemySkill.IsLoaded());
@@ -262,19 +260,19 @@ public class EntityWeapon : EntityComponent
         if (CurrentWeapon != null)
             isAnySkillLoading = (CurrentWeapon.SkillToUse.IsLoadingOrLoaded());
 
-        if (CurrentOffHand != null)
-            isAnySkillLoading |= (CurrentOffHand.SkillToUse.IsLoadingOrLoaded());
+        if (CurrentOffHandWeapon != null)
+            isAnySkillLoading |= (CurrentOffHandWeapon.SkillToUse.IsLoadingOrLoaded());
 
         return isAnySkillLoading;
     }
 
     private void DestroyOffHand()
     {
-        if (CurrentOffHand != null)
+        if (CurrentOffHandWeapon != null)
         {
-            CurrentOffHand.DeletePooledObjects();
-            Destroy(CurrentOffHand.gameObject);
-            OffHandWeaponAim.DestroyReticle();
+            Destroy(CurrentOffHandWeapon.gameObject);
+
+            CurrentOffHandWeapon = null;
         }
     }
 
@@ -282,18 +280,17 @@ public class EntityWeapon : EntityComponent
     {
         if (CurrentWeapon != null)
         {
-            m_weaponAim.DestroyReticle();
-            CurrentWeapon.DeletePooledObjects();
             Destroy(CurrentWeapon.gameObject);
+
+            CurrentWeapon = null;
         }
     }
 
     private void DestroyAllWeapons()
     {
-        AlternateWeapon = null;
-        AlternateOffHand = null;
-
-        CurrentOffHand = null;
+	    CurrentAlternateWeapon = null;
+        CurrentAlternateOffHandWeapon = null;
+        CurrentOffHandWeapon = null;
 
         _ownedWeapons.Clear();
     }
@@ -319,8 +316,8 @@ public class EntityWeapon : EntityComponent
         if (CurrentWeapon != null)
             isMeleeAndBusy = (CurrentWeapon.IsMeleeWeaponAndBusy());
 
-        if (CurrentOffHand != null)
-            isMeleeAndBusy |= (CurrentOffHand.IsMeleeWeaponAndBusy());
+        if (CurrentOffHandWeapon != null)
+            isMeleeAndBusy |= (CurrentOffHandWeapon.IsMeleeWeaponAndBusy());
 
         return isMeleeAndBusy;
     }
