@@ -389,11 +389,14 @@ public class BaseSkill : MonoBehaviour
 				LevelComponent levelComponent = collider.GetComponent<LevelComponent>();
 				Health targetHealth = collider.GetComponent<Health>();
 
+				// Critical Chance
+				bool isCriticalHit = (Random.Range(0, 101) < _weaponToUse.CriticalChance);
+
 				if (levelComponent)
-					levelComponent.TakeDamage(_damageAmount);
+					levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), false);
 				else if (targetHealth)
 				{
-					targetHealth.TakeDamage(_damageAmount, _skillName);
+					targetHealth.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), _skillName, isCriticalHit);
 					targetHealth.HitStun(_stunTime, _knockBackAmount, _entity.transform);
 					targetHealth.Attacker = _entity.gameObject;
 				}

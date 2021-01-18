@@ -25,17 +25,13 @@ public class LevelComponent : MonoBehaviour
 	{
 		if (other.CompareTag("Projectile"))
 		{
-			TakeDamage(other.GetComponent<Projectile>().DamageAmount);
-		}
-		else if (other.CompareTag("MeleeWeapon"))
-		{
-			TakeDamage(other.GetComponentInParent<MeleeWeapon>().SkillDamage);
+			TakeDamage(other.GetComponent<Projectile>().DamageAmount, false);
 		}
 	}
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, bool isCrit)
     {
-        _health.TakeDamage(damage, StaleMove.NonStaleMove);
+        _health.TakeDamage(damage, StaleMove.NonStaleMove, isCrit);
 
         if (_health.m_currentHealth > 0)
         {

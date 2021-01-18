@@ -16,28 +16,6 @@ public class MeleeWeapon : Weapon
 	{
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (collision.CompareTag("Player") && !_enemiesHit.Contains(collision.gameObject.GetInstanceID()))
-		{
-			_enemiesHit.Add(collision.gameObject.GetInstanceID());
-
-			collision.GetComponent<Health>().TakeDamage(SkillDamage, "MeleeAttack");
-			collision.GetComponent<Health>().HitStun(StunTime, KnockbackAmount, transform);
-		}
-	}
-
-	public void CollisionFromChild(Collider2D collision)
-	{
-		if (collision.CompareTag("Player") && !_enemiesHit.Contains(collision.gameObject.GetInstanceID()))
-		{
-			_enemiesHit.Add(collision.gameObject.GetInstanceID());
-
-			collision.GetComponent<Health>().TakeDamage(SkillDamage, "MeleeAttack");
-			collision.GetComponent<Health>().HitStun(StunTime, KnockbackAmount, transform);
-		}
-	}
-
 	protected override void RotateWeapon()
 	{
 		// Do not rotate a melee weapon

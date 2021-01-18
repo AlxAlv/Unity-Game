@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponReward : Collectables
 {
+	[SerializeField] private GameObject _weaponPrefab;
 	[SerializeField] private ItemData _itemWeaponData;
 	private Color _weaponColor;
 	private int _weaponMinDamage;
@@ -47,5 +48,11 @@ public class WeaponReward : Collectables
 		_skillHaste = skillHaste;
 		_prefixEnchant = prefixEnchant;
 		_suffixEnchant = suffixEnchant;
+	}
+
+	public void SetWeaponData()
+	{
+		_itemWeaponData.WeaponToEquip = _weaponPrefab.GetComponent<Weapon>();
+		_itemWeaponData.WeaponSprite = _weaponPrefab.GetComponent<Weapon>().WeaponRenderer.sprite;
 	}
 }

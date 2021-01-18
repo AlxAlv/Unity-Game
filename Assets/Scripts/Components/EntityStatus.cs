@@ -60,7 +60,7 @@ public class EntityStatus : EntityComponent
 			_poisonTickTimer = Time.time + _poisonTickDuration;
 
 			// Deal Damage
-			_health.TakeDamage(Mathf.Round(_health.m_maxHealth * _poisonPercentPerTick) , "PoisonStatus");
+			_health.TakeDamage(Mathf.Round(_health.m_maxHealth * _poisonPercentPerTick) , "PoisonStatus", false);
 			++_currentPoisonTick;
 
 			SoundManager.Instance.Playsound(_poisonSoundFxPath);
@@ -99,7 +99,7 @@ public class EntityStatus : EntityComponent
 			_burnTickTimer = Time.time + _burnTickDuration;
 
 			// Deal Damage
-			_health.TakeDamage(Mathf.Round(_burnDamagePerTick), "burnStatus");
+			_health.TakeDamage(Mathf.Round(_burnDamagePerTick), "BurnStatus", false);
 			++_currentBurnTick;
 
 			SoundManager.Instance.Playsound(_burnSoundFxPath);

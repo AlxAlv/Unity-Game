@@ -10,7 +10,7 @@ public class Damageable : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
-			other.GetComponent<Health>().TakeDamage(_damage, StaleMove.NonStaleMove);
+			other.GetComponent<Health>().TakeDamage(_damage, StaleMove.NonStaleMove, false);
 		}
 	}
 }

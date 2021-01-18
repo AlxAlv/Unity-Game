@@ -45,7 +45,7 @@ public class Health : MonoBehaviour
 	private GameObject _player;
 	private bool _maxHealthSet = false;
 
-	public void TakeDamage(float damage, string attackName)
+	public void TakeDamage(float damage, string attackName, bool isCriticalHit)
 	{
 		if (m_entity != null && m_entity.EntityType == Entity.EntityTypes.Player)
 		{
@@ -72,7 +72,16 @@ public class Health : MonoBehaviour
 			return;
 		}
 
-		DamageNumbers.Create(transform.position, (int)damage);
+		if (!isCriticalHit)
+			DamageNumbers.Create(transform.position, (int)damage);
+		else
+		{
+			// New Numbers
+			CriticalNumbers.Create(transform.position, (int)damage);
+
+			// Play Sound
+			SoundManager.Instance.Playsound("Audio/SoundEffects/CriticalHitFx");
+		}
 
 		m_currentHealth -= damage;
 		UpdateEntityHealth();
@@ -230,8 +239,6 @@ public class Health : MonoBehaviour
 			LevelManager.Instance.CurrentLevel = 1;
 
 			CoinManager.Instance.DeleteCoins();
-
-			gameObject.transform.position = _revivePosition.position;
 
 			UpdateEntityHealth();
 		}

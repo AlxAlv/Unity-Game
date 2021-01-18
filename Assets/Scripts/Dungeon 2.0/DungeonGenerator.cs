@@ -145,6 +145,8 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 			    GameObject newRoom = Instantiate(Rooms[rand], transform.position, Quaternion.identity);
 			    newRoom.transform.parent = DungeonObjects;
 
+				//Debug.Log("(RIGHT) Creating room " + newRoom.name + " at " + transform.position.x + "," + transform.position.y);
+
 			    SpawnExtras(newRoom);
 
 				_direction = Random.Range(1, 6);
@@ -170,7 +172,9 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 			    GameObject newRoom = Instantiate(Rooms[rand], transform.position, Quaternion.identity);
 			    newRoom.transform.parent = DungeonObjects;
 
-			    SpawnExtras(newRoom);
+			    //Debug.Log("(LEFT) Creating room " + newRoom.name + " at " + transform.position.x + "," + transform.position.y);
+
+				SpawnExtras(newRoom);
 
 				_direction = Random.Range(3, 5);
 		    }
@@ -191,10 +195,16 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 				{
 					roomDetection.GetComponent<RoomType>().RoomDestruction();
 
+
 					GameObject newBottomRoom = Instantiate(Rooms[3], transform.position, Quaternion.identity);
 					newBottomRoom.transform.parent = DungeonObjects;
 
+					//Debug.Log("(DOWN) Creating room to replace above room " + newBottomRoom.name + " at " + transform.position.x + "," + transform.position.y);
 					SpawnExtras(newBottomRoom);
+				}
+				else
+				{
+					//Debug.Log("(DOWN) Not creating a new room!");
 				}
 
 			    Vector2 newPos = new Vector2(transform.position.x, transform.position.y - YUnitsPerRoom);
@@ -203,8 +213,9 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 			    int rand = Random.Range(2, 4);
 			    GameObject newRoom = Instantiate(Rooms[rand], transform.position, Quaternion.identity);
 			    newRoom.transform.parent = DungeonObjects;
+			    //Debug.Log("(LEFT) Creating room " + newRoom.name + " at " + transform.position.x + "," + transform.position.y);
 
-			    SpawnExtras(newRoom);
+				SpawnExtras(newRoom);
 
 				_direction = Random.Range(1, 6);
 		    }

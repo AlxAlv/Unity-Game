@@ -87,12 +87,12 @@ namespace Assets.Scripts.Skills.Melee
 				if (levelComponent)
 				{
 					TriggerGameJuice();
-					levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount));
+					levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), isCriticalHit);
 				}
 				else if (targetHealth)
 				{
 					TriggerGameJuice();
-					targetHealth.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), _skillName);
+					targetHealth.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), _skillName, isCriticalHit);
 					targetHealth.HitStun(_stunTime, _knockBackAmount, _entity.transform);
 					targetHealth.Attacker = _entity.gameObject;
 				}

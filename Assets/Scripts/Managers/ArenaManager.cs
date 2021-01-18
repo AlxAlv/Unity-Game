@@ -262,7 +262,7 @@ public class ArenaManager : Singleton<ArenaManager>
 	    for (int i = 0; i < numberOfEnemiesThisRound; ++i)
 	    {
 		    GameObject bossToSpawn = _possibleBosses[Random.Range(0, (_possibleBosses.Count - 1))];
-		    Spawn(bossToSpawn);
+		    SpawnBoss(bossToSpawn);
 	    }
     }
 
@@ -314,7 +314,7 @@ public class ArenaManager : Singleton<ArenaManager>
 	}
 
     // Spawn An Enemy Into The List
-    private void Spawn(GameObject enemyToSpawn)
+	private void Spawn(GameObject enemyToSpawn)
     {
 	    GameObject spawnedEnemy = _enemySpawners[Random.Range(0, (_enemySpawners.Count - 1))].SpawnEnemy(enemyToSpawn);
 	    Weapon weaponToUse = _possibleWeapons[Random.Range(0, (_possibleWeapons.Count - 1))];
@@ -325,7 +325,21 @@ public class ArenaManager : Singleton<ArenaManager>
 	    _spawnedEntities.Add(spawnedEnemy);
     }
 
-    private void SpawnEnemyWithoutWeapon(GameObject enemyToSpawn)
+	// Spawn An Enemy Into The List
+	private void SpawnBoss(GameObject enemyToSpawn)
+	{
+		GameObject spawnedEnemy = _enemySpawners[Random.Range(0, (_enemySpawners.Count - 1))].SpawnEnemy(enemyToSpawn);
+		Weapon weaponToUse = _possibleWeapons[Random.Range(0, (_possibleWeapons.Count - 1))];
+
+		_enemySpawners[Random.Range(0, (_enemySpawners.Count - 1))].UpdateLevel(spawnedEnemy, (LevelManager.Instance.CurrentLevel + 5));
+
+		// Outfit The Enemy
+		spawnedEnemy.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
+
+		_spawnedEntities.Add(spawnedEnemy);
+	}
+
+	private void SpawnEnemyWithoutWeapon(GameObject enemyToSpawn)
     {
 	    GameObject spawnedEnemy = _enemySpawners[Random.Range(0, (_enemySpawners.Count - 1))].SpawnEnemy(enemyToSpawn);
 	    _spawnedEntities.Add(spawnedEnemy);

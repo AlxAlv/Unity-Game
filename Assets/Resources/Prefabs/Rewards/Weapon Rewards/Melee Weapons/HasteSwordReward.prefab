@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6044875547504689625}
   - component: {fileID: 4450668859589346142}
   - component: {fileID: 1190027241272534950}
-  - component: {fileID: 8857277415181460551}
+  - component: {fileID: 7965364474379929765}
   m_Layer: 0
-  m_Name: BowReward
+  m_Name: HasteSwordReward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4413614124650609544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.496, y: -0.51, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: -1215859673
   m_SortingLayer: -3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6758602254179717086, guid: c6114980672fc724d82e79e918bd4b03,
+  m_Sprite: {fileID: 7569684938147083892, guid: c6114980672fc724d82e79e918bd4b03,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -124,14 +124,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.4375, y: 1.4375}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1.6875, y: 1.9375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4375, y: 1.4375}
+  m_Size: {x: 1.25, y: 1.25}
   m_EdgeRadius: 0
 --- !u!114 &1190027241272534950
 MonoBehaviour:
@@ -147,8 +147,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canDestroyItem: 1
   _rotationSpeed: 160
-  _itemWeaponData: {fileID: 11400000, guid: ae6e1dfc3046adf4a9864c1101c59d3b, type: 2}
---- !u!114 &8857277415181460551
+  _weaponPrefab: {fileID: 8555536094219363603, guid: 1e9d18191f8b5c34a8e66dfa9eeb92d2,
+    type: 3}
+  _itemWeaponData: {fileID: 11400000, guid: cbf83cd7fde4621498560469bd71bf20, type: 2}
+--- !u!114 &7965364474379929765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6044875547504689625}
   - component: {fileID: 4450668859589346142}
   - component: {fileID: 1190027241272534950}
-  - component: {fileID: 7965364474379929765}
+  - component: {fileID: 8221018244133732279}
   m_Layer: 0
-  m_Name: SwordReward
+  m_Name: HasteStaffReward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: -1215859673
   m_SortingLayer: -3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -761887118410055393, guid: c6114980672fc724d82e79e918bd4b03,
+  m_Sprite: {fileID: -581583225694507638, guid: c6114980672fc724d82e79e918bd4b03,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.625, y: 1.625}
+    oldSize: {x: 1.75, y: 1.75}
     newSize: {x: 1.6875, y: 1.9375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -147,8 +147,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canDestroyItem: 1
   _rotationSpeed: 160
-  _itemWeaponData: {fileID: 11400000, guid: cbf83cd7fde4621498560469bd71bf20, type: 2}
---- !u!114 &7965364474379929765
+  _weaponPrefab: {fileID: 603067404714083853, guid: 46119086202c6dd449c8208294b5f61f,
+    type: 3}
+  _itemWeaponData: {fileID: 11400000, guid: 3d5111145953ae4419c00b958e62dc15, type: 2}
+--- !u!114 &8221018244133732279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

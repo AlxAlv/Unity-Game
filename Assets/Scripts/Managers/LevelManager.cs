@@ -24,6 +24,15 @@ public class LevelManager : Singleton<LevelManager>
         if (m_entity.GetComponent<Health>().m_currentHealth <= 0)
         {
             m_entity.GetComponent<Health>().Revive();
+
+            StartCoroutine(MovePlayer());
         }
+    }
+
+    IEnumerator MovePlayer()
+    {
+	    yield return new WaitForSeconds(1.0f);
+
+        m_entity.transform.position = m_spawnPosition.position;
     }
 }

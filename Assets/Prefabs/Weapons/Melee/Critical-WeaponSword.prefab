@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -4357869931625311189}
   - component: {fileID: 6259367331018694881}
   m_Layer: 0
-  m_Name: WeaponSword
+  m_Name: Critical-WeaponSword
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -46,14 +46,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d023a97450937f845b111121bf72885e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponName: Sword
-  _weaponSprite: {fileID: 0}
+  _weaponName: Lucky Sword
+  _weaponSprite: {fileID: -8951780388439148649, guid: c6114980672fc724d82e79e918bd4b03,
+    type: 3}
   WeaponRenderer: {fileID: 8555536094386873179}
   _singleHanded: 0
   _minDamage: 0
   _maxDamage: 1
   _criticalChance: 10
   _skillHaste: 0
+  _prefixEnchant: 
+  _suffixEnchant: 
   _weaponPs: {fileID: 3439268955794855410, guid: 43e03411bab000c4fa312b11a45ae4a5,
     type: 3}
   m_projectileSpawnPosition: {x: 0, y: 0, z: 0}
@@ -159,7 +162,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -761887118410055393, guid: c6114980672fc724d82e79e918bd4b03,
+  m_Sprite: {fileID: -8951780388439148649, guid: c6114980672fc724d82e79e918bd4b03,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

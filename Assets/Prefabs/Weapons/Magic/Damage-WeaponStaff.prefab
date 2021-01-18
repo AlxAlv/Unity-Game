@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1015165504910896697}
   - component: {fileID: 3846449554356708}
   - component: {fileID: 1972936047336735082}
-  - component: {fileID: -8459372455048898547}
   - component: {fileID: 4965507072476818801}
+  - component: {fileID: -8380632877213163208}
   m_Layer: 0
-  m_Name: WeaponBow
+  m_Name: Damage-WeaponStaff
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -60,31 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4686b71a3dd4dc43b537feb02ca8992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-8459372455048898547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603067404714083853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb12d04d16244a44ea06486e5105dc2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weaponName: Wooden Bow
-  _weaponSprite: {fileID: -6758602254179717086, guid: c6114980672fc724d82e79e918bd4b03,
-    type: 3}
-  WeaponRenderer: {fileID: 3117429862421724225}
-  _singleHanded: 0
-  _minDamage: 0
-  _maxDamage: 1
-  _criticalChance: 25
-  _weaponPs: {fileID: 3439268955794855410, guid: 43e03411bab000c4fa312b11a45ae4a5,
-    type: 3}
-  m_projectileSpawnPosition: {x: -0.45, y: 0.012, z: 0}
-  m_projectileSpread: {x: 0, y: 0, z: 0}
-  _skillToUse: {fileID: 0}
 --- !u!95 &4965507072476818801
 Animator:
   serializedVersion: 3
@@ -104,6 +79,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8380632877213163208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603067404714083853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd0d33aebf2bea4f9ff03d9dd6ef9ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponName: Powerful Staff
+  _weaponSprite: {fileID: 628374313397523152, guid: c6114980672fc724d82e79e918bd4b03,
+    type: 3}
+  WeaponRenderer: {fileID: 3117429862421724225}
+  _singleHanded: 0
+  _minDamage: 0
+  _maxDamage: 1
+  _criticalChance: 10
+  _skillHaste: 5
+  _prefixEnchant: 
+  _suffixEnchant: 
+  _weaponPs: {fileID: 3439268955794855410, guid: 43e03411bab000c4fa312b11a45ae4a5,
+    type: 3}
+  m_projectileSpawnPosition: {x: -0.42, y: 0, z: 0}
+  m_projectileSpread: {x: 0, y: 0, z: 0}
+  _skillToUse: {fileID: 0}
 --- !u!1 &1218152565376809650
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,13 +131,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218152565376809650}
-  m_LocalRotation: {x: -0, y: -0, z: -0.003976353, w: -0.99999213}
-  m_LocalPosition: {x: -0.32, y: 0, z: 3.3613281}
+  m_LocalRotation: {x: 0, y: -0, z: 0.3826836, w: -0.92387944}
+  m_LocalPosition: {x: -0.32, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1015165504910896697}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 360.456}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 315}
 --- !u!212 &3117429862421724225
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -174,8 +177,7 @@ SpriteRenderer:
   m_SortingLayerID: 800954485
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6758602254179717086, guid: c6114980672fc724d82e79e918bd4b03,
-    type: 3}
+  m_Sprite: {fileID: 628374313397523152, guid: c6114980672fc724d82e79e918bd4b03, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

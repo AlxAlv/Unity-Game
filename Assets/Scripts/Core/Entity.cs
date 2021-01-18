@@ -35,8 +35,8 @@ public class Entity : MonoBehaviour
 
     }
 
-    private void TakeDamage(int damage, string attackName = StaleMove.NonStaleMove)
+    private void TakeDamage(int damage, string attackName, bool isCriticalHit)
     {
-        GetComponent<Health>().TakeDamage(damage, attackName);
+        GetComponent<Health>().TakeDamage(damage, attackName, isCriticalHit);
     }
 }

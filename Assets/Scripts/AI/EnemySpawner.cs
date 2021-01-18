@@ -46,6 +46,14 @@ public class EnemySpawner : MonoBehaviour
         enemy.GetComponent<Exp>().ExpToGive *= LevelManager.Instance.CurrentLevel;
     }
 
+    public void UpdateLevel(GameObject enemy, int level)
+    {
+	    enemy.GetComponent<StatManager>().SetLevel(level);
+	    enemy.GetComponent<Health>().CalculateMaxHealth();
+	    enemy.GetComponent<Health>().RefillHealth();
+	    enemy.GetComponent<Exp>()._currentLevel = level;
+    }
+
     public GameObject SpawnEnemy(GameObject enemyToSpawn)
     {
         Vector2 whereToSpawn;
