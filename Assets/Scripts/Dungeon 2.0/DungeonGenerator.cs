@@ -113,7 +113,7 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 		    _timeBetweenRoom -= Time.deltaTime;
 	    }
 
-	    if (Input.GetKeyDown(KeyCode.B) && _finalRoom != null)
+	    if (Input.GetKeyDown(KeyCode.B) && _finalRoom != null && Application.isEditor)
 	    {
 		    PlayerTransform.position = _finalRoom;
 	    }
@@ -265,6 +265,8 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 	    DialogManager.Instance.InstantSystemMessage("1...");
 	    yield return new WaitForSeconds(1);
 
+	    // Move The Player And Start The Dungeon Run
+	    FindPositionForPlayer();
 		StartDungeon();
     }
 

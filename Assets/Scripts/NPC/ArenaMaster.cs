@@ -39,14 +39,24 @@ public class ArenaMaster : MonoBehaviour
 
         message1.Name = name;
         message1.Emotion = Dialogue.Emotions.Happy;
-        message1.Sentence = "That's what I like to hear!\nOnward, into the fray!\nComplete all the objectives for a reward!";
+        message1.Sentence = "That's what I like to hear!\nWhat level monsters do you wish to face off with?";
 
-        DialogueButton button1_2 = new DialogueButton("Alright!", 2, ButtonType.Action);
-        button1_2.ButtonAction = DialogueOption.ButtonActions.StartArena;
+        DialogueButton button1_1 = new DialogueButton("Lower!", 2, ButtonType.Action);
+        button1_1.ButtonAction = DialogueOption.ButtonActions.LowerLevel;
 
-        DialogueButton button1_1 = new DialogueButton("Actually, nevermind...", 1, ButtonType.End);
-        dialogueButtons1.Add(button1_2);
+        DialogueButton button1_2 = new DialogueButton(LevelManager.Instance.CurrentLevel.ToString(), 2, ButtonType.Action);
+        button1_2.ButtonAction = DialogueOption.ButtonActions.CurrentLevel;
+
+        DialogueButton button1_3 = new DialogueButton("Higher!", 2, ButtonType.Action);
+        button1_3.ButtonAction = DialogueOption.ButtonActions.RaiseLevel;
+
+        DialogueButton button1_4 = new DialogueButton("Perfect!", 2, ButtonType.Action);
+        button1_4.ButtonAction = DialogueOption.ButtonActions.StartArena;
+
         dialogueButtons1.Add(button1_1);
+        dialogueButtons1.Add(button1_2);
+        dialogueButtons1.Add(button1_3);
+        dialogueButtons1.Add(button1_4);
 
         message1.Buttons = dialogueButtons1;
 

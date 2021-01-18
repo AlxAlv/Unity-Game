@@ -11,12 +11,34 @@ public class UIBounce : Singleton<UIBounce>
 	private float _timeToJump = 0.10f;
 	private float _distanceToBeJump = 15.0f;
 
+	private Vector3 _originalBossHealthPosition;
+	private Coroutine _bossCoroutine;
+
 	public void BounceUI(GameObject UIObject, float distanceToJump = 10.0f, float timeToJump = 0.08f)
 	{
 		_distanceToBeJump = distanceToJump;
 		_timeToJump = timeToJump;
 
 		StartCoroutine(Bounce(UIObject));
+	}
+
+	public void SetOriginalBossPosition(Vector3 position)
+	{
+		_originalBossHealthPosition = position;
+	}
+
+	public void BounceBossUI(GameObject UIObject, float distanceToJump = 10.0f, float timeToJump = 0.08f)
+	{
+		_distanceToBeJump = distanceToJump;
+		_timeToJump = timeToJump;
+
+		if (_bossCoroutine != null)
+		{
+			StopCoroutine(_bossCoroutine);
+			UIObject.transform.localPosition = _originalBossHealthPosition;
+		}
+
+		_bossCoroutine = StartCoroutine(Bounce(UIObject));
 	}
 
 	IEnumerator Bounce(GameObject UIObject)

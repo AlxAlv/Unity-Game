@@ -20,6 +20,8 @@ public class SoundManager : Singleton<SoundManager>
     private bool _isInDungeon = false;
     private bool _isFightingDungeonMaster = false;
 
+    public bool IsInCombat => _isInCombat;
+
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -175,6 +177,11 @@ public class SoundManager : Singleton<SoundManager>
     {
         foreach (Transform child in parent.transform)
         {
+	        if (!child.gameObject.activeSelf && isActive)
+	        {
+		        UIBarOpen.Instance.OpenUpBar(parent.gameObject);
+            }
+
             child.gameObject.SetActive(isActive);
             SetChildrenToActive(child, isActive);
         }

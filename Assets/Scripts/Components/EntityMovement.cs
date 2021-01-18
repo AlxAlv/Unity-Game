@@ -195,7 +195,7 @@ public class EntityMovement : EntityComponent
 
             if (((!_entityTarget.IsTargettingEnemy() || _entityTarget.CurrentTarget == null) && !_enemyTargeted) || (Input.GetKeyDown(KeyCode.LeftShift)))
             {
-                if (Input.GetMouseButton(0) && _canMove && !RaycastHelper.Instance.IsPlayerUnderCursor())
+                if (Input.GetMouseButton(0) && _canMove && !RaycastHelper.Instance.IsPlayerUnderCursor() && (!DialogueManager.Instance.Animator.GetBool("IsOpen")))
                 {
                     SetMouseDestination();
                     HideCursorHelper.Instance.MovementFlag = false;

@@ -246,7 +246,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd9d79c89d69d94fb5ecb75ad6f51c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isContinueButton: 1
+  Text: {fileID: 5073585008915633581}
+  buttonAction: 0
+  buttonType: 0
+  nextIndex: 0
 --- !u!114 &5073585009527219190
 MonoBehaviour:
   m_ObjectHideFlags: 0

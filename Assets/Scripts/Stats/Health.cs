@@ -56,10 +56,10 @@ public class Health : MonoBehaviour
 		if (m_entity != null && (m_entity.EntityType == Entity.EntityTypes.AI ||
 		                         m_entity.EntityType == Entity.EntityTypes.Player))
 		{
-			if (m_entity.EntityType == Entity.EntityTypes.Player)
-			{
-				Debug.Log("Taking damage from " + attackName + " for dmg = " + damage + " * stun of " + StunDamageModifier + " * dodge of " + DodgeDamageModifier + " * shield of " + ShieldModifier);
-			}
+			if (GetComponent<EntitySounds>())
+				GetComponent<EntitySounds>().PlayHitSound();
+
+			BossHealthBar.Instance.Bounce();
 
 			damage = (damage * StunDamageModifier * DodgeDamageModifier * ShieldModifier);
 		}
@@ -79,6 +79,9 @@ public class Health : MonoBehaviour
 
 		if (m_currentHealth <= 0)
 		{
+			if (GetComponent<EntitySounds>())
+				GetComponent<EntitySounds>().PlayDeathSound();
+
 			Die();
 		}
 	}
@@ -223,6 +226,8 @@ public class Health : MonoBehaviour
 
 			stunGuage.ResetGauges();
 			stunGuage.RemoveKnockbackGuage();
+
+			LevelManager.Instance.CurrentLevel = 1;
 
 			CoinManager.Instance.DeleteCoins();
 

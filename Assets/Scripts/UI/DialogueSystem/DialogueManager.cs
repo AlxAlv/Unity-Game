@@ -29,7 +29,10 @@ public class DialogueManager : Singleton<DialogueManager>
 	};
 
 	public void StartDialogue(Dictionary<int, Dialogue> dialogueDictionary)
-    {
+	{
+		if (Animator.GetBool("IsOpen"))
+			return;
+
 	    Animator.SetBool("IsOpen", true);
 
 	    _currentDialogueDictionary = dialogueDictionary;

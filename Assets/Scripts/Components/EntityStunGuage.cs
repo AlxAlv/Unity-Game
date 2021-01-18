@@ -220,7 +220,11 @@ public class EntityStunGuage : EntityComponent
             _currentKnockbackDuration = _defaultKnockbackTimer;
             _currentKnockbackTimer = 0.0f;
 
-            SoundManager.Instance.Playsound("Audio/SoundEffects/KnockbackFx");
+            if (GetComponent<EntitySounds>())
+	            GetComponent<EntitySounds>().PlayKnockbackSound();
+            else
+				SoundManager.Instance.Playsound("Audio/SoundEffects/KnockbackFx");
+
             KnockedBack = true;
 
             GetComponent<Health>().StunDamageModifier = 2.0f;

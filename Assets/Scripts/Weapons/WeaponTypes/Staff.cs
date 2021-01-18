@@ -25,7 +25,7 @@ public class Staff : Weapon
     {
         if (owner.EntityType == Entity.EntityTypes.AI)
         {
-            EnemySkill.Add(new EnemyIceBolt(this));
+            EnemySkill.Add(new IceBolt(this));
             EnemySkill.Add(new EnemyFireBolt(this));
             EnemySkill.Add(new LightningBolt(this));
 

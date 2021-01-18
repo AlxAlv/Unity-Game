@@ -95,7 +95,7 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DialogManager.Instance.AddSystemMessage("Press [H] For Help");
+        
     }
 
     // Update is called once per frame
@@ -117,10 +117,10 @@ public class TutorialManager : MonoBehaviour
 
     void HandleHelpText()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            DialogManager.Instance.AddSystemMessage("Controls\n---------------------\nHold [S] To Target Enemy]\n[A] [D] To Change Skills\n[F] Interact With Dungeon Entry\n[Mouse Buttons] Move And Attack\n[L-SHIFT] Shield And Let Go To DodgeRoll");
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    DialogManager.Instance.AddSystemMessage("Controls\n---------------------\nHold [S] To Target Enemy]\n[A] [D] To Change Skills\n[F] Interact With Dungeon Entry\n[Mouse Buttons] Move And Attack\n[L-SHIFT] Shield And Let Go To DodgeRoll");
+        //}
     }
 
     void HandleKeyPress()

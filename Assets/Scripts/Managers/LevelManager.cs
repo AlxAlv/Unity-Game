@@ -8,6 +8,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private Entity m_entity;
 
     public int CurrentLevel = 1;
+    public int LevelBeforeArena = 1;
 
     // Update is called once per frame
     private void Update()

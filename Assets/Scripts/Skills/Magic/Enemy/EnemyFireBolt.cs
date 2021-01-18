@@ -22,6 +22,11 @@ public class EnemyFireBolt : MagicSkill
         _resourceAmount = ResourceAmount;
         _resourceToUse = ResourceType;
 
+        /* This Is A Status Projectile Being Shot */
+        _isStatusProjectile = true;
+        _numberOfTicks = 5;
+        _timePerTick = 0.5f;
+
         SetProjectileGameObject(_projectilePrefabPath);
     }
 

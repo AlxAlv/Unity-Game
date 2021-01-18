@@ -21,15 +21,14 @@ public class EquipsVendor : MonoBehaviour
 
         message0.Emotion = Dialogue.Emotions.Happy;
         message0.Name = name;
-        //message0.Sentence = "How's it going?\nI've got some nifty equips for sale.\nCare to look?";
-        message0.Sentence = "Shop coming soon...";
+        message0.Sentence = "How's it going?\nI've got some nifty equips for sale.\nCare to look?";
 
-        DialogueButton button0_0 = new DialogueButton("Lame.", 1, ButtonType.Action);
+        DialogueButton button0_0 = new DialogueButton("Of course!", 1, ButtonType.Action);
         button0_0.ButtonAction = DialogueOption.ButtonActions.OpenEquipsVendor;
         dialogueButtons0.Add(button0_0);
 
-        //DialogueButton button0_1 = new DialogueButton("No thanks.", 1, ButtonType.End);
-        //dialogueButtons0.Add(button0_1);
+        DialogueButton button0_1 = new DialogueButton("No thanks.", 1, ButtonType.End);
+        dialogueButtons0.Add(button0_1);
 
         message0.Buttons = dialogueButtons0;
 

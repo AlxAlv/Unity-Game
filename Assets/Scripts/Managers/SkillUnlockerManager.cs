@@ -14,7 +14,7 @@ public class SkillUnlockerManager : Singleton<SkillUnlockerManager>
 
     private void Update()
     {
-	    if (Input.GetKeyDown(KeyCode.Numlock))
+	    if (Input.GetKeyDown(KeyCode.Numlock) && Application.isEditor)
 	    {
 		    _poisonArrowUnlocker.IsUnlocked = true;
 		    _chargedShotUnlocker.IsUnlocked = true;

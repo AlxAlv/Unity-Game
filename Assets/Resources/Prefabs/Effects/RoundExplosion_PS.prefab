@@ -1191,7 +1191,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3
@@ -1530,8 +1530,8 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
-    tilesX: 10
-    tilesY: 8
+    tilesX: 29
+    tilesY: 1
     animationType: 0
     rowIndex: 0
     cycles: 1
@@ -4767,7 +4767,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5c4435209ac17cf439781144005dc7d5, type: 2}
+  - {fileID: 2100000, guid: 55cc7d8e7748dd5478d5f25bb43fc150, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4787,7 +4787,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2123880471
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0

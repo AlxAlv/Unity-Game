@@ -14,6 +14,9 @@ public class EnclosedRoom : MonoBehaviour
 	private List<GameObject> _spawnedEntities;
 	private bool _isStarted = false;
 
+	private int _currentRoom = 1;
+	private int _totalRooms = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +30,21 @@ public class EnclosedRoom : MonoBehaviour
 	    // Check for dead entities
 	    _spawnedEntities.RemoveAll(item => item == null);
 
-		if (_isStarted && _spawnedEntities.Count == 0)
+		if (_isStarted)
 	    {
-			Destroy(gameObject);
+		    if (_spawnedEntities.Count == 0)
+		    {
+			    _currentRoom++;
+
+				if (_currentRoom <= _totalRooms)
+					StartWave();
+			}
+
+			if (_currentRoom > _totalRooms)
+			{
+				SoundManager.Instance.Playsound("Audio/SoundEffects/OpeningRoom");
+				Destroy(gameObject);
+			}
 	    }
     }
 
@@ -40,16 +55,22 @@ public class EnclosedRoom : MonoBehaviour
 		    _walls.gameObject.SetActive(true);
 		    _enemySpawner.gameObject.SetActive(true);
 
-			DialogManager.Instance.InstantSystemMessage("Ambushed!\nFight your way out of the room!");
-		    _isStarted = true;
+			DialogManager.Instance.InstantSystemMessage("Ambushed!\nDefeat " + _totalRooms + " Waves Of Enemies!");
+			SoundManager.Instance.Playsound("Audio/SoundEffects/ClosingRoom");
+			_isStarted = true;
 
-			for (int i = 0; i < Random.Range(2,4); ++i)
-				SpawnEnemy();
+			StartWave();
 
 			// Recalculate all graphs
 			AstarPath.active.Scan();
 		}
     }
+
+    private void StartWave()
+    {
+	    for (int i = 0; i < Random.Range(2, 4); ++i)
+		    SpawnEnemy();
+	}
 
     private void SpawnEnemy()
     {

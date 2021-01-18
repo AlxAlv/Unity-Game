@@ -14,7 +14,7 @@ public class ArenaManager : Singleton<ArenaManager>
 	private const int MAX_NUM_OF_NECROMANCERS = 1;
 	private const float CLEAR_THE_ROOM_TIME = 60.0f;
 	private const float NECROMANCER_TIME = 90.0f;
-	private const int COINS_PER_ROUND = 50;
+	private const int COINS_PER_ROUND = (20);
 
 
 	enum Objectives
@@ -274,8 +274,11 @@ public class ArenaManager : Singleton<ArenaManager>
     // Clear out the arena and send the player back
     private void EndArena()
     {
-		if (_isDungeonStarted)
-			DungeonGenerator.Instance.EraseDungeon();
+	    if (_isDungeonStarted)
+	    {
+		    DungeonGenerator.Instance.EraseDungeon();
+		    LevelManager.Instance.CurrentLevel++;
+	    }
 
 	    _isArenaStarted = false;
 	    _isDungeonStarted = false;
@@ -286,7 +289,9 @@ public class ArenaManager : Singleton<ArenaManager>
 		CameraFilter.Instance.BlackScreenFade();
 
 	    AwardPrize();
-    }
+
+	    LevelManager.Instance.CurrentLevel = LevelManager.Instance.LevelBeforeArena;
+	}
 
     public void PlayerDied()
     {
@@ -301,7 +306,7 @@ public class ArenaManager : Singleton<ArenaManager>
 
     private void AwardPrize()
     {
-	    int coinsWon = (COINS_PER_ROUND * NUM_OF_ROUNDS);
+	    int coinsWon = ((COINS_PER_ROUND * NUM_OF_ROUNDS) * LevelManager.Instance.CurrentLevel);
 
 		CoinManager.Instance.AddCoins(coinsWon);
 	    GoldNumbers.Create(_player.transform.position, (int)coinsWon);
@@ -359,6 +364,7 @@ public class ArenaManager : Singleton<ArenaManager>
 		{
 			GameObject bossToSpawn = _possibleDungeonMasters[Random.Range(0, (_possibleDungeonMasters.Count - 1))];
 			Spawn(bossToSpawn);
+			BossHealthBar.Instance.SetBossObject(_spawnedEntities[0]);
 		}
 
 		_player.transform.position = transform.position;

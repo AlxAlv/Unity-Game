@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 5192455206096083167}
   - component: {fileID: 5192455206096083166}
   - component: {fileID: 5192455206096083165}
+  - component: {fileID: 2135362320041638291}
   - component: {fileID: 5192455206096083164}
   - component: {fileID: 5192455206096083163}
   - component: {fileID: 5192455206096083162}
@@ -147,6 +148,8 @@ GameObject:
   - component: {fileID: 5192455205377774977}
   - component: {fileID: 3163642166533159252}
   - component: {fileID: 9098165480830083987}
+  - component: {fileID: 5447937182206757030}
+  - component: {fileID: 6891958897444092711}
   m_Layer: 11
   m_Name: Cyrus - Boss
   m_TagString: Player
@@ -243,6 +246,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.3}
   m_EdgeRadius: 0
+--- !u!114 &2135362320041638291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192455206096082979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c92a0e98193e149bfff60e39ab7421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 5192455206658842703}
+  _floatingWeaponObject: {fileID: 5489824912820428394, guid: efd0c84b8a54d354aaf4d2380e373531,
+    type: 3}
 --- !u!114 &5192455206096083164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,7 +431,7 @@ MonoBehaviour:
   _intPerLevel: 4
   _dexPerLevel: 4
   _strPerLevel: 4
-  HealthPerLevel: 25
+  HealthPerLevel: 50
 --- !u!114 &5192455206096083153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,6 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExpToGive: 200
+  _currentLevel: 1
 --- !u!114 &8677792929656929707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,7 +668,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -991823193
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -721,6 +740,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeafd52c0cda08642b3d0490a6999f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5447937182206757030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192455206096082979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d96d4c93fd7464e950da1ba07d49cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bottomOfSpritePosition: {fileID: 1078090802201606235}
+  _spawnParticles: {fileID: 7824725841788654990, guid: 6bd72fe4a244b774f9c9a695890424e9,
+    type: 3}
+  _renderer: {fileID: 5192455206658842703}
+  _spawnSoundString: Audio/SoundEffects/SpawnFx
+--- !u!114 &6891958897444092711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192455206096082979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846d4df4de78a7c4ea8359e009471e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyHitSoundPath: Audio/SoundEffects/HugeEnemyHurt
+  EnemyDeathSoundPath: Audio/SoundEffects/HugeEnemyDeath
+  EnemyPushbackSoundPath: Audio/SoundEffects/HugeEnemyPushback
+  Renderer: {fileID: 5192455206658842703}
 --- !u!1 &5192455206484375660
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +873,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1320828053
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 8927603424498688415, guid: 9b835b314ae20894095489f2ce0bef82,
     type: 3}
@@ -905,7 +957,7 @@ MonoBehaviour:
   - {x: -0.5599508, y: -0.7499428, z: 0}
   m_ShapePathHash: 894878909
   m_Mesh: {fileID: 0}
-  m_InstanceId: 402760
+  m_InstanceId: 623764
 --- !u!1 &5192455206960124832
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,7 +1227,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -991823193
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -1320,7 +1372,7 @@ PrefabInstance:
     - target: {fileID: 5695206959408925718, guid: 6cb79c592a4f9c94cb8033be34a5bc1b,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5695206959670561948, guid: 6cb79c592a4f9c94cb8033be34a5bc1b,
         type: 3}
@@ -1335,7 +1387,7 @@ PrefabInstance:
     - target: {fileID: 5695206959670561954, guid: 6cb79c592a4f9c94cb8033be34a5bc1b,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5695206960802536977, guid: 6cb79c592a4f9c94cb8033be34a5bc1b,
         type: 3}
@@ -1345,7 +1397,7 @@ PrefabInstance:
     - target: {fileID: 5695206960802536977, guid: 6cb79c592a4f9c94cb8033be34a5bc1b,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5695206960802536979, guid: 6cb79c592a4f9c94cb8033be34a5bc1b,
         type: 3}
@@ -1515,12 +1567,6 @@ Canvas:
     type: 3}
   m_PrefabInstance: {fileID: 6271209994266020067}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &7925071481878057197 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4250363155817994254, guid: b976bc055323f3747b3911024d0c1df6,
-    type: 3}
-  m_PrefabInstance: {fileID: 6271209994266020067}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5189939428609812108 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2234223204481625711, guid: b976bc055323f3747b3911024d0c1df6,
@@ -1533,3 +1579,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &7925071481878057197 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4250363155817994254, guid: b976bc055323f3747b3911024d0c1df6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6271209994266020067}
+  m_PrefabAsset: {fileID: 0}

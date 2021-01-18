@@ -6,6 +6,14 @@ public class CoinManager : Singleton<CoinManager>
 {
 	public int Coins { get; set; }
 
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.KeypadPlus) && Application.isEditor)
+		{
+			AddCoins(250);
+		}
+	}
+
 	public void AddCoins(int amount)
     {
 	    UIManager.Instance.BounceCoinText();

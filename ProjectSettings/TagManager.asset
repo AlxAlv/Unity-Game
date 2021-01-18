@@ -28,7 +28,7 @@ TagManager:
   - Enemies
   - DungeonRoom
   - TopGameFeel
-  - 
+  - FloatingWeapons
   - 
   - 
   - 
@@ -67,6 +67,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: FloatingWeapons
+    uniqueID: 2460094555
     locked: 0
   - name: Player
     uniqueID: 1320828053

@@ -176,6 +176,9 @@ public class EntityWeapon : EntityComponent
             CurrentWeapon.SetArm(_armObject);
             m_weaponAim = CurrentWeapon.GetComponent<WeaponAim>();
         }
+
+        if (GetComponent<WeaponsHeld>())
+	        GetComponent<WeaponsHeld>().UpdateWeapons();
     }
 
     public void EquipOffhandWeapon(Weapon weapon, Transform weaponPosition, WeaponInfo weaponInfo = null)
@@ -203,6 +206,9 @@ public class EntityWeapon : EntityComponent
             if (weaponInfo != null)
                 CurrentOffHand.SetWeaponInfo(weaponInfo);
         }
+
+        if (GetComponent<WeaponsHeld>())
+	        GetComponent<WeaponsHeld>().UpdateWeapons();
     }
 
     public void CancelAllSkills()

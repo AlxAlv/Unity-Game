@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6044875547504689625}
   - component: {fileID: 4450668859589346142}
   - component: {fileID: 1190027241272534950}
+  - component: {fileID: 7965364474379929765}
   m_Layer: 0
   m_Name: SwordReward
   m_TagString: Untagged
@@ -147,3 +148,17 @@ MonoBehaviour:
   _canDestroyItem: 1
   _rotationSpeed: 160
   _itemWeaponData: {fileID: 11400000, guid: cbf83cd7fde4621498560469bd71bf20, type: 2}
+--- !u!114 &7965364474379929765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413614124650609544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166cd06af40b6554bbafa8c28596a714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 0.35
+  frequency: 0.75

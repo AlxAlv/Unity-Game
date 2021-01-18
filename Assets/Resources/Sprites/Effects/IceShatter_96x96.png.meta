@@ -1,0 +1,2407 @@
+fileFormatVersion: 2
+guid: 8fdc2803b5e993048adf864940365082
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7829061922418095524
+    second: IceShatter_96x96_0
+  - first:
+      213: 1648654436242747907
+    second: IceShatter_96x96_1
+  - first:
+      213: 3016051185522107095
+    second: IceShatter_96x96_2
+  - first:
+      213: -5224139044762557467
+    second: IceShatter_96x96_3
+  - first:
+      213: 1036051313344690800
+    second: IceShatter_96x96_4
+  - first:
+      213: -4448262272274984026
+    second: IceShatter_96x96_5
+  - first:
+      213: 5099552682894505829
+    second: IceShatter_96x96_6
+  - first:
+      213: -8677687387156266634
+    second: IceShatter_96x96_7
+  - first:
+      213: -4896095513969120653
+    second: IceShatter_96x96_8
+  - first:
+      213: 4473253548944034152
+    second: IceShatter_96x96_9
+  - first:
+      213: 2132154098255516398
+    second: IceShatter_96x96_10
+  - first:
+      213: -6359985032442401412
+    second: IceShatter_96x96_11
+  - first:
+      213: 1586645185820103224
+    second: IceShatter_96x96_12
+  - first:
+      213: -4127820704639391963
+    second: IceShatter_96x96_13
+  - first:
+      213: 7137780556410287595
+    second: IceShatter_96x96_14
+  - first:
+      213: -9003458343005859289
+    second: IceShatter_96x96_15
+  - first:
+      213: -2414412706911910215
+    second: IceShatter_96x96_16
+  - first:
+      213: -2779388677930158017
+    second: IceShatter_96x96_17
+  - first:
+      213: -1178452406142793005
+    second: IceShatter_96x96_18
+  - first:
+      213: 4058089878662622932
+    second: IceShatter_96x96_19
+  - first:
+      213: 8179339148026926594
+    second: IceShatter_96x96_20
+  - first:
+      213: 1467894766723534665
+    second: IceShatter_96x96_21
+  - first:
+      213: 5297899452820728908
+    second: IceShatter_96x96_22
+  - first:
+      213: -6697937540248078485
+    second: IceShatter_96x96_23
+  - first:
+      213: -2691258429859551853
+    second: IceShatter_96x96_24
+  - first:
+      213: -6393632867050507907
+    second: IceShatter_96x96_25
+  - first:
+      213: -3663556168802036828
+    second: IceShatter_96x96_26
+  - first:
+      213: 7111617141528880871
+    second: IceShatter_96x96_27
+  - first:
+      213: 5605934096435233564
+    second: IceShatter_96x96_28
+  - first:
+      213: -3324484749350980587
+    second: IceShatter_96x96_29
+  - first:
+      213: -1442628147197835563
+    second: IceShatter_96x96_30
+  - first:
+      213: 1123183133837632910
+    second: IceShatter_96x96_31
+  - first:
+      213: -5399118805190843026
+    second: IceShatter_96x96_32
+  - first:
+      213: -7366520764299969216
+    second: IceShatter_96x96_33
+  - first:
+      213: 8446038483417916546
+    second: IceShatter_96x96_34
+  - first:
+      213: -3581283980738092545
+    second: IceShatter_96x96_35
+  - first:
+      213: -6833416639231835436
+    second: IceShatter_96x96_36
+  - first:
+      213: -8828542436805410420
+    second: IceShatter_96x96_37
+  - first:
+      213: -8378333632722231650
+    second: IceShatter_96x96_38
+  - first:
+      213: 3083338500115392411
+    second: IceShatter_96x96_39
+  - first:
+      213: 8554247729109317025
+    second: IceShatter_96x96_40
+  - first:
+      213: -2823274769878213612
+    second: IceShatter_96x96_41
+  - first:
+      213: -966547230105752736
+    second: IceShatter_96x96_42
+  - first:
+      213: -103806874486730409
+    second: IceShatter_96x96_43
+  - first:
+      213: -9184737338517537216
+    second: IceShatter_96x96_44
+  - first:
+      213: -7313139576110043230
+    second: IceShatter_96x96_45
+  - first:
+      213: -7354674047085251596
+    second: IceShatter_96x96_46
+  - first:
+      213: -7394524241583795755
+    second: IceShatter_96x96_47
+  - first:
+      213: -7954447169713526942
+    second: IceShatter_96x96_48
+  - first:
+      213: -8071233471880145566
+    second: IceShatter_96x96_49
+  - first:
+      213: -5014711549362757845
+    second: IceShatter_96x96_50
+  - first:
+      213: -4212039045340362251
+    second: IceShatter_96x96_51
+  - first:
+      213: -3013231994900973516
+    second: IceShatter_96x96_52
+  - first:
+      213: -6666805445581234465
+    second: IceShatter_96x96_53
+  - first:
+      213: -8224544136180175606
+    second: IceShatter_96x96_54
+  - first:
+      213: 3468641824395595510
+    second: IceShatter_96x96_55
+  - first:
+      213: 8129680286152349644
+    second: IceShatter_96x96_56
+  - first:
+      213: -7370457050671721861
+    second: IceShatter_96x96_57
+  - first:
+      213: 2197330950003217418
+    second: IceShatter_96x96_58
+  - first:
+      213: -5338403244471389596
+    second: IceShatter_96x96_59
+  - first:
+      213: -3444311065284647471
+    second: IceShatter_96x96_60
+  - first:
+      213: 5118785997639483684
+    second: IceShatter_96x96_61
+  - first:
+      213: 2996984652596921999
+    second: IceShatter_96x96_62
+  - first:
+      213: -3620780731030001874
+    second: IceShatter_96x96_63
+  - first:
+      213: -1530887472465851726
+    second: IceShatter_96x96_64
+  - first:
+      213: -3438839962520866949
+    second: IceShatter_96x96_65
+  - first:
+      213: 3920817533951526680
+    second: IceShatter_96x96_66
+  - first:
+      213: 2064079918920739631
+    second: IceShatter_96x96_67
+  - first:
+      213: 755399314496840330
+    second: IceShatter_96x96_68
+  - first:
+      213: 7700719243481054820
+    second: IceShatter_96x96_69
+  - first:
+      213: 2440242362778132806
+    second: IceShatter_96x96_70
+  - first:
+      213: 5467369326401715096
+    second: IceShatter_96x96_71
+  - first:
+      213: -4876340885538142346
+    second: IceShatter_96x96_72
+  - first:
+      213: 6003470839478242934
+    second: IceShatter_96x96_73
+  - first:
+      213: 577320399313060281
+    second: IceShatter_96x96_74
+  - first:
+      213: -4005342599370381427
+    second: IceShatter_96x96_75
+  - first:
+      213: -2609737431655228560
+    second: IceShatter_96x96_76
+  - first:
+      213: 892532525862920892
+    second: IceShatter_96x96_77
+  - first:
+      213: 3721336956610279899
+    second: IceShatter_96x96_78
+  - first:
+      213: -3941471111210426759
+    second: IceShatter_96x96_79
+  - first:
+      213: 5756567119863506307
+    second: IceShatter_96x96_80
+  - first:
+      213: -536253571859654371
+    second: IceShatter_96x96_81
+  - first:
+      213: 3916594983325653264
+    second: IceShatter_96x96_82
+  - first:
+      213: -8648005362980993664
+    second: IceShatter_96x96_83
+  - first:
+      213: 5085464844277486868
+    second: IceShatter_96x96_84
+  - first:
+      213: -8508140349699496244
+    second: IceShatter_96x96_85
+  - first:
+      213: -6045046362040393860
+    second: IceShatter_96x96_86
+  - first:
+      213: 5218979237195352218
+    second: IceShatter_96x96_87
+  - first:
+      213: -2602723103391752686
+    second: IceShatter_96x96_88
+  - first:
+      213: -7467774322804739515
+    second: IceShatter_96x96_89
+  - first:
+      213: 7266551872427298578
+    second: IceShatter_96x96_90
+  - first:
+      213: 920954079294887467
+    second: IceShatter_96x96_91
+  - first:
+      213: -8116380013590813315
+    second: IceShatter_96x96_92
+  - first:
+      213: -4981473180467634420
+    second: IceShatter_96x96_93
+  - first:
+      213: 5967563758899770542
+    second: IceShatter_96x96_94
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: IceShatter_96x96_0
+      rect:
+        serializedVersion: 2
+        x: 2513
+        y: 14
+        width: 64
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a5744a965a66ac60800000000000000
+      internalID: 7829061922418095524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_1
+      rect:
+        serializedVersion: 2
+        x: 2607
+        y: 11
+        width: 67
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 302fe9d897231e610800000000000000
+      internalID: 1648654436242747907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_2
+      rect:
+        serializedVersion: 2
+        x: 2703
+        y: 11
+        width: 67
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d2e071d29a2bd920800000000000000
+      internalID: 3016051185522107095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_3
+      rect:
+        serializedVersion: 2
+        x: 2798
+        y: 11
+        width: 71
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3edaba7312087b0800000000000000
+      internalID: -5224139044762557467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_4
+      rect:
+        serializedVersion: 2
+        x: 2922
+        y: 82
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07abcf42e2bc06e00800000000000000
+      internalID: 1036051313344690800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_5
+      rect:
+        serializedVersion: 2
+        x: 3018
+        y: 82
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a3174108099442c0800000000000000
+      internalID: -4448262272274984026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_6
+      rect:
+        serializedVersion: 2
+        x: 3085
+        y: 9
+        width: 71
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5673151852045c640800000000000000
+      internalID: 5099552682894505829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_7
+      rect:
+        serializedVersion: 2
+        x: 3181
+        y: 9
+        width: 71
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 671c9a83c49a29780800000000000000
+      internalID: -8677687387156266634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_8
+      rect:
+        serializedVersion: 2
+        x: 3275
+        y: 9
+        width: 74
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37aac7712139d0cb0800000000000000
+      internalID: -4896095513969120653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_9
+      rect:
+        serializedVersion: 2
+        x: 3372
+        y: 9
+        width: 73
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86980170760341e30800000000000000
+      internalID: 4473253548944034152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_10
+      rect:
+        serializedVersion: 2
+        x: 3468
+        y: 9
+        width: 74
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee2d9e01bdee69d10800000000000000
+      internalID: 2132154098255516398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_11
+      rect:
+        serializedVersion: 2
+        x: 3562
+        y: 9
+        width: 76
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7d28744f4bccb7a0800000000000000
+      internalID: -6359985032442401412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_12
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 27
+        width: 37
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 832146dd365e40610800000000000000
+      internalID: 1586645185820103224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_13
+      rect:
+        serializedVersion: 2
+        x: 988
+        y: 27
+        width: 39
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 527677370f807b6c0800000000000000
+      internalID: -4127820704639391963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_14
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 25
+        width: 43
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be57685399d7e0360800000000000000
+      internalID: 7137780556410287595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_15
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 25
+        width: 44
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 722db13e65a4d0380800000000000000
+      internalID: -9003458343005859289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_16
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 25
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b683576f684e7ed0800000000000000
+      internalID: -2414412706911910215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_17
+      rect:
+        serializedVersion: 2
+        x: 1369
+        y: 23
+        width: 46
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f38fa3729b0ad69d0800000000000000
+      internalID: -2779388677930158017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_18
+      rect:
+        serializedVersion: 2
+        x: 1463
+        y: 23
+        width: 51
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3da8723c7cb45afe0800000000000000
+      internalID: -1178452406142793005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_19
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 21
+        width: 50
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4de2b447e3b315830800000000000000
+      internalID: 4058089878662622932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_20
+      rect:
+        serializedVersion: 2
+        x: 1654
+        y: 21
+        width: 53
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 206579f7e99d28170800000000000000
+      internalID: 8179339148026926594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_21
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 18
+        width: 53
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94f063a53820f5410800000000000000
+      internalID: 1467894766723534665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_22
+      rect:
+        serializedVersion: 2
+        x: 1844
+        y: 18
+        width: 58
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4cad1d9b7be58940800000000000000
+      internalID: 5297899452820728908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_23
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 18
+        width: 59
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6772c95b452c03a0800000000000000
+      internalID: -6697937540248078485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_24
+      rect:
+        serializedVersion: 2
+        x: 2035
+        y: 16
+        width: 60
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 395227987bab6aad0800000000000000
+      internalID: -2691258429859551853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_25
+      rect:
+        serializedVersion: 2
+        x: 2129
+        y: 16
+        width: 62
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d71313748c04547a0800000000000000
+      internalID: -6393632867050507907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_26
+      rect:
+        serializedVersion: 2
+        x: 2226
+        y: 16
+        width: 62
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a31dd7231f682dc0800000000000000
+      internalID: -3663556168802036828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_27
+      rect:
+        serializedVersion: 2
+        x: 2322
+        y: 14
+        width: 62
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e6686b7c1a81b260800000000000000
+      internalID: 7111617141528880871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_28
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 14
+        width: 65
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c13c544fb574ccd40800000000000000
+      internalID: 5605934096435233564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_29
+      rect:
+        serializedVersion: 2
+        x: 2894
+        y: 11
+        width: 69
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5143bbdfbbe0dd1d0800000000000000
+      internalID: -3324484749350980587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_30
+      rect:
+        serializedVersion: 2
+        x: 2991
+        y: 9
+        width: 71
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d60b4fe751cafbe0800000000000000
+      internalID: -1442628147197835563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_31
+      rect:
+        serializedVersion: 2
+        x: 3693
+        y: 66
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e852a1efb19569f00800000000000000
+      internalID: 1123183133837632910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_32
+      rect:
+        serializedVersion: 2
+        x: 3790
+        y: 66
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e65e77c6d0a7215b0800000000000000
+      internalID: -5399118805190843026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_33
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 30
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04d7c55f46cd4c990800000000000000
+      internalID: -7366520764299969216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_34
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 30
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 284676b604b563570800000000000000
+      internalID: 8446038483417916546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_35
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 30
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff12f48a139bc4ec0800000000000000
+      internalID: -3581283980738092545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_36
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 30
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d2c75885c3da21a0800000000000000
+      internalID: -6833416639231835436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_37
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 30
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8180c9ed67ba7580800000000000000
+      internalID: -8828542436805410420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_38
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 30
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9e12eb83fd2abb80800000000000000
+      internalID: -8378333632722231650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_39
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 30
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b97e9a597083aca20800000000000000
+      internalID: 3083338500115392411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_40
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 30
+        width: 34
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a5b04ebcfac6b670800000000000000
+      internalID: 8554247729109317025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_41
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 30
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41c161e1e86b1d8d0800000000000000
+      internalID: -2823274769878213612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_42
+      rect:
+        serializedVersion: 2
+        x: 3680
+        y: 50
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06ba8ea4a622692f0800000000000000
+      internalID: -966547230105752736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_43
+      rect:
+        serializedVersion: 2
+        x: 3776
+        y: 50
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75199f892343f8ef0800000000000000
+      internalID: -103806874486730409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_44
+      rect:
+        serializedVersion: 2
+        x: 3870
+        y: 50
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04e356ead02498080800000000000000
+      internalID: -9184737338517537216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_45
+      rect:
+        serializedVersion: 2
+        x: 3967
+        y: 50
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af2c1d5d42828a90800000000000000
+      internalID: -7313139576110043230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_46
+      rect:
+        serializedVersion: 2
+        x: 4063
+        y: 50
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f3f2b0cbe2fee990800000000000000
+      internalID: -7354674047085251596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_47
+      rect:
+        serializedVersion: 2
+        x: 4160
+        y: 50
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d11261516f516990800000000000000
+      internalID: -7394524241583795755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_48
+      rect:
+        serializedVersion: 2
+        x: 4256
+        y: 50
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2672d9091702c9190800000000000000
+      internalID: -7954447169713526942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_49
+      rect:
+        serializedVersion: 2
+        x: 4350
+        y: 50
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2655759abe73dff80800000000000000
+      internalID: -8071233471880145566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_50
+      rect:
+        serializedVersion: 2
+        x: 4451
+        y: 57
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2f1f293a6a286ab0800000000000000
+      internalID: -5014711549362757845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_51
+      rect:
+        serializedVersion: 2
+        x: 4539
+        y: 43
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f9896afdc4db85c0800000000000000
+      internalID: -4212039045340362251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_52
+      rect:
+        serializedVersion: 2
+        x: 3673
+        y: 41
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 438f5162779de26d0800000000000000
+      internalID: -3013231994900973516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_53
+      rect:
+        serializedVersion: 2
+        x: 3714
+        y: 46
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fde9d7df4cfba73a0800000000000000
+      internalID: -6666805445581234465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_54
+      rect:
+        serializedVersion: 2
+        x: 3771
+        y: 41
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0d65730fac8cdd80800000000000000
+      internalID: -8224544136180175606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_55
+      rect:
+        serializedVersion: 2
+        x: 3811
+        y: 46
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fe89249c57132030800000000000000
+      internalID: 3468641824395595510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_56
+      rect:
+        serializedVersion: 2
+        x: 3866
+        y: 41
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc75b99b52d62d070800000000000000
+      internalID: 8129680286152349644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_57
+      rect:
+        serializedVersion: 2
+        x: 3907
+        y: 46
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b72507edc50e6b990800000000000000
+      internalID: -7370457050671721861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_58
+      rect:
+        serializedVersion: 2
+        x: 3962
+        y: 41
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a04d9e86bdc7e7e10800000000000000
+      internalID: 2197330950003217418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_59
+      rect:
+        serializedVersion: 2
+        x: 4003
+        y: 46
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4627d71888e2ae5b0800000000000000
+      internalID: -5338403244471389596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_60
+      rect:
+        serializedVersion: 2
+        x: 4059
+        y: 41
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d5e2c9b5595330d0800000000000000
+      internalID: -3444311065284647471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_61
+      rect:
+        serializedVersion: 2
+        x: 4098
+        y: 46
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4218b8e8eb4990740800000000000000
+      internalID: 5118785997639483684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_62
+      rect:
+        serializedVersion: 2
+        x: 4155
+        y: 41
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f86465fa9ad679920800000000000000
+      internalID: 2996984652596921999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_63
+      rect:
+        serializedVersion: 2
+        x: 4199
+        y: 46
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e27a06ddb1760cdc0800000000000000
+      internalID: -3620780731030001874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_64
+      rect:
+        serializedVersion: 2
+        x: 4249
+        y: 41
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bac39c64f131cae0800000000000000
+      internalID: -1530887472465851726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_65
+      rect:
+        serializedVersion: 2
+        x: 4295
+        y: 46
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7fa68a1649c640d0800000000000000
+      internalID: -3438839962520866949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_66
+      rect:
+        serializedVersion: 2
+        x: 4346
+        y: 41
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 817cd4416ca896630800000000000000
+      internalID: 3920817533951526680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_67
+      rect:
+        serializedVersion: 2
+        x: 4389
+        y: 46
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2ba94310c515ac10800000000000000
+      internalID: 2064079918920739631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_68
+      rect:
+        serializedVersion: 2
+        x: 4442
+        y: 43
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a82682c9ca7bb7a00800000000000000
+      internalID: 755399314496840330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_69
+      rect:
+        serializedVersion: 2
+        x: 4486
+        y: 46
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46ef3be0a537eda60800000000000000
+      internalID: 7700719243481054820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_70
+      rect:
+        serializedVersion: 2
+        x: 4582
+        y: 46
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 641204fff7b7dd120800000000000000
+      internalID: 2440242362778132806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_71
+      rect:
+        serializedVersion: 2
+        x: 3250
+        y: 34
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89b7a0c5f6fffdb40800000000000000
+      internalID: 5467369326401715096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_72
+      rect:
+        serializedVersion: 2
+        x: 3680
+        y: 30
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67709c1fcc1c35cb0800000000000000
+      internalID: -4876340885538142346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_73
+      rect:
+        serializedVersion: 2
+        x: 3707
+        y: 34
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67e4486bbec905350800000000000000
+      internalID: 6003470839478242934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_74
+      rect:
+        serializedVersion: 2
+        x: 3776
+        y: 30
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b144aa28dd030800800000000000000
+      internalID: 577320399313060281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_75
+      rect:
+        serializedVersion: 2
+        x: 3801
+        y: 34
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d87e9c8802a2a68c0800000000000000
+      internalID: -4005342599370381427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_76
+      rect:
+        serializedVersion: 2
+        x: 3873
+        y: 30
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07b562502a958cbd0800000000000000
+      internalID: -2609737431655228560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_77
+      rect:
+        serializedVersion: 2
+        x: 3898
+        y: 34
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb2aa8a7a99e26c00800000000000000
+      internalID: 892532525862920892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_78
+      rect:
+        serializedVersion: 2
+        x: 3969
+        y: 30
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd9f94cde38d4a330800000000000000
+      internalID: 3721336956610279899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_79
+      rect:
+        serializedVersion: 2
+        x: 3994
+        y: 34
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97e96db38e41d49c0800000000000000
+      internalID: -3941471111210426759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_80
+      rect:
+        serializedVersion: 2
+        x: 4065
+        y: 30
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3856821cb4f63ef40800000000000000
+      internalID: 5756567119863506307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_81
+      rect:
+        serializedVersion: 2
+        x: 4091
+        y: 34
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1955c3b738de88f0800000000000000
+      internalID: -536253571859654371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_82
+      rect:
+        serializedVersion: 2
+        x: 4162
+        y: 30
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 019d336e26a8a5630800000000000000
+      internalID: 3916594983325653264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_83
+      rect:
+        serializedVersion: 2
+        x: 4187
+        y: 34
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08548d301fc1cf780800000000000000
+      internalID: -8648005362980993664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_84
+      rect:
+        serializedVersion: 2
+        x: 4258
+        y: 27
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41595e8f453339640800000000000000
+      internalID: 5085464844277486868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_85
+      rect:
+        serializedVersion: 2
+        x: 4281
+        y: 34
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc66ef41e630de980800000000000000
+      internalID: -8508140349699496244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_86
+      rect:
+        serializedVersion: 2
+        x: 4357
+        y: 27
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7f90db9c5eab1ca0800000000000000
+      internalID: -6045046362040393860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_87
+      rect:
+        serializedVersion: 2
+        x: 4454
+        y: 30
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a980b2307f98d6840800000000000000
+      internalID: 5218979237195352218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_88
+      rect:
+        serializedVersion: 2
+        x: 4550
+        y: 30
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21ed1a5902541ebd0800000000000000
+      internalID: -2602723103391752686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_89
+      rect:
+        serializedVersion: 2
+        x: 3696
+        y: 25
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 542b072c1d22d5890800000000000000
+      internalID: -7467774322804739515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_90
+      rect:
+        serializedVersion: 2
+        x: 3792
+        y: 25
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21f8af99d6af7d460800000000000000
+      internalID: 7266551872427298578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_91
+      rect:
+        serializedVersion: 2
+        x: 3889
+        y: 25
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2691de0bd2e7cc00800000000000000
+      internalID: 920954079294887467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_92
+      rect:
+        serializedVersion: 2
+        x: 3985
+        y: 25
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d75e6db4163dc5f80800000000000000
+      internalID: -8116380013590813315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_93
+      rect:
+        serializedVersion: 2
+        x: 4079
+        y: 25
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0f571c09804edab0800000000000000
+      internalID: -4981473180467634420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceShatter_96x96_94
+      rect:
+        serializedVersion: 2
+        x: 4176
+        y: 25
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea437b70f9b01d250800000000000000
+      internalID: 5967563758899770542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

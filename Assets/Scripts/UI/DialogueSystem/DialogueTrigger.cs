@@ -11,7 +11,8 @@ public class DialogueTrigger : MonoBehaviour
 
 	private void Update()
 	{
-		_toolTip.SetActive(CanTrigger);
+		if (_toolTip != null)
+			_toolTip.SetActive(CanTrigger);
 	}
 
 	public void TriggerDialogue()
