@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Skills.Archery;
+using UnityEngine;
 
 public class EnemyRangedAttack : ArcherySkill
 {
@@ -48,7 +49,7 @@ public class EnemyRangedAttack : ArcherySkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Dexterity.TotalAmount * 2 + _bowToUse.WeaponInfo.Damage;
+        _damageAmount = _statManager.Dexterity.TotalAmount * 2 + Random.Range(_bowToUse.WeaponInfo.MinDamage, _bowToUse.WeaponInfo.MaxDamage + 1);
 
         base.UpdateDamage();
     }

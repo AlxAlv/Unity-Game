@@ -48,6 +48,9 @@ public class ReturnToPool : MonoBehaviour
 
 				ProjectileAOEOnImpact aoeComponent = _projectile.GetComponent<ProjectileAOEOnImpact>();
 
+				// Critical Chance
+				bool isCriticalHit = (Random.Range(0, 101) < _projectile.CriticalChance);
+
 				if (aoeComponent)
 				{
 					float radius = aoeComponent.AOESize;
@@ -64,10 +67,12 @@ public class ReturnToPool : MonoBehaviour
 							Health targetHealth = collider.GetComponent<Health>();
 
 							if (levelComponent)
-								levelComponent.TakeDamage(_projectile.DamageAmount);
+							{
+								levelComponent.TakeDamage((isCriticalHit ? (_projectile.DamageAmount * 2) : _projectile.DamageAmount));
+							}
 							else if (targetHealth)
 							{
-								targetHealth.TakeDamage(_projectile.DamageAmount, _projectile.SkillName);
+								targetHealth.TakeDamage((isCriticalHit ? (_projectile.DamageAmount * 2) : _projectile.DamageAmount), _projectile.SkillName);
 								targetHealth.HitStun(_projectile.StunTime, _projectile.KnockBackAmount, _projectile.Owner.transform);
 								targetHealth.Attacker = _projectile.Owner;
 							}
@@ -80,7 +85,7 @@ public class ReturnToPool : MonoBehaviour
 					{
 						Camera2DShake.Instance.Shake();
 						ScreenPause.Instance.Freeze();
-						collision.GetComponent<Health>().TakeDamage(_projectile.DamageAmount, _projectile.SkillName);
+						collision.GetComponent<Health>().TakeDamage((isCriticalHit ? (_projectile.DamageAmount * 2) : _projectile.DamageAmount), _projectile.SkillName);
 						collision.GetComponent<Health>().HitStun(_projectile.StunTime, _projectile.KnockBackAmount,
 							_projectile.Owner.transform);
 						collision.GetComponent<Health>().Attacker = _projectile.Owner;

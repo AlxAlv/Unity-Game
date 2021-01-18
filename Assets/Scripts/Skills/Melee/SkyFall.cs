@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.Skills.Melee;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SkyFall : MeleeSkill
 {
@@ -69,7 +70,7 @@ public class SkyFall : MeleeSkill
 
 	protected override void UpdateDamage()
 	{
-		_damageAmount = (_statManager.Strength.TotalAmount * 3) + (_swordToUse.WeaponInfo.Damage * 2);
+		_damageAmount = (_statManager.Strength.TotalAmount * 3) + (Random.Range(_swordToUse.WeaponInfo.MinDamage, _swordToUse.WeaponInfo.MaxDamage + 1) * 2);
 
 		base.UpdateDamage();
 	}

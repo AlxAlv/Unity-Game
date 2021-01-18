@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3846449554356708}
   - component: {fileID: 1972936047336735082}
   - component: {fileID: -8459372455048898547}
-  - component: {fileID: 7997095228667527640}
   - component: {fileID: 4965507072476818801}
   m_Layer: 0
   m_Name: WeaponBow
@@ -61,8 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4686b71a3dd4dc43b537feb02ca8992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_reticlePrefab: {fileID: 180184537469659083, guid: b870bba6cbe7b4440bb023cd835b3b63,
-    type: 3}
 --- !u!114 &-8459372455048898547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,31 +77,14 @@ MonoBehaviour:
     type: 3}
   WeaponRenderer: {fileID: 3117429862421724225}
   _singleHanded: 0
-  _damage: 1
+  _minDamage: 0
+  _maxDamage: 1
+  _criticalChance: 25
   _weaponPs: {fileID: 3439268955794855410, guid: 43e03411bab000c4fa312b11a45ae4a5,
     type: 3}
   m_projectileSpawnPosition: {x: -0.45, y: 0.012, z: 0}
   m_projectileSpread: {x: 0, y: 0, z: 0}
   _skillToUse: {fileID: 0}
---- !u!114 &7997095228667527640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603067404714083853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97a3b766380869b4682e52a1710873e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_objectPrefab: {fileID: 8321050490716486963, guid: 06f17e3e5d7214c4faebbd5c337cce6b,
-    type: 3}
-  m_poolSize: 10
-  m_poolCanExpand: 1
-  ProjectileMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!95 &4965507072476818801
 Animator:
   serializedVersion: 3

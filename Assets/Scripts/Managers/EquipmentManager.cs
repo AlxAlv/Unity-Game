@@ -146,7 +146,7 @@ public class EquipmentManager : MonoBehaviour
 
         image.sprite = modelObject.GetComponent<SpriteRenderer>().sprite;
         image.color = weapon.WeaponInfo.Color;
-        image.gameObject.GetComponent<TooltipUIHelper>().SetText(weapon.Weapon.WeaponName + " ( " + weapon.WeaponInfo.Damage + " DMG )");
+		image.gameObject.GetComponent<TooltipUIHelper>().SetText(weapon.Weapon.PrefixEnchant + " " + weapon.Weapon.WeaponName + " " + weapon.Weapon.SuffixEnchant + "\n( " + weapon.WeaponInfo.MinDamage + "~" + weapon.WeaponInfo.MaxDamage + " DMG )\n" + weapon.WeaponInfo.CriticalChance + "% Critical Chance\n" + weapon.WeaponInfo.SkillHaste + "% Skill Haste");
     }
 
     private void UpdateEquipImage(EquipInstance equip, Image image)

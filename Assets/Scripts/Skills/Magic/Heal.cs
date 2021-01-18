@@ -51,7 +51,7 @@ public class Heal : MagicSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Intelligence.TotalAmount * 5 + _staffToUse.WeaponInfo.Damage;
+        _damageAmount = _statManager.Intelligence.TotalAmount * 5 + Random.Range(_staffToUse.WeaponInfo.MinDamage, _staffToUse.WeaponInfo.MaxDamage + 1);
 
         base.UpdateDamage();
     }

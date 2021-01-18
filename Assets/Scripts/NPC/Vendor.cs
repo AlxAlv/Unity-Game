@@ -64,7 +64,7 @@ public class Vendor : MonoBehaviour
     {
         if (CoinManager.Instance.Coins >= _weaponToPurchase.Cost)
         {
-            _entityWeapon.AddWeaponToInventory(_weaponToPurchase.WeaponToSell, _weaponToPurchase.Damage, Color.white);
+            //_entityWeapon.AddWeaponToInventory(_weaponToPurchase.WeaponToSell, _weaponToPurchase.Damage, Color.white);
             ProductBought(_weaponToPurchase.Cost);
         }
         else

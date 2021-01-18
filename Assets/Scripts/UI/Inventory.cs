@@ -180,7 +180,7 @@ public class Inventory : MonoBehaviour
             TooltipUIHelper uiHelper = itemObject.GetComponent<TooltipUIHelper>();
             InventoryItem itemScript = itemObject.GetComponent<InventoryItem>();
 
-            uiHelper.SetText(WeaponsOwned[i].Weapon.WeaponName + " ( " + WeaponsOwned[i].WeaponInfo.Damage + " DMG )\nRight-Click To Delete");
+            uiHelper.SetText(WeaponsOwned[i].Weapon.WeaponName + "\n( " + WeaponsOwned[i].WeaponInfo.MinDamage + "~" + WeaponsOwned[i].WeaponInfo.MaxDamage + " DMG )\n" + WeaponsOwned[i].WeaponInfo.CriticalChance + "% Critical Chance\n" + WeaponsOwned[i].WeaponInfo.SkillHaste + "% Skill Haste\nRight-Click To Delete");
 
             Transform weaponTransform = WeaponsOwned[i].Weapon.transform;
             Transform modelTransform = weaponTransform.Find("Model");

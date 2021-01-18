@@ -6,7 +6,12 @@ public class WeaponReward : Collectables
 {
 	[SerializeField] private ItemData _itemWeaponData;
 	private Color _weaponColor;
-	private int _weaponDamage;
+	private int _weaponMinDamage;
+	private int _weaponMaxDamage;
+	private int _criticalChance;
+	private int _skillHaste;
+	private string _prefixEnchant;
+	private string _suffixEnchant;
 
 	protected override bool Pick()
 	{
@@ -18,7 +23,7 @@ public class WeaponReward : Collectables
 		if (_entity != null)
 		{
 			EntityWeapon entityWeapon = _entity.GetComponent<EntityWeapon>();
-			return entityWeapon.AddWeaponToInventory(_itemWeaponData.WeaponToEquip, _weaponDamage, _weaponColor);
+			return entityWeapon.AddWeaponToInventory(_itemWeaponData.WeaponToEquip, _weaponMinDamage, _weaponMaxDamage, _criticalChance, _skillHaste, _prefixEnchant, _suffixEnchant,_weaponColor);
 		}
 		else
 			return false;
@@ -34,8 +39,13 @@ public class WeaponReward : Collectables
 		_weaponColor = color;
 	}
 
-	public void SetDamage(int damage)
+	public void SetDamage(int minDamage, int maxDamage, int criticalChance, int skillHaste, string prefixEnchant, string suffixEnchant)
 	{
-		_weaponDamage = damage;
+		_weaponMinDamage = minDamage;
+		_weaponMaxDamage = maxDamage;
+		_criticalChance = criticalChance;
+		_skillHaste = skillHaste;
+		_prefixEnchant = prefixEnchant;
+		_suffixEnchant = suffixEnchant;
 	}
 }

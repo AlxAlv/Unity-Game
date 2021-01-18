@@ -35,25 +35,25 @@ public class EntityWeapon : EntityComponent
         if (_mainWeaponToStart != null)
         {
 	        EquipWeapon(_mainWeaponToStart);
-	        AddWeaponToInventory(_mainWeaponToStart, CurrentWeapon.WeaponInfo.Damage, CurrentWeapon.WeaponInfo.Color);
+	        AddWeaponToInventory(_mainWeaponToStart, CurrentWeapon.WeaponInfo.MinDamage, CurrentWeapon.WeaponInfo.MaxDamage, CurrentWeapon.WeaponInfo.CriticalChance, CurrentWeapon.WeaponInfo.SkillHaste, CurrentWeapon.WeaponInfo.PrefixEnchant, CurrentWeapon.WeaponInfo.SuffixEnchant, CurrentWeapon.WeaponInfo.Color);
         }
 
         if (_mainOffHandToStart != null)
         {
 	        EquipOffhandWeapon(_mainOffHandToStart);
-            AddWeaponToInventory(_mainOffHandToStart, CurrentOffHandWeapon.WeaponInfo.Damage, CurrentOffHandWeapon.WeaponInfo.Color);
+            AddWeaponToInventory(_mainOffHandToStart, CurrentOffHandWeapon.WeaponInfo.MinDamage, CurrentOffHandWeapon.WeaponInfo.MaxDamage, CurrentOffHandWeapon.WeaponInfo.CriticalChance, CurrentOffHandWeapon.WeaponInfo.SkillHaste, CurrentOffHandWeapon.WeaponInfo.PrefixEnchant, CurrentOffHandWeapon.WeaponInfo.SuffixEnchant, CurrentOffHandWeapon.WeaponInfo.Color);
         }
 
         if (_alternateWeaponToStart != null)
         {
 	        EquipAlternateWeapon(_alternateWeaponToStart);
-	        AddWeaponToInventory(_alternateWeaponToStart, AlternateWeaponInfo.Damage, AlternateWeaponInfo.Color);
+	        AddWeaponToInventory(_alternateWeaponToStart, AlternateWeaponInfo.MinDamage, AlternateWeaponInfo.MaxDamage, AlternateWeaponInfo.CriticalChance, AlternateWeaponInfo.SkillHaste, AlternateWeaponInfo.PrefixEnchant, AlternateWeaponInfo.SuffixEnchant, AlternateWeaponInfo.Color);
         }
 
         if (_alternateOffHandToStart != null)
         {
 	        EquipAlternateOffhandWeapon(_alternateOffHandToStart);
-	        AddWeaponToInventory(_alternateOffHandToStart, AlternateOffHandInfo.Damage, AlternateOffHandInfo.Color);
+	        AddWeaponToInventory(_alternateOffHandToStart, AlternateOffHandInfo.MinDamage, AlternateOffHandInfo.MaxDamage, AlternateOffHandInfo.CriticalChance, AlternateOffHandInfo.SkillHaste, AlternateOffHandInfo.PrefixEnchant, AlternateOffHandInfo.SuffixEnchant, AlternateOffHandInfo.Color);
         }
     }
 
@@ -156,7 +156,7 @@ public class EntityWeapon : EntityComponent
 
 		    Weapon tempWeapon = Instantiate(weapon, transform.position, transform.rotation);
 
-		    AlternateWeaponInfo = new WeaponInfo(tempWeapon.WeaponInfo.Damage, (weaponInfo == null? tempWeapon.WeaponInfo.Color : weaponInfo.Color));
+		    AlternateWeaponInfo = new WeaponInfo(tempWeapon.WeaponInfo.MinDamage, tempWeapon.WeaponInfo.MaxDamage, tempWeapon.WeaponInfo.CriticalChance, tempWeapon.WeaponInfo.SkillHaste, tempWeapon.WeaponInfo.PrefixEnchant, tempWeapon.WeaponInfo.SuffixEnchant, (weaponInfo == null? tempWeapon.WeaponInfo.Color : weaponInfo.Color));
 
 		    Destroy(tempWeapon.gameObject);
         }
@@ -173,7 +173,7 @@ public class EntityWeapon : EntityComponent
 
 		    Weapon tempWeapon = Instantiate(weapon, transform.position, transform.rotation);
 
-		    AlternateOffHandInfo = new WeaponInfo(tempWeapon.WeaponInfo.Damage, (weaponInfo == null ? tempWeapon.WeaponInfo.Color : weaponInfo.Color));
+		    AlternateOffHandInfo = new WeaponInfo(tempWeapon.WeaponInfo.MinDamage, tempWeapon.WeaponInfo.MaxDamage, tempWeapon.WeaponInfo.CriticalChance, tempWeapon.WeaponInfo.SkillHaste, tempWeapon.WeaponInfo.PrefixEnchant, tempWeapon.WeaponInfo.SuffixEnchant, (weaponInfo == null ? tempWeapon.WeaponInfo.Color : weaponInfo.Color));
 
             Destroy(tempWeapon.gameObject);
         }
@@ -301,10 +301,10 @@ public class EntityWeapon : EntityComponent
         DestroyAllWeapons();
     }
 
-    public bool AddWeaponToInventory(Weapon weaponToAdd, int damage, Color weaponColor)
+    public bool AddWeaponToInventory(Weapon weaponToAdd, int minDamage, int maxDamage, int criticalChance, int skillHaste, string prefixEnchant, string suffixEnchant, Color weaponColor)
     {
 	    if (m_entity.EntityType == Entity.EntityTypes.Player)
-		    return GetComponent<Inventory>().AddWeaponToInventory(weaponToAdd, new WeaponInfo(damage, weaponColor));
+		    return GetComponent<Inventory>().AddWeaponToInventory(weaponToAdd, new WeaponInfo(minDamage, maxDamage, criticalChance, skillHaste, prefixEnchant, suffixEnchant, weaponColor));
 	    else
 		    return false;
     }

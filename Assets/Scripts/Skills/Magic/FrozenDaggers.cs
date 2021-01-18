@@ -109,7 +109,7 @@ public class FrozenDaggers : MagicSkill
 
 	protected override void UpdateDamage()
 	{
-		_damageAmount = (_statManager.Intelligence.TotalAmount * 2) + (_staffToUse.WeaponInfo.Damage / 2);
+		_damageAmount = (_statManager.Intelligence.TotalAmount * 2) + (Random.Range(_staffToUse.WeaponInfo.MinDamage, _staffToUse.WeaponInfo.MaxDamage + 1) / 2);
 
 		base.UpdateDamage();
 	}

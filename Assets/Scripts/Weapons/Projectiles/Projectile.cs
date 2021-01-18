@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour
     public bool FacingLeft { get; set; }
     public float Speed { get; set; }
     public int DamageAmount { get; set; }
+    public int CriticalChance { get; set; }
     public string SkillName { get; set; }
     public float StunTime { get; set; }
     public float KnockBackAmount { get; set; }
@@ -36,6 +37,7 @@ public class Projectile : MonoBehaviour
 	    m_spriteRenderer = GetComponent<SpriteRenderer>();
 	    _collider = GetComponent<Collider2D>();
         DamageAmount = 1;
+        CriticalChance = 0;
         SkillName = "BaseSkill";
         StunTime = .3f;
     }

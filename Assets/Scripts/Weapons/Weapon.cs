@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public partial class Weapon : MonoBehaviour
@@ -10,7 +11,12 @@ public partial class Weapon : MonoBehaviour
 
 	[Header("Weapon")]
 	[SerializeField] private bool _singleHanded = false;
-	[SerializeField] private int _damage;
+	[SerializeField] private int _minDamage = 0;
+	[SerializeField] private int _maxDamage = 1;
+	[SerializeField] private int _criticalChance = 0;
+	[SerializeField] private int _skillHaste = 0;
+	[SerializeField] private string _prefixEnchant = "";
+	[SerializeField] private string _suffixEnchant = "";
 
 	[Header("Effects")]
 	[SerializeField] private ParticleSystem _weaponPs;
@@ -26,6 +32,11 @@ public partial class Weapon : MonoBehaviour
 	public BaseSkill _skillToUse;
 
 	private bool m_facingLeft;
+
+	public int CriticalChance => _criticalChance;
+	public int SkillHaste => _skillHaste;
+	public string PrefixEnchant => _prefixEnchant;
+	public string SuffixEnchant => _suffixEnchant;
 
 	public Entity m_weaponOwner { get; set; }
 	public int m_currentUses { get; set; }
@@ -47,7 +58,7 @@ public partial class Weapon : MonoBehaviour
 
 		WeaponAim = GetComponent<WeaponAim>();
 
-		WeaponInfo = new WeaponInfo(_damage, Color.white);
+		WeaponInfo = new WeaponInfo(_minDamage, _maxDamage, _criticalChance, _skillHaste, _prefixEnchant, _suffixEnchant, Color.white);
 
 		IsBusy = false;
 		_skillToUse = new BaseSkill(this);
@@ -156,7 +167,13 @@ public partial class Weapon : MonoBehaviour
 	{
 		WeaponInfo = weaponInfo;
 
-		_damage = weaponInfo.Damage;
+		_minDamage = weaponInfo.MinDamage;
+		_maxDamage = weaponInfo.MaxDamage;
+		_criticalChance = weaponInfo.CriticalChance;
+		_skillHaste = weaponInfo.SkillHaste;
+		_prefixEnchant = weaponInfo.PrefixEnchant;
+		_suffixEnchant = weaponInfo.SuffixEnchant;
+
 		WeaponRenderer.color = weaponInfo.Color;
 	}
 

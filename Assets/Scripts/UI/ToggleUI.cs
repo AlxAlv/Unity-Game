@@ -4,14 +4,15 @@ using UnityEngine.EventSystems;
 public class ToggleUI : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private GameObject _uiWindow;
+    [SerializeField] private bool _resetChildren = false;
 
     public void OnPointerClick(PointerEventData eventData)
     {
         _uiWindow.SetActive(!_uiWindow.activeSelf);
 
-        //if (_uiWindow.activeSelf)
-        //    SetChildrenToActive(_uiWindow.transform);
-    }
+		if (_uiWindow.activeSelf && _resetChildren)
+			SetChildrenToActive(_uiWindow.transform);
+	}
 
     void SetChildrenToActive(Transform parent)
     {

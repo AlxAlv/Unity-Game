@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Skills.Melee;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MeleeAttack : MeleeSkill
 {
@@ -72,15 +73,18 @@ public class MeleeAttack : MeleeSkill
 		        LevelComponent levelComponent = _entityTarget.CurrentTarget.GetComponent<LevelComponent>();
                 Health targetHealth = _entityTarget.CurrentTarget.GetComponent<Health>();
 
+                // Critical Chance
+                bool isCriticalHit = (Random.Range(0, 101) < _weaponToUse.CriticalChance);
+
                 if (levelComponent)
                 {
 	                TriggerGameJuice();
-                    levelComponent.TakeDamage(_damageAmount);
+                    levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount));
                 }
                 else if (targetHealth)
 		        {
 			        TriggerGameJuice();
-                    targetHealth.TakeDamage(_damageAmount, "MeleeAttack");
+                    targetHealth.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), "MeleeAttack");
 					targetHealth.HitStun(_stunTime, _knockBackAmount, _entity.transform);
 			        targetHealth.Attacker = _entity.gameObject;
                 }
@@ -93,7 +97,7 @@ public class MeleeAttack : MeleeSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = (_statManager.Strength.TotalAmount * 2) + (_swordToUse.WeaponInfo.Damage * 2);
+        _damageAmount = (_statManager.Strength.TotalAmount * 2) + (Random.Range(_swordToUse.WeaponInfo.MinDamage, _swordToUse.WeaponInfo.MaxDamage + 1)  * 2);
 
         base.UpdateDamage();
     }

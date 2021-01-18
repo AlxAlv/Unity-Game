@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Skills.Magic;
+using UnityEngine;
 
 public class BoulderToss : MagicSkill
 {
@@ -49,7 +50,7 @@ public class BoulderToss : MagicSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Intelligence.TotalAmount * 10 + _staffToUse.WeaponInfo.Damage;
+        _damageAmount = _statManager.Intelligence.TotalAmount * 10 + Random.Range(_staffToUse.WeaponInfo.MinDamage, _staffToUse.WeaponInfo.MaxDamage + 1);
 
         base.UpdateDamage();
     }

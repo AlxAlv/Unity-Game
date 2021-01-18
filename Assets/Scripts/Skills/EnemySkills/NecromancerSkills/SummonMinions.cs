@@ -84,7 +84,7 @@ public class SummonMinions : NecromancerSkill
 
 	protected override void UpdateDamage()
 	{
-		_damageAmount = _statManager.Intelligence.TotalAmount * 1 + _necromancerWeaponToUse.WeaponInfo.Damage;
+		_damageAmount = _statManager.Intelligence.TotalAmount * 1 + Random.Range(_necromancerWeaponToUse.WeaponInfo.MinDamage, _necromancerWeaponToUse.WeaponInfo.MaxDamage + 1);
 
 		base.UpdateDamage();
 	}

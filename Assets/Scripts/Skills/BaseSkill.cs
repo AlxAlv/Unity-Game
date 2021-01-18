@@ -27,9 +27,10 @@ public class BaseSkill : MonoBehaviour
 	// Member Variables
 	public SkillState CurrentState { get; set; }
 	protected float _startTime = 0f;
-	protected int _numberOfVerticies = 64;
 	protected float _outlineWidth = 0.035f;
 	protected float _outlineRadius = 0.0f;
+	protected float _skillHaste = -1.0f;
+	protected int _numberOfVerticies = 64;
 	protected EntitySkill _entitySkill;
 	protected Weapon _weaponToUse;
 	protected Entity _entity;
@@ -79,6 +80,16 @@ public class BaseSkill : MonoBehaviour
 		}
 
 		UpdateDamage();
+		UpdateSkillHaste();
+	}
+
+	protected virtual void UpdateSkillHaste()
+	{
+		if (_skillHaste == -1.0f)
+		{
+			_skillHaste = ((100 - _weaponToUse.SkillHaste) / 100.0f);
+			_loadingTime = (_loadingTime * _skillHaste);
+		}
 	}
 
 	public virtual void Trigger()
@@ -203,6 +214,7 @@ public class BaseSkill : MonoBehaviour
 		if (projectileComponent != null)
 		{
 			projectileComponent.DamageAmount = _damageAmount;
+			projectileComponent.CriticalChance = _weaponToUse.WeaponInfo.CriticalChance;
 			projectileComponent.SkillName = _skillName;
 			projectileComponent.StunTime = _stunTime;
 			projectileComponent.KnockBackAmount = _knockBackAmount;

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Skills.Melee
 {
@@ -80,15 +81,18 @@ namespace Assets.Scripts.Skills.Melee
 				LevelComponent levelComponent = _entityTarget.CurrentTarget.GetComponent<LevelComponent>();
 				Health targetHealth = _entityTarget.CurrentTarget.GetComponent<Health>();
 
+				// Critical Chance
+				bool isCriticalHit = (Random.Range(0, 101) < _weaponToUse.CriticalChance);
+
 				if (levelComponent)
 				{
 					TriggerGameJuice();
-					levelComponent.TakeDamage(_damageAmount);
+					levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount));
 				}
 				else if (targetHealth)
 				{
 					TriggerGameJuice();
-					targetHealth.TakeDamage(_damageAmount, _skillName);
+					targetHealth.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), _skillName);
 					targetHealth.HitStun(_stunTime, _knockBackAmount, _entity.transform);
 					targetHealth.Attacker = _entity.gameObject;
 				}

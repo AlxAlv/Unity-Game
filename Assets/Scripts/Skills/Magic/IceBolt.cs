@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Skills.Magic;
+using UnityEngine;
 
 public class IceBolt : MagicSkill
 {
@@ -52,7 +53,7 @@ public class IceBolt : MagicSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = (_statManager.Intelligence.TotalAmount * 3) + (_staffToUse.WeaponInfo.Damage * 3);
+        _damageAmount = (_statManager.Intelligence.TotalAmount * 3) + (Random.Range(_staffToUse.WeaponInfo.MinDamage, _staffToUse.WeaponInfo.MaxDamage + 1) * 3);
 
         base.UpdateDamage();
     }

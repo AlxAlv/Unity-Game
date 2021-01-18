@@ -11,8 +11,6 @@ public class Sword : MeleeWeapon
     public void Awake()
     {
         base.Awake();
-
-        WeaponInfo.Damage = 1;
     }
 
     protected override void Update()

@@ -54,7 +54,7 @@ public class EnemyChargedShot : ArcherySkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Dexterity.TotalAmount * 6 + _bowToUse.WeaponInfo.Damage * 2;
+        _damageAmount = _statManager.Dexterity.TotalAmount * 6 + Random.Range(_bowToUse.WeaponInfo.MinDamage, _bowToUse.WeaponInfo.MaxDamage + 1) * 2;
 
         base.UpdateDamage();
     }

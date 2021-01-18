@@ -87,7 +87,7 @@ public class LootHelper : MonoBehaviour
             Color randomColor = new Color(Random.Range(0F, 1F), Random.Range(0, 1F), Random.Range(0, 1F));
             newObj.GetComponent<SpriteRenderer>().color = randomColor;
             newObj.GetComponent<WeaponReward>().SetWeaponColor(randomColor);
-            newObj.GetComponent<WeaponReward>().SetDamage(Random.Range(EnemyLevel * 1, EnemyLevel * 3));
+            newObj.GetComponent<WeaponReward>().SetDamage(Random.Range(EnemyLevel * 1, EnemyLevel * 2), Random.Range(EnemyLevel * 2, EnemyLevel * 3), Random.Range(EnemyLevel * 0, EnemyLevel * 3), Random.Range(EnemyLevel * 0, EnemyLevel * 1), "", "");
         }
         else if (rewardEquip)
         {
