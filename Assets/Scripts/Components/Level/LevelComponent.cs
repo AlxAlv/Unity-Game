@@ -1,12 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+public enum ItemRewardType
+{
+	MagicPowder,
+	Sawdust,
+	JarDust
+};
 
 public class LevelComponent : MonoBehaviour
 {
+
 	[Header("Settings")]
 	[SerializeField] private Sprite _damagedSprite;
+	[SerializeField] private Sprite _brokenSprite;
 	[SerializeField] private bool _isDamageable;
+	[SerializeField] private bool _isDestroyable;
+
+	public Inventory AttackerInventory;
 
 	private Health _health;
 	private SpriteRenderer _spriteRenderer;
@@ -25,12 +38,16 @@ public class LevelComponent : MonoBehaviour
 	{
 		if (other.CompareTag("Projectile"))
 		{
-			TakeDamage(other.GetComponent<Projectile>().DamageAmount, false);
+			AttackerInventory = other.GetComponent<Projectile>().Owner.GetComponent<Inventory>();
+			TakeDamage(other.GetComponent<Projectile>().DamageAmount, false, other.GetComponent<Projectile>().Owner.GetComponent<Inventory>());
 		}
 	}
 
-    public void TakeDamage(float damage, bool isCrit)
+    public void TakeDamage(float damage, bool isCrit, Inventory playerInventory)
     {
+	    if (!_isDamageable || _health.m_currentHealth < 0)
+			return;
+
         _health.TakeDamage(damage, StaleMove.NonStaleMove, isCrit);
 
         if (_health.m_currentHealth > 0)
@@ -41,12 +58,15 @@ public class LevelComponent : MonoBehaviour
 
         if (_health.m_currentHealth <= 0)
         {
-	        if (_isDamageable)
+	        Destroy(GetComponent<TargetHelper>());
+	        GetComponent<OutlineHelper>().SetOutlineAmount(0.0f);
+
+	        if (_isDestroyable)
 		        Destroy(gameObject);
 	        else
 	        {
 				// Jar, etc.
-		        _spriteRenderer.sprite = _damagedSprite;
+		        _spriteRenderer.sprite = _brokenSprite;
 		        _collider2D.enabled = false;
 
 		        if (_randomReward != null)

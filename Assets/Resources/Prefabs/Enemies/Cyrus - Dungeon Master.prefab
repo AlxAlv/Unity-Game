@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 9098165480830083987}
   - component: {fileID: -1989092878757361797}
   - component: {fileID: 183989226660528545}
+  - component: {fileID: -5294759920510020083}
   m_Layer: 11
   m_Name: Cyrus - Dungeon Master
   m_TagString: Player
@@ -320,6 +321,8 @@ MonoBehaviour:
   _alternateWeaponToStart: {fileID: 0}
   _alternateOffHandToStart: {fileID: 0}
   _ownedWeapons: []
+  CurrentWeaponPrefab: {fileID: 0}
+  CurrentOffHandWeaponPrefab: {fileID: 0}
 --- !u!114 &5192455206096082982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +487,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7486c70f935c34348b9641bc5f66591c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyLevel: 5
+  _bowDropRate: 4
+  _swordDropRate: 4
+  _staffDropRate: 4
+  _helmetDropRate: 4
+  _armorDropRate: 4
+  _bootsDropRate: 4
 --- !u!114 &7176452707378975809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +742,21 @@ MonoBehaviour:
   EnemyDeathSoundPath: Audio/SoundEffects/HugeEnemyDeath
   EnemyPushbackSoundPath: Audio/SoundEffects/HugeEnemyPushback
   Renderer: {fileID: 5192455206658842703}
+--- !u!114 &-5294759920510020083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192455206096082979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3991f2491a250ef44853f8e526c4ff32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rewardType: 0
+  _minAmountToGive: 0
+  _maxAmountToGive: 4
 --- !u!1 &5192455206658842701
 GameObject:
   m_ObjectHideFlags: 0

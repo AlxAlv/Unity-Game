@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,16 +34,28 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject _inventoryContainer;
     [SerializeField] private GameObject _weaponsPanel;
     [SerializeField] private GameObject _armorPanel;
+    [SerializeField] private GameObject _itemsPanel;
     [SerializeField] private int _maxNumberOfItems = 15;
 
     [Header("Arrows")]
     [SerializeField] private GameObject _weaponsArrow;
     [SerializeField] private GameObject _armorArrow;
+    [SerializeField] private GameObject _itemsArrow;
+
+    [Header("Item Text")]
+    [SerializeField] private TextMeshProUGUI _magicPowderText;
+    [SerializeField] private TextMeshProUGUI _sawdustText;
+    [SerializeField] private TextMeshProUGUI _jarDustText;
 
     public List<WeaponInstance> WeaponsOwned { get; set; }
     public List<EquipInstance> EquipsOwned { get; set; }
 
     private int _numberOfItems;
+
+    // Items
+    private int _currentMagicPowder = 0;
+    private int _currentSawdust = 0;
+    private int _currentjarDust = 0;
 
     static private int _currentWeaponNumber = 0;
     static private int _currentEquipNumber = 0;
@@ -133,6 +146,17 @@ public class Inventory : MonoBehaviour
 
 	        _numberOfItems = EquipsOwned.Count;
         }
+        else if (_itemsPanel.activeSelf)
+        {
+	        UpdateItemsPanel();
+        }
+    }
+
+    private void UpdateItemsPanel()
+    {
+	    _magicPowderText.text = "Magic Powder x" + _currentMagicPowder;
+	    _sawdustText.text = "Sawdust x" + _currentSawdust;
+        _jarDustText.text = "Jar Dust x" + _currentjarDust;
     }
 
     public void RemoveFromInventory(string internalName)
@@ -247,21 +271,54 @@ public class Inventory : MonoBehaviour
     {
 	    _numberOfItems = 0;
 
-        _weaponsPanel.SetActive(true);
+	    _weaponsPanel.SetActive(true);
 	    _armorPanel.SetActive(false);
+	    _itemsPanel.SetActive(false);
 
 	    _weaponsArrow.SetActive(true);
 	    _armorArrow.SetActive(false);
+	    _itemsArrow.SetActive(false);
     }
 
     public void ShowArmorTab()
     {
 	    _numberOfItems = 0;
 
-        _weaponsPanel.SetActive(false);
+	    _weaponsPanel.SetActive(false);
 	    _armorPanel.SetActive(true);
+	    _itemsPanel.SetActive(false);
 
 	    _weaponsArrow.SetActive(false);
 	    _armorArrow.SetActive(true);
+	    _itemsArrow.SetActive(false);
     }
+
+    public void ShowItemsPanel()
+    {
+	    _weaponsPanel.SetActive(false);
+	    _armorPanel.SetActive(false);
+	    _itemsPanel.SetActive(true);
+
+        _weaponsArrow.SetActive(false);
+	    _armorArrow.SetActive(false);
+	    _itemsArrow.SetActive(true);
+    }
+
+    public void AddItems(ItemRewardType rewardType, int amount)
+    {
+	    switch (rewardType)
+	    {
+            case ItemRewardType.MagicPowder:
+                _currentMagicPowder += amount;
+	            break;
+
+            case ItemRewardType.Sawdust:
+	            _currentSawdust += amount;
+	            break;
+
+            case ItemRewardType.JarDust:
+	            _currentjarDust += amount;
+	            break;
+	    }
+	}
 }

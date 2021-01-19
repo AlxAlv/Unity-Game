@@ -241,7 +241,7 @@ public class SkillBar : MonoBehaviour
         Weapon mainWeapon = _playerWeapons.CurrentWeapon;
         Weapon primaryOff = _playerWeapons.CurrentOffHandWeapon;
         Weapon secondaryWeapon = _playerWeapons.CurrentAlternateWeapon;
-        Weapon alternateOff = _playerWeapons.CurrentOffHandWeapon;
+        Weapon alternateOff = _playerWeapons.CurrentAlternateOffHandWeapon;
 
         bool primaryWeaponUsed = true;
         bool mainHandUsed = true;

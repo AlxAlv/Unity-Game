@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -88,6 +89,14 @@ public class Health : MonoBehaviour
 
 		if (m_currentHealth <= 0)
 		{
+			if (GetComponent<ItemLootHelper>())
+			{
+				if (GetComponent<LevelComponent>() && GetComponent<LevelComponent>().AttackerInventory != null)
+					GetComponent<ItemLootHelper>().GiveItems(GetComponent<LevelComponent>().AttackerInventory);
+				else
+ 					GetComponent<ItemLootHelper>().GiveItems(Attacker.GetComponent<Inventory>());
+			}
+
 			if (GetComponent<EntitySounds>())
 				GetComponent<EntitySounds>().PlayDeathSound();
 

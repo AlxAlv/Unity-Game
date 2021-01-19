@@ -79,7 +79,7 @@ public class MeleeAttack : MeleeSkill
                 if (levelComponent)
                 {
 	                TriggerGameJuice();
-                    levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), isCriticalHit);
+                    levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), isCriticalHit, _weaponToUse.m_weaponOwner.GetComponent<Inventory>());
                 }
                 else if (targetHealth)
 		        {

@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: -4510794601365410878}
   - component: {fileID: -5384041833296806472}
   - component: {fileID: 6607590171505158673}
+  - component: {fileID: -923543925498248626}
   m_Layer: 9
   m_Name: Box
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624734376346547481}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.835, y: -1.275, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 268599677114618232}
@@ -104,8 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c919498f05bb8bf4c9c54e24f40f61d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_initialHealth: 3
-  m_maxHealth: 3
+  m_initialHealth: 10
+  m_maxHealth: 10
   m_initialShield: 0
   m_maxShield: 0
   m_destroyableObject: 0
@@ -181,7 +182,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damagedSprite: {fileID: -2293541114000741245, guid: 01e3efdada37eff42a6f331b51e04161,
     type: 3}
+  _brokenSprite: {fileID: 3652061478787208488, guid: 01e3efdada37eff42a6f331b51e04161,
+    type: 3}
   _isDamageable: 1
+  _isDestroyable: 0
 --- !u!114 &1485671708300306167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +271,21 @@ MonoBehaviour:
   EnemyDeathSoundPath: Audio/SoundEffects/WoodBreak
   EnemyPushbackSoundPath: 
   Renderer: {fileID: 7039121207468782304}
+--- !u!114 &-923543925498248626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624734376346547481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3991f2491a250ef44853f8e526c4ff32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rewardType: 1
+  _minAmountToGive: 0
+  _maxAmountToGive: 2
 --- !u!1001 &5359115620161401030
 PrefabInstance:
   m_ObjectHideFlags: 0

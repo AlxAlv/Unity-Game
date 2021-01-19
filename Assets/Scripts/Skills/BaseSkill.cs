@@ -393,7 +393,7 @@ public class BaseSkill : MonoBehaviour
 				bool isCriticalHit = (Random.Range(0, 101) < _weaponToUse.CriticalChance);
 
 				if (levelComponent)
-					levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), false);
+					levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), false, _weaponToUse.m_weaponOwner.GetComponent<Inventory>());
 				else if (targetHealth)
 				{
 					targetHealth.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), _skillName, isCriticalHit);
