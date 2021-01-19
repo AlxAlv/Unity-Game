@@ -12,6 +12,11 @@ public class EquipReward : Collectables
 	private int _dexBonus;
 	private EquipType _equipType;
 
+	private void Awake()
+	{
+		_pickupSoundPath = "Audio/SoundEffects/StashingItemFx";
+	}
+
 	protected override bool Pick()
 	{
 		return Equip();

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -10,12 +11,13 @@ public class Tooltip : MonoBehaviour
     private RectTransform _backgroundRectTransform;
     private TooltipUIHelper _currentToolTipBeingViewed;
 
+    [SerializeField] private GameObject _tooltipVisuals;
     [SerializeField] private Camera _uiCamera;
 
     private void Awake()
     {
-        _backgroundRectTransform = transform.Find("Background").GetComponent<RectTransform>();
-        _tooltipText = transform.Find("Text").GetComponent<TextMeshPro>();
+        _backgroundRectTransform = _tooltipVisuals.transform.Find("Background").GetComponent<RectTransform>();
+        _tooltipText = _tooltipVisuals.transform.Find("Text").GetComponent<TextMeshPro>();
 
         Instance = this;
         HideTooltip();
@@ -26,10 +28,9 @@ public class Tooltip : MonoBehaviour
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent.GetComponent<RectTransform>(), Input.mousePosition, _uiCamera, out localPoint);
 
-        transform.localPosition = new Vector2(localPoint.x, localPoint.y + (50.0f));
+        transform.localPosition = new Vector2(localPoint.x, localPoint.y + (16f));
 
-
-        if (_currentToolTipBeingViewed.gameObject.activeInHierarchy == false)
+        if (_currentToolTipBeingViewed && _currentToolTipBeingViewed.gameObject.activeInHierarchy == false)
             HideTooltip();
     }
 
@@ -43,16 +44,16 @@ public class Tooltip : MonoBehaviour
 	    _tooltipText.text = tooltipString;
         _currentToolTipBeingViewed = currentUI;
 
-        float textPaddingSize = 10f;
+        float textPaddingSize = 15.0f;
         Vector2 backgorundSize = new Vector2(_tooltipText.preferredWidth + textPaddingSize * 2f, _tooltipText.preferredHeight + textPaddingSize * 2f);
         _backgroundRectTransform.sizeDelta = backgorundSize;
 
-        gameObject.SetActive(true);
+        StartCoroutine(ShowToolTip());
     }
 
     private void HideTooltip()
     {
-        gameObject.SetActive(false);
+	    _tooltipVisuals.SetActive(false);
         ResetTooltip();
     }
     
@@ -64,5 +65,12 @@ public class Tooltip : MonoBehaviour
     public static void HideTooltip_Static()
     {
         Instance.HideTooltip();
+    }
+
+    IEnumerator ShowToolTip()
+    {
+	    yield return null;
+
+	    _tooltipVisuals.SetActive(true);
     }
 }

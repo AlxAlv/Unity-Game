@@ -46,6 +46,7 @@ public class Chest : MonoBehaviour
 			Instantiate(SelectReward(), transform.position + _rewardRandomPosition, Quaternion.identity);
 
 			_rewardGiven = true;
+			SoundManager.Instance.Playsound("Audio/SoundEffects/ChestOpenFx");
 		}
 	}
 

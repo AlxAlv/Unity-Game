@@ -32,21 +32,6 @@ public class ActionWander : AIAction
 			controller.EntityMovement.StopAIMoving();
     }
 
-    private void EvaluateObstacles(AIStateController controller)
-    {
-        //RaycastHit2D hit = Physics2D.BoxCast(controller.Collider2D.bounds.center, ObstacleBoxCheckSize, 0.0f, _wanderDirection, _wanderDirection.magnitude, ObstacleMask);
-
-        //if (hit)
-        //{
-        //    // Pick random location
-        //    _wanderDirection.x = Random.Range(-WanderArea, WanderArea);
-        //    _wanderDirection.y = Random.Range(-WanderArea, WanderArea);
-
-        //    // Update wander time
-        //    _wanderCheckTime = Time.time;
-        //}
-    }
-
     private void Wander(AIStateController controller)
     {
         if (_wanderCheckTime < _currentWanderTimer && (controller.LineRenderer.startColor == Color.green))

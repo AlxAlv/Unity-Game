@@ -41,7 +41,7 @@ public class EntityShield : EntityComponent
 			_isShielding = false;
 			_health.ShieldModifier = 1.0f;
 
-			if (_stamina.UseStamina(_staminaAmount))
+			if (!CameraFilter.Instance.IsTransitioning && _stamina.UseStamina(_staminaAmount))
 				Dodge();
 		}
 	}
@@ -114,7 +114,7 @@ public class EntityShield : EntityComponent
 		_health.ShieldModifier = 0.5f;
 	}
 
-	private void StopDodging()
+	public void StopDodging()
 	{
 		_dodging = false;
 		m_controller.IsNormalMovement = true;

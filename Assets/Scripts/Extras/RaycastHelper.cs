@@ -26,16 +26,16 @@ public class RaycastHelper : Singleton<RaycastHelper>
             {
                 if (go.gameObject.GetComponent<Entity>() != null)
                 {
-                    if (go.gameObject.GetComponent<Entity>().EntityType == Entity.EntityTypes.AI)
+                    if (go.gameObject.GetComponent<Entity>().EntityType == Entity.EntityTypes.AI && !IsObjectInFrontOfOtherObject(go.gameObject))
                     {
                         return go.gameObject;
                     }
                 }
-                else if (go.gameObject.GetComponent<Damageable>() != null)
+                else if (go.gameObject.GetComponent<Damageable>() != null && !IsObjectInFrontOfOtherObject(go.gameObject))
                 {
                     return go.gameObject;
                 }
-                else if (go.gameObject.GetComponent<LevelComponent>() != null)
+                else if (go.gameObject.GetComponent<LevelComponent>() != null && !IsObjectInFrontOfOtherObject(go.gameObject))
                 {
                     return go.gameObject;
                 }
@@ -43,6 +43,23 @@ public class RaycastHelper : Singleton<RaycastHelper>
         }
 
         return null;
+    }
+
+    public bool IsObjectInFrontOfOtherObject(GameObject theGameObject)
+    {
+	    PointerEventData pointer = new PointerEventData(EventSystem.current);
+	    pointer.position = Camera.main.WorldToScreenPoint(theGameObject.transform.position);
+        Vector2 mousePosition = Input.mousePosition;
+
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+	    EventSystem.current.RaycastAll(pointer, raycastResults);
+
+	    if (raycastResults.Count > 0 && raycastResults[0].gameObject == theGameObject)
+	    {
+		    return false;
+	    }
+
+	    return true;
     }
 
     public bool IsPlayerUnderCursor()
@@ -61,7 +78,7 @@ public class RaycastHelper : Singleton<RaycastHelper>
             {
                 if (go.gameObject.GetComponent<Entity>() != null)
                 {
-                    if (go.gameObject.GetComponent<Entity>().EntityType == Entity.EntityTypes.Player)
+                    if (go.gameObject.GetComponent<Entity>().EntityType == Entity.EntityTypes.Player && !IsObjectInFrontOfOtherObject(go.gameObject))
                     {
                         playerIsUnderCursor = true;
                     }

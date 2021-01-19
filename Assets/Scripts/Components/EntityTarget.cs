@@ -46,7 +46,6 @@ public class EntityTarget : EntityComponent
 
         UpdateLine();
         HightlightUnderCursor();
-        HightlightUnderCursor();
         UpdatePlayerHighlight();
     }
 

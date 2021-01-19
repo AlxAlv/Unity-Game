@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canDestroyItem: 1
-  _healthToAdd: 1
-  _healthBonusFX: {fileID: 6050229109162815851, guid: 0acd5da5a5c815941b24520a3625df8d,
+  _rotationSpeed: 160
+  _pickupParticleSystem: {fileID: 6050229109162815851, guid: 0acd5da5a5c815941b24520a3625df8d,
     type: 3}
+  _healthToAdd: 15

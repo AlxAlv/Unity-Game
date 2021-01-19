@@ -48,7 +48,7 @@ public class FenrirManager : MonoBehaviour
         DialogueButton button1_1 = new DialogueButton("The Dungeon", 3, ButtonType.Continue);
         dialogueButtons1.Add(button1_1);
 
-        DialogueButton button1_2 = new DialogueButton("Combat Controls", 4, ButtonType.Continue);
+        DialogueButton button1_2 = new DialogueButton("Controls", 4, ButtonType.Continue);
         dialogueButtons1.Add(button1_2);
 
         message1.Buttons = dialogueButtons1;
@@ -127,12 +127,27 @@ public class FenrirManager : MonoBehaviour
         message6.Name = name;
         message6.Sentence = "Holding [LEFT-SHIFT] reduces incoming damage.\nLetting go of [LEFT-SHIFT] has you dodge and avoid all damage.\n[ESC] Cancels any loaded skill.";
 
-        DialogueButton button6_0 = new DialogueButton("Got it!", 4, ButtonType.End);
+        DialogueButton button6_0 = new DialogueButton("[CONTINUE]", 7, ButtonType.Continue);
         dialogueButtons6.Add(button6_0);
 
         message6.Buttons = dialogueButtons6;
 
         dialogueDictionary.Add(6, message6);
+
+        // Combat Info (7)
+        Dialogue message7 = new Dialogue();
+        List<DialogueButton> dialogueButtons7 = new List<DialogueButton>();
+
+        message7.Emotion = Dialogue.Emotions.Happy;
+        message7.Name = name;
+        message7.Sentence = "And Finally...\nHolding [X] makes you run.\nPressing [V] opens chests.";
+
+        DialogueButton button7_0 = new DialogueButton("Got it!", 4, ButtonType.End);
+        dialogueButtons7.Add(button7_0);
+
+        message7.Buttons = dialogueButtons7;
+
+        dialogueDictionary.Add(7, message7);
 
         // End
         _dialogueTrigger.DialogueDictionary = dialogueDictionary;

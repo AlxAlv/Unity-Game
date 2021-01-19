@@ -71,6 +71,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
 			buttonPrefab.transform.parent = OptionsList.transform;
 			buttonPrefab.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+			buttonPrefab.transform.localPosition = new Vector3(buttonPrefab.transform.localPosition.x, buttonPrefab.transform.localPosition.y, 0.0f);
 
 			buttonPrefab.GetComponentInChildren<TextMeshProUGUI>().text = button.ButtonMessage;
 

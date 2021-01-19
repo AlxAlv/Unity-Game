@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Camera2D : MonoBehaviour
 {
@@ -108,10 +106,10 @@ public class Camera2D : MonoBehaviour
 
 	private void HandleInput()
 	{
-		if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize > 10)
+		if (Input.mouseScrollDelta.y > 0 && Camera.main.orthographicSize > (8))
 			Camera.main.orthographicSize = Camera.main.orthographicSize - 1;
 
-		else if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize < 14)
+		else if (Input.mouseScrollDelta.y < 0 && Camera.main.orthographicSize < (16))
 			Camera.main.orthographicSize = Camera.main.orthographicSize + 1;
 	}
 }

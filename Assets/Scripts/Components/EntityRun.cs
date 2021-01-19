@@ -26,23 +26,23 @@ public class EntityRun : EntityComponent
             }
         }
 
-        // Note: This code can be uncommented out to add the running mechanic again
-        //if (Input.GetKey(KeyCode.LeftShift) && !IsRunning() && (m_movement.m_moveSpeed != 0))
-        //{
-        //    Run();
-        //}
-        //else if (Input.GetKeyUp(KeyCode.LeftShift))
-        //{
-        //    StopRunning();
-        //}
-    }
+		// Note: This code can be uncommented out to add the running mechanic again
+		if (Input.GetKey(KeyCode.X) && !IsRunning() && (m_movement.m_moveSpeed != 0))
+		{
+			Run();
+		}
+		else if (Input.GetKeyUp(KeyCode.X))
+		{
+			StopRunning();
+		}
+	}
 
     private void Run()
     {
         if (_stamina.UseStamina(_staminaToUse))
         {
             _staminaTimer = 0.0f;
-            m_movement.RunMovementModifier = 2.0f;
+            m_movement.RunMovementModifier = (1.5f);
         }
     }
 

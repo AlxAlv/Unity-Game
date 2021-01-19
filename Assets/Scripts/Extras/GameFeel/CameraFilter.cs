@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CameraFilter : Singleton<CameraFilter>
 {
+	public bool IsTransitioning = false;
 	private const float SLOW_BLACK_SCREEN_SPEED = 1.000000005f;
 
 	private Coroutine _currentCoroutine = null;
@@ -41,6 +42,7 @@ public class CameraFilter : Singleton<CameraFilter>
 			StopCoroutine(_currentCoroutine);
 
 		_currentCoroutine = StartCoroutine(FadeIntoAndAway());
+		IsTransitioning = true;
 	}
 
 	public void FirstHalfBlackScreenFade()
@@ -54,6 +56,7 @@ public class CameraFilter : Singleton<CameraFilter>
 			StopCoroutine(_currentCoroutine);
 
 		_currentCoroutine = StartCoroutine(FadeSlowInto());
+		IsTransitioning = true;
 	}
 
 	public void SecondHalfBlackScreenFade()
@@ -62,6 +65,7 @@ public class CameraFilter : Singleton<CameraFilter>
 			StopCoroutine(_currentCoroutine);
 
 		_currentCoroutine = StartCoroutine(FadeSlowOutOf());
+		IsTransitioning = true;
 	}
 
 	private IEnumerator FadeIntoAndAway()
@@ -87,6 +91,8 @@ public class CameraFilter : Singleton<CameraFilter>
 
 			yield return null;
 		}
+
+		IsTransitioning = false;
 	}
 
 	private IEnumerator FadeSlowInto()
@@ -100,6 +106,8 @@ public class CameraFilter : Singleton<CameraFilter>
 
 			yield return null;
 		}
+
+		IsTransitioning = false;
 	}
 
 	private IEnumerator FadeSlowOutOf()
@@ -113,6 +121,8 @@ public class CameraFilter : Singleton<CameraFilter>
 
 			yield return null;
 		}
+
+		IsTransitioning = false;
 	}
 
 	private IEnumerator FadeInto()

@@ -160,7 +160,9 @@ MonoBehaviour:
   _xRandomPosition: 2
   _rewards:
   - {fileID: 4413614124650609544, guid: af853912aada2fc4ab6ebdcf62f1840d, type: 3}
-  - {fileID: 4413614124650609544, guid: ee3cffbecb5b0db408ca022ef4b3e420, type: 3}
+  - {fileID: 4413614124650609544, guid: 5af515f8eb348514bb8466a5b25b0b4d, type: 3}
+  - {fileID: 4413614124650609544, guid: 222373e9c7403e2498dc6f9ba6b5fb30, type: 3}
+  - {fileID: 4413614124650609544, guid: 589fe427eff141e4a9c576f0f6c7957d, type: 3}
 --- !u!50 &3328653854978862286
 Rigidbody2D:
   serializedVersion: 4
@@ -197,7 +199,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.25
+  m_Radius: 3
 --- !u!95 &6355018298763385192
 Animator:
   serializedVersion: 3

@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class HealthReward : Collectables
 {
-	[SerializeField] private int _healthToAdd = 1;
-	[SerializeField] private ParticleSystem _healthBonusFX;
+	[SerializeField] private int _healthToAdd = 15;
+
+	private void Awake()
+	{
+		_pickupSoundPath = "Audio/SoundEffects/HealFx";
+	}
 
 	protected override bool Pick()
 	{
 		AddHealth(_entity);
-		SoundManager.Instance.Playsound("Audio/SoundEffects/HealFx");
 
 		return true;
-	}
-
-	protected override void PlayEffects()
-	{
-		Instantiate(_healthBonusFX, transform.position, Quaternion.identity);
 	}
 
 	public void AddHealth(Entity entityToAddHealth)

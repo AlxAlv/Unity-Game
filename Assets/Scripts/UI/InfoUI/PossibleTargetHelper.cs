@@ -101,5 +101,8 @@ public class PossibleTargetHelper : MonoBehaviour
                 closestDistance = distanceFromTarget;
             }
         }
+
+        if (CurrentTarget && RaycastHelper.Instance.IsObjectInFrontOfOtherObject(CurrentTarget))
+	        CurrentTarget = null;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Spawner Settings")]
+    [Header("Auto Spawner Settings")]
     [SerializeField] GameObject _enemyObject;
     [SerializeField] float _spawnRate = 5.0f;
     [SerializeField] float _xOffset = 10.0f;
@@ -12,19 +14,28 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int _maxNumberOfTotalSpawns = 0;
     [SerializeField] bool _summonAllAtOnce = false;
     [SerializeField] List<Weapon> _possibleWeapons;
-    [SerializeField] private bool _arenaSpawner = false;
+
+    [Header("Activated Spawner Settings")]
+    [SerializeField] private bool _activatedSpawner = false;
 
     private float _nextSpawn = 0.0f;
     private int _currentSpawns = 0;
 
     void Update()
     {
-	    if (_arenaSpawner)
+        // If we're an activated spawner, we don't auto-update
+	    if (_activatedSpawner)
 		    return;
 
-        if (    ((Time.time > _nextSpawn) || (transform.childCount == 0)) 
-             && ((_currentSpawns < _maxNumberOfTotalSpawns) || (_summonAllAtOnce && _currentSpawns < _maxNumberOfTotalSpawns) || (_maxNumberOfTotalSpawns == 0))
-             && (gameObject.transform.childCount < _maxNumberOfEnemies))
+	    bool timeHasPassed = (Time.time > _nextSpawn);
+	    bool noEnemiesExist = (transform.childCount == 0);
+        bool hasNotReachedMaximumSpawns = (_currentSpawns < _maxNumberOfTotalSpawns);
+        bool noMaximumSpawnLimit = (_maxNumberOfTotalSpawns == 0);
+        bool maximumSpawnsAtAnyGiveTimeNotReached = (gameObject.transform.childCount < _maxNumberOfEnemies);
+
+        if (    (timeHasPassed || noEnemiesExist || _summonAllAtOnce) 
+             && (hasNotReachedMaximumSpawns || noMaximumSpawnLimit)
+             &&  maximumSpawnsAtAnyGiveTimeNotReached)
         {
             _nextSpawn = Time.time + _spawnRate;
 
@@ -37,13 +48,10 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void SetLevel(GameObject enemy)
+    private void SetLevel(GameObject enemy, int level)
     {
-		enemy.GetComponent<StatManager>().SetLevel(LevelManager.Instance.CurrentLevel);
-		enemy.GetComponent<Health>().CalculateMaxHealth();
-		enemy.GetComponent<Health>().RefillHealth();
-		enemy.GetComponent<Exp>()._currentLevel = LevelManager.Instance.CurrentLevel;
-        enemy.GetComponent<Exp>().ExpToGive *= LevelManager.Instance.CurrentLevel;
+		UpdateLevel(enemy, level);
+        enemy.GetComponent<Exp>().ExpToGive *= level;
     }
 
     public void UpdateLevel(GameObject enemy, int level)
@@ -72,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
         var objectCreated = Instantiate(enemyToSpawn, whereToSpawn, Quaternion.identity);
         objectCreated.transform.parent = transform;
 
-        SetLevel(objectCreated);
+        SetLevel(objectCreated, LevelManager.Instance.CurrentLevel);
 
         return objectCreated;
     }

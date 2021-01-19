@@ -4,10 +4,15 @@ public class CoinReward : Collectables
 {
 	[SerializeField] private int _coinsToAdd = 25;
 
+	private void Awake()
+	{
+		_pickupSoundPath = "Audio/SoundEffects/CoinPickupFx";
+	}
+
 	protected override bool Pick()
 	{
 		AddCoins();
-		SoundManager.Instance.Playsound("Audio/SoundEffects/CoinPickupFx");
+		PlayEffects();
 
 		return true;
 	}

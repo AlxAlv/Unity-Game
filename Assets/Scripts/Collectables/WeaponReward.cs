@@ -14,6 +14,11 @@ public class WeaponReward : Collectables
 	private string _prefixEnchant;
 	private string _suffixEnchant;
 
+	private void Awake()
+	{
+		_pickupSoundPath = "Audio/SoundEffects/StashingItemFx";
+	}
+
 	protected override bool Pick()
 	{
 		return EquipWeapon();
