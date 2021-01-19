@@ -396,6 +396,7 @@ public class BaseSkill : MonoBehaviour
 					levelComponent.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), false, _weaponToUse.m_weaponOwner.GetComponent<Inventory>());
 				else if (targetHealth)
 				{
+					targetHealth.Attacker = _weaponToUse.m_weaponOwner.gameObject;
 					targetHealth.TakeDamage((isCriticalHit ? (_damageAmount * 2) : _damageAmount), _skillName, isCriticalHit);
 					targetHealth.HitStun(_stunTime, _knockBackAmount, _entity.transform);
 					targetHealth.Attacker = _entity.gameObject;

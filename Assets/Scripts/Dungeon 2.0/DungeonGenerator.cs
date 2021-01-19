@@ -17,6 +17,7 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 	[SerializeField] public List<MaybeSpawnObject> EventSpawners;
 	[SerializeField] public List<SpawnObject> PossibleTiles;
 	[SerializeField] public GameObject FinalRoom;
+	[SerializeField] public Transform WaitingPosition;
 
 	public Transform[] StartingPositions;
 	public GameObject[] Rooms; // Index 0 --> LR, Index 1 --> LRB, Index 2 --> LRT, Index 3 --> LRBT
@@ -97,6 +98,7 @@ public class DungeonGenerator : Singleton<DungeonGenerator>
 			child.GetComponent<SpawnRoom>().ResetObject();
 		}
 
+		PlayerTransform.position = WaitingPosition.position;
 		StartCoroutine(WaitForFloorGeneration());
 		CameraFilter.Instance.FirstHalfBlackScreenFade();
 	}

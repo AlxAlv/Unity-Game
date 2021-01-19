@@ -50,7 +50,7 @@ public class BoulderToss : MagicSkill
 
     protected override void UpdateDamage()
     {
-        _damageAmount = _statManager.Intelligence.TotalAmount * 10 + Random.Range(_staffToUse.WeaponInfo.MinDamage, _staffToUse.WeaponInfo.MaxDamage + 1);
+        _damageAmount = _statManager.Intelligence.TotalAmount * 10 + Random.Range(_staffToUse.WeaponInfo.MinDamage, _staffToUse.WeaponInfo.MaxDamage + 1) * 2;
 
         base.UpdateDamage();
     }

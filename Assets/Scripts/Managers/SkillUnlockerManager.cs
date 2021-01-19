@@ -12,6 +12,8 @@ public class SkillUnlockerManager : Singleton<SkillUnlockerManager>
 	[SerializeField] public SkillUnlocker _skyfallSkillUnlocker;
     [SerializeField] public Animator _animator;
 
+    private int _goldToUnlockSkill = 300;
+
     private void Update()
     {
 	    if (Input.GetKeyDown(KeyCode.Numlock) && Application.isEditor)
@@ -27,37 +29,37 @@ public class SkillUnlockerManager : Singleton<SkillUnlockerManager>
 
     public void UnlockPoisonArrow()
     {
-        if (SpendGold(1000))
+        if (SpendGold(_goldToUnlockSkill))
 			_poisonArrowUnlocker.IsUnlocked = true;
     }
 
     public void UnlockChargedShot()
     {
-	    if (SpendGold(1000))
+	    if (SpendGold(_goldToUnlockSkill))
             _chargedShotUnlocker.IsUnlocked = true;
     }
 
     public void UnlockFrozenDaggers()
     {
-	    if (SpendGold(1000))
+	    if (SpendGold(_goldToUnlockSkill))
             _frozenDaggersUnlocker.IsUnlocked = true;
     }
 
     public void UnlockBoulderToss()
     {
-	    if (SpendGold(1000))
+	    if (SpendGold(_goldToUnlockSkill))
             _boulderTossUnlocker.IsUnlocked = true;
     }
 
     public void UnlockHeal()
     {
-	    if (SpendGold(1000))
+	    if (SpendGold(_goldToUnlockSkill))
             _healUnlocker.IsUnlocked = true;
     }
 
     public void UnlockSkyFall()
     {
-	    if (SpendGold(1000))
+	    if (SpendGold(_goldToUnlockSkill))
             _skyfallSkillUnlocker.IsUnlocked = true;
     }
 

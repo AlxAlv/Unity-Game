@@ -48,7 +48,10 @@ public class LevelComponent : MonoBehaviour
 	    if (!_isDamageable || _health.m_currentHealth < 0)
 			return;
 
-        _health.TakeDamage(damage, StaleMove.NonStaleMove, isCrit);
+	    if (playerInventory != null)
+		    AttackerInventory = playerInventory;
+
+	    _health.TakeDamage(damage, StaleMove.NonStaleMove, isCrit);
 
         if (_health.m_currentHealth > 0)
         {
