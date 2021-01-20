@@ -67,8 +67,8 @@ public class FireBolt : MagicSkill
 
     protected override void UpdateDamage()
     {
-	    _amountPerTick = _statManager.Intelligence.TotalAmount * 1;
-        _damageAmount = _statManager.Intelligence.TotalAmount * 2;
+	    _amountPerTick = _statManager.Intelligence.TotalAmount * 1 + (Random.Range(_staffToUse.WeaponInfo.MinDamage, _staffToUse.WeaponInfo.MaxDamage + 1) * 2);
+	    _damageAmount = (int)(_amountPerTick);
 
         base.UpdateDamage();
     }

@@ -93,7 +93,7 @@ public class Health : MonoBehaviour
 			{
 				if (GetComponent<LevelComponent>() && GetComponent<LevelComponent>().AttackerInventory != null)
 					GetComponent<ItemLootHelper>().GiveItems(GetComponent<LevelComponent>().AttackerInventory);
-				else
+				else if (Attacker != null)
  					GetComponent<ItemLootHelper>().GiveItems(Attacker.GetComponent<Inventory>());
 			}
 

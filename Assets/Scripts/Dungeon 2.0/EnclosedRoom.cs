@@ -9,13 +9,13 @@ public class EnclosedRoom : MonoBehaviour
 	[SerializeField] private EnemySpawner _enemySpawner;
 	[SerializeField] private List<Weapon> _possibleWeapons;
 	[SerializeField] private GameObject enemyToSpawn;
+	[SerializeField] private int _numberOfWaves = 3;
 
 	// Objective Information
 	private List<GameObject> _spawnedEntities;
 	private bool _isStarted = false;
 
 	private int _currentRoom = 1;
-	private int _totalRooms = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -36,11 +36,11 @@ public class EnclosedRoom : MonoBehaviour
 		    {
 			    _currentRoom++;
 
-				if (_currentRoom <= _totalRooms)
+				if (_currentRoom <= _numberOfWaves)
 					StartWave();
 			}
 
-			if (_currentRoom > _totalRooms)
+			if (_currentRoom > _numberOfWaves)
 			{
 				SoundManager.Instance.Playsound("Audio/SoundEffects/OpeningRoom");
 				Destroy(gameObject);
@@ -55,7 +55,7 @@ public class EnclosedRoom : MonoBehaviour
 		    _walls.gameObject.SetActive(true);
 		    _enemySpawner.gameObject.SetActive(true);
 
-			DialogManager.Instance.InstantSystemMessage("Ambushed!\nDefeat " + _totalRooms + " Waves Of Enemies!");
+			DialogManager.Instance.InstantSystemMessage("Ambushed!\nDefeat " + _numberOfWaves + " Waves Of Enemies!");
 			SoundManager.Instance.Playsound("Audio/SoundEffects/ClosingRoom");
 			_isStarted = true;
 
