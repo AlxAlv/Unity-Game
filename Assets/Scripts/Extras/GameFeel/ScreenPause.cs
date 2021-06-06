@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ScreenPause : Singleton<ScreenPause>
 {
-	private const float THE_DEFAULT_DURATION = 0.085f;
-	private float duration = THE_DEFAULT_DURATION;
+	//private const float THE_DEFAULT_DURATION = 0.085f;
+	private const float DEFAULT_DURATION = 0.045f;
+	private float duration = DEFAULT_DURATION;
 	private float _pendingFreezeDuration = 0.0f;
 	private bool _isFrozen = false;
 
@@ -18,7 +19,7 @@ public class ScreenPause : Singleton<ScreenPause>
 	    }
     }
 
-    public void Freeze(float duration = THE_DEFAULT_DURATION)
+    public void Freeze(float duration = DEFAULT_DURATION)
     {
 	    _pendingFreezeDuration = duration;
     }

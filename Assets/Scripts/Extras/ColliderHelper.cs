@@ -14,5 +14,6 @@ public class ColliderHelper : MonoBehaviour
         // Let it know a collision happened:
         //parentScript.CollisionFromChild(collision);
 
+        Debug.Log("Hit a wall. Would report here?");
     }
 }

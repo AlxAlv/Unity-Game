@@ -50,26 +50,14 @@ public class Camera2D : MonoBehaviour
 
 	private void FollowLate()
 	{
-		RaycastHit hit;
-		_mousePositionCoords = Input.mousePosition;
-		_ray = _camera.ScreenPointToRay(_mousePositionCoords);
+		float maxScreenPoint = _maxDistance;
+		Vector3 mousePos = Input.mousePosition * maxScreenPoint + new Vector3(Screen.width, Screen.height, 0f) * ((1f - maxScreenPoint) * 0.5f);
+		//Vector3 position = (target.position + GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition)) / 2f;
+		Vector3 position = (m_targetTransform.transform.position + GetComponent<Camera>().ScreenToWorldPoint(mousePos)) / 2f;
+		Vector3 destination = new Vector3(position.x, position.y, -10);
+		Vector3 desiredPosition = destination;
 
-		if (Physics.Raycast(_ray, out hit))
-		{
-				_offsetForOffset = (hit.point - m_targetTransform.position) * _scaleFactor;
-		}
-		else
-			_offsetForOffset = Vector3.zero; // This makes it so that if the camera raycast doesn't hit, we go to directly over the player.
-
-		if (_offsetForOffset.magnitude > _maxDistance)
-		{
-			_offsetForOffset.Normalize(); // Make the vector3 have a magnitude of 1
-			_offsetForOffset = _offsetForOffset * _maxDistance;
-		}
-
-		_offset = _defaultOffset + _offsetForOffset;
-
-		Vector3 desiredPosition = m_targetTransform.transform.position/* + _offset*/;
+		// Vector3 desiredPosition = m_targetTransform.transform.position;
 
 		if (_smoothCamera)
 		{

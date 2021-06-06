@@ -48,10 +48,17 @@ public class Health : MonoBehaviour
 
 	public void TakeDamage(float damage, string attackName, bool isCriticalHit)
 	{
-		if (m_entity != null && m_entity.EntityType == Entity.EntityTypes.Player)
+		if (m_entity != null)
 		{
-			UIManager.Instance.BounceHealthText();
-			CameraFilter.Instance.Flash(Color.white, (1.75f), (0.45f));
+			if (m_entity.EntityType == Entity.EntityTypes.Player)
+			{
+				UIManager.Instance.BounceHealthText();
+				CameraFilter.Instance.Flash(Color.white, (1.75f), (0.45f));
+			}
+			else if (m_entity.EntityType == Entity.EntityTypes.AI)
+			{
+				ComboManager.Instance.IncrementCounter();
+			}
 		}
 
 		if (m_entity != null && (m_entity.EntityType == Entity.EntityTypes.AI ||

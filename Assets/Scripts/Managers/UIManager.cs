@@ -14,11 +14,16 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI m_currentStaminaText;
     [SerializeField] private Image _expBar;
     [SerializeField] private TextMeshProUGUI _currentExpText;
+    [SerializeField] private Image _ultimateBar;
+    [SerializeField] private TextMeshProUGUI _currentUltimateText;
     [SerializeField] private Image _hungerBar;
 
     [Header("Coins")] 
     [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private GameObject _coinImage;
+
+    [Header("ComboCounter")]
+    [SerializeField] private TextMeshProUGUI _comboText;
 
 
     private float m_playerCurrentHealth;
@@ -26,8 +31,12 @@ public class UIManager : Singleton<UIManager>
 
     private float m_playerCurrentMana;
     private float m_playerMaxMana;
+
     private float m_playerCurrentStamina;
     private float m_playerMaxStamina;
+
+    private float _playerCurrentUltimatePoints;
+    private float _playerMaxUltimatePoints;
 
     private float _currentExp;
     private float _expNeededToLevelUp;
@@ -61,12 +70,18 @@ public class UIManager : Singleton<UIManager>
             //_currentExpText.text = "Lv." + _currentLevel.ToString() + " - " +_currentExp.ToString() + "/" + _expNeededToLevelUp.ToString();
             _currentExpText.text = "Lv." + _currentLevel.ToString();
 
+            _ultimateBar.fillAmount = Mathf.Lerp(_ultimateBar.fillAmount, _playerCurrentUltimatePoints / _playerMaxUltimatePoints, 10f * Time.deltaTime);
+            _currentUltimateText.text = _playerCurrentUltimatePoints.ToString() + "/" + _playerMaxUltimatePoints.ToString();
+
             _hungerBar.fillAmount = Mathf.Lerp(_hungerBar.fillAmount, Mathf.Abs(1.0f -_currentHunger), 10f * Time.deltaTime);
 
         }
 
         // Update Coins
         _coinText.text = CoinManager.Instance.Coins.ToString();
+
+        // Update Combo
+        UpdateComboText();
     }
 
     public void UpdateHealth(float currentHealth, float maxHealth, float currentShield, float maxShield, bool isPlayer)
@@ -103,6 +118,13 @@ public class UIManager : Singleton<UIManager>
         _currentHunger = currentModifier;
     }
 
+    public void UpdateUltimatePoints(float currentPoints, float maxPoints, bool isPlayer)
+    {
+        _playerCurrentUltimatePoints = currentPoints;
+        _playerMaxUltimatePoints = maxPoints;
+        _isPlayer = isPlayer;
+    }
+
     public void BounceHealthText()
     {
 	    UIBounce.Instance.BounceUI(m_currentHealthText.gameObject);
@@ -113,5 +135,18 @@ public class UIManager : Singleton<UIManager>
     {
 	    UIBounce.Instance.BounceUI(_coinText.gameObject);
         UIBounce.Instance.BounceUI(_coinImage);
+    }
+
+    private void UpdateComboText()
+    {
+        if (ComboManager.Instance.ComboCount == 0)
+        {
+            _comboText.gameObject.SetActive(false);
+        }
+        else
+        {
+            _comboText.gameObject.SetActive(true);
+            _comboText.text = ComboManager.Instance.ComboCount.ToString();
+        }
     }
 }

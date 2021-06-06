@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
@@ -6,10 +7,11 @@ using UnityEngine;
 
 public class EntityShield : EntityComponent
 {
-	[SerializeField] private float _maxDodgeDistance = 3.0f;
+	[SerializeField] private float _maxDodgeDistance = 5.0f;
 	[SerializeField] private float _dodgeDuration = (0.10f);
 	[SerializeField] private float _staminaAmount = 3.0f;
 	[SerializeField] private GameObject _shieldImGameObject;
+	[SerializeField] private LineRenderer _radiusLineRenderer;
 	[SerializeField] private LineRenderer _lineRenderer;
 
 	private bool _isShielding = false;
@@ -51,6 +53,7 @@ public class EntityShield : EntityComponent
 		base.HandleComponent();
 
 		_lineRenderer.gameObject.SetActive(_isShielding);
+		_radiusLineRenderer.gameObject.SetActive(_isShielding);
 		_shieldImGameObject.SetActive(_isShielding);
 
 		if (_isShielding)
@@ -81,6 +84,12 @@ public class EntityShield : EntityComponent
 				_dodgeTimer += Time.deltaTime;
 			}
 			else
+			{
+				StopDodging();
+			}
+
+			// Check if we are colliding with a wall
+			if (m_movement.WallCollisionDetected)
 			{
 				StopDodging();
 			}
@@ -127,32 +136,32 @@ public class EntityShield : EntityComponent
 		RemoveDodgeInvincibility();
 
 		// Reset Rotation
-		transform.Rotate(0, 0, 0);
+		transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 	}
 
 	Vector3 CalcualteAngle()
 	{
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		Vector3 targetPos = new Vector3(0.0f, 0.0f, 0.0f);
-		targetPos.z = transform.position.z;
+		mousePos.z = transform.position.z;
 
-		// The Mouse Is To The Right
-		if ((transform.position.y - mousePos.y) < 0)
-			targetPos.y = (Mathf.Min((transform.position.y + _maxDodgeDistance), mousePos.y));
-		//Else, The Mouse Is To The Left
-		else
-			targetPos.y = (Mathf.Max((transform.position.y - _maxDodgeDistance), mousePos.y));
+		float radius = _maxDodgeDistance;
+		Vector3 centerPosition = transform.localPosition;
+		float distance = Vector3.Distance(mousePos, centerPosition);
 
-		// The Mouse Is Above
-		if ((transform.position.x - mousePos.x) < 0)
-			targetPos.x = (Mathf.Min((transform.position.x + _maxDodgeDistance), mousePos.x));
-		//Else, The Mouse Is Below
-		else
-			targetPos.x = (Mathf.Max((transform.position.x - _maxDodgeDistance), mousePos.x));
+		if (distance > radius)
+		{
+			Vector3 fromOriginToObject = mousePos - centerPosition;
+			fromOriginToObject *= radius / distance;
+			mousePos = centerPosition + fromOriginToObject;
+		}
 
-		DrawPolygon(32, 0.5f, targetPos, 0.05f, 0.05f, Color.white);
+		// Radius you can dodge in
+		DrawPolygon(32, _maxDodgeDistance, centerPosition, 0.05f, 0.05f, Color.white, _radiusLineRenderer);
+		
+		// Dodge location
+		DrawPolygon(32, 0.5f, mousePos, 0.05f, 0.05f, Color.white, _lineRenderer);
 
-		return targetPos;
+		return mousePos;
 	}
 
 	private void SetDodgeInvincibility()
@@ -165,15 +174,15 @@ public class EntityShield : EntityComponent
 		_health.DodgeDamageModifier = 1.0f;
 	}
 
-	public void DrawPolygon(int vertexNumber, float radius, Vector3 centerPos, float startWidth, float endWidth, Color color)
+	public void DrawPolygon(int vertexNumber, float radius, Vector3 centerPos, float startWidth, float endWidth, Color color, LineRenderer renderer)
 	{
-		_lineRenderer.startWidth = startWidth;
-		_lineRenderer.endWidth = endWidth;
-		_lineRenderer.startColor = color;
-		_lineRenderer.endColor = color;
-		_lineRenderer.loop = true;
+		renderer.startWidth = startWidth;
+		renderer.endWidth = endWidth;
+		renderer.startColor = color;
+		renderer.endColor = color;
+		renderer.loop = true;
 		float angle = 2 * Mathf.PI / vertexNumber;
-		_lineRenderer.positionCount = vertexNumber;
+		renderer.positionCount = vertexNumber;
 
 		for (int i = 0; i < vertexNumber; i++)
 		{
@@ -182,7 +191,7 @@ public class EntityShield : EntityComponent
 				new Vector4(0, 0, 1, 0),
 				new Vector4(0, 0, 0, 1));
 			Vector3 initialRelativePosition = new Vector3(0, radius, 0);
-			_lineRenderer.SetPosition(i, centerPos + rotationMatrix.MultiplyPoint(initialRelativePosition));
+			renderer.SetPosition(i, centerPos + rotationMatrix.MultiplyPoint(initialRelativePosition));
 		}
 	}
 }

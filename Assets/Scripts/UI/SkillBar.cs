@@ -40,6 +40,7 @@ public class SkillBar : MonoBehaviour
     const string ArrowRevolverName = "ArrowRevolverIcon";
     const string ChargedShotName = "ChargedShotIcon";
     const string PoisonArrowName = "PoisonArrowIcon";
+    const string ArrowBarrageName = "ArrowBarrageIcon";
 
     // Melee Skills
     const string MeleeAttackName = "MeleeAttackIcon";
@@ -60,6 +61,7 @@ public class SkillBar : MonoBehaviour
         { FrozenDaggersName, FrozenDaggers.ResourceAmount},
         { HealName, Heal.ResourceAmount },
         { RangedAttackName, RangedAttack.ResourceAmount},
+        { ArrowBarrageName, ArrowBarrage.ResourceAmount},
         { ArrowRevolverName, ArrowRevolver.ResourceAmount },
         { ChargedShotName, ChargedShot.ResourceAmount},
         { PoisonArrowName, PoisonArrow.ResourceAmount },
@@ -77,6 +79,7 @@ public class SkillBar : MonoBehaviour
         { FrozenDaggersName, FrozenDaggers.ResourceType},
         { HealName, Heal.ResourceType },
         { RangedAttackName, RangedAttack.ResourceType},
+        { ArrowBarrageName, ArrowBarrage.ResourceType },
         { ArrowRevolverName, ArrowRevolver.ResourceType },
         { ChargedShotName, ChargedShot.ResourceType},
         { PoisonArrowName, PoisonArrow.ResourceType },
@@ -94,6 +97,7 @@ public class SkillBar : MonoBehaviour
         { FrozenDaggersName, WeaponType.Magic },
         { HealName, WeaponType.Magic },
         { RangedAttackName, WeaponType.Bow },
+        { ArrowBarrageName, WeaponType.Bow },
         { ArrowRevolverName, WeaponType.Bow },
         { ChargedShotName, WeaponType.Bow },
         { PoisonArrowName, WeaponType.Bow },
@@ -309,23 +313,25 @@ public class SkillBar : MonoBehaviour
         else if (iconName == BoulderTossName)
             return new BoulderToss(weapon as Staff);
         else if (iconName == FrozenDaggersName)
-	        return new FrozenDaggers(weapon as Staff);
+            return new FrozenDaggers(weapon as Staff);
         else if (iconName == HealName)
             return new Heal(weapon as Staff);
         else if (iconName == RangedAttackName)
             return new RangedAttack(weapon as Bow);
+        else if (iconName == ArrowBarrageName)
+            return new ArrowBarrage(weapon as Bow);
         else if (iconName == ChargedShotName)
             return new ChargedShot(weapon as Bow);
         else if (iconName == ArrowRevolverName)
             return new ArrowRevolver(weapon as Bow);
         else if (iconName == PoisonArrowName)
-	        return new PoisonArrow(weapon as Bow);
+            return new PoisonArrow(weapon as Bow);
         else if (iconName == MeleeAttackName)
             return new MeleeAttack(weapon as Sword);
         else if (iconName == ChargeName)
             return new Charge(weapon as Sword);
         else if (iconName == SkyFallName)
-	        return new SkyFall(weapon as Sword);
+            return new SkyFall(weapon as Sword);
 
         return null;
     }
@@ -433,6 +439,8 @@ public class SkillBar : MonoBehaviour
         Health healthResource = Player.GetComponent<Health>();
         Stamina staminaResource = Player.GetComponent<Stamina>();
         Mana manaResource = Player.GetComponent<Mana>();
+        UltimatePoints ultimateResource = Player.GetComponent<UltimatePoints>();
+
 
         if (resourceType == BaseSkill.Resource.Health)
             return (resourceAmount <= healthResource.m_currentHealth);
@@ -440,6 +448,8 @@ public class SkillBar : MonoBehaviour
             return (resourceAmount <= staminaResource._currentStamina);
         if (resourceType == BaseSkill.Resource.Mana)
             return (resourceAmount <= manaResource._currentMana);
+        if (resourceType == BaseSkill.Resource.Ultimate)
+            return (resourceAmount <= ultimateResource.CurrentUltimatePoints);
 
         return false;
     }

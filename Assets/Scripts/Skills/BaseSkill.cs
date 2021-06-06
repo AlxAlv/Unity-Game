@@ -14,7 +14,8 @@ public class BaseSkill : MonoBehaviour
 	{
 		Stamina = 0,
 		Mana = 1,
-		Health = 2
+		Health = 2,
+		Ultimate = 3
 	}
 
 	[Header("Skill Settings")]
@@ -40,10 +41,12 @@ public class BaseSkill : MonoBehaviour
 	protected Mana _mana;
 	protected Stamina _stamina;
 	protected Health _health;
+	protected UltimatePoints _ultimatePoints;
 	protected GameObject OutlineRendererObject = null;
 	protected bool _isSkillShot = false;
 	protected bool _isStatusProjectile = false;
 	protected bool _isAOEProjectile = false;
+	protected bool _isExecutingSkill = false;
 
 	/* Status Info */
 	protected int _numberOfTicks = 0;
@@ -158,6 +161,7 @@ public class BaseSkill : MonoBehaviour
 		_health = _entity.GetComponent<Health>();
 		_mana = _entity.GetComponent<Mana>();
 		_stamina = _entity.GetComponent<Stamina>();
+		_ultimatePoints = _entity.GetComponent<UltimatePoints>();
 	}
 
 	public virtual void CancelSkill()
@@ -246,6 +250,8 @@ public class BaseSkill : MonoBehaviour
 	{
 		if (_entity.EntityType == Entity.EntityTypes.Player)
 		{
+			_ultimatePoints.GainUltimatePoints(100);
+
 			switch (_resourceToUse)
 			{
 				case Resource.Health:
@@ -256,6 +262,9 @@ public class BaseSkill : MonoBehaviour
 
 				case Resource.Stamina:
 					return _stamina.UseStamina(_resourceAmount);
+
+				case Resource.Ultimate:
+					return _ultimatePoints.UseUltimateBarPoints(_resourceAmount);
 			}
 
 			return false;
