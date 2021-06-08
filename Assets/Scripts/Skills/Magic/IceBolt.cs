@@ -3,25 +3,30 @@ using UnityEngine;
 
 public class IceBolt : MagicSkill
 {
-    // Skillbar Helper Static
-    public static float ResourceAmount = 1.0f;
-    public static Resource ResourceType = Resource.Mana;
-
-    public IceBolt(Staff staffToUse) : base(staffToUse)
+    private void SetupSkill()
     {
-        _stunTime = 0.8f;
-        _staffToUse = staffToUse;
-        _loadingTime = (0.25f);
-        _knockBackAmount = 35f;
-        _spritePath = "SkillIcons/IceboltIcon";
-        _projectilePrefabPath = "Prefabs/Projectiles/Icebolt";
-        _soundPath = "Audio/SoundEffects/IceBoltFx";
-        _projectileCollisionsoundPath = "Audio/SoundEffects/BoltHitFx";
-        _skillName = "Icebolt";
+        _skillName = this.GetType().Name;
+        _iconName = _skillName + "Icon";
+        _spritePath += _iconName;
 
-        _resourceAmount = ResourceAmount;
-        _resourceToUse = ResourceType;
+        // Things To Update
+        _projectilePrefabPath += "Icebolt";
+        _soundPath += "IceBoltFx";
+        _projectileCollisionsoundPath += "BoltHitFx";
+        _toolTipInfo = "Shoot a ball made of ice!";
+        _stunTime = 0.8f;
+        _knockBackAmount = 35f;
+        _loadingTime = 0.25f;
+        _loadingMovementSpeedModifier = 0.5f;
+        _loadedMovementSpeedModifier = 0.0f;
+        _resourceAmount = 1.0f;
+        _resourceToUse = Resource.Mana;
+        _weaponTypeToUse = WeaponType.Magic;
     }
+
+    public IceBolt() : base() { SetupSkill(); }
+    
+    public IceBolt(Weapon staffToUse) : base(staffToUse){ SetupSkill(); }
 
     protected override void Awake()
     {

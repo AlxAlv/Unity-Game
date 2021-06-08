@@ -5,29 +5,35 @@ using UnityEngine;
 
 public class Charge : MeleeSkill
 {
-    // Skillbar Helper Static
-    public static float ResourceAmount = 3.0f;
-    public static Resource ResourceType = Resource.Stamina;
-
     // Charge Specific
     private float _chargeDistance = 15.0f;
     private float _chargeSpeedModifier = 6.0f;
 
-    public Charge(Sword swordToUse) : base(swordToUse)
+    private void SetupSkill()
     {
-	    _skillName = "ChargeAttack";
-	    _distanceToAttack = 1.5f;
+        _skillName = this.GetType().Name;
+        _iconName = _skillName + "Icon";
+        _spritePath += _iconName;
+
+        // Things To Update
+        _soundPath += "ChargeFx";
+        _toolTipInfo = "Charge towards an enemy and knock them back!";
         _stunTime = 2.0f;
         _knockBackAmount = 100f;
         _loadingTime = 0.15f;
         _loadingMovementSpeedModifier = 1.0f;
         _loadedMovementSpeedModifier = 1.0f;
-        _spritePath = "SkillIcons/ChargeIcon";
-        _soundPath = "Audio/SoundEffects/ChargeFx";
+        _resourceAmount = 3.0f;
+        _resourceToUse = Resource.Stamina;
+        _weaponTypeToUse = WeaponType.Melee;
 
-        _resourceAmount = ResourceAmount;
-        _resourceToUse = ResourceType;
+        // Skill Specific
+        _distanceToAttack = 1.5f;
     }
+
+    public Charge() : base() { SetupSkill(); }
+
+    public Charge(Weapon swordToUse) : base(swordToUse) { SetupSkill(); }
 
     public override void Update()
     {

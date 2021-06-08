@@ -5,23 +5,28 @@ using UnityEngine;
 
 public class Heal : MagicSkill
 {
-    // Skillbar Helper Static
-    public static float ResourceAmount = 3.0f;
-    public static Resource ResourceType = Resource.Mana;
-
-    public Heal(Staff staffToUse) : base(staffToUse)
+    private void SetupSkill()
     {
-        _stunTime = 0.0f;
-        _staffToUse = staffToUse;
-        _loadingTime = 0.2f;
-        _knockBackAmount = 0f;
-        _spritePath = "SkillIcons/HealIcon";
-        _soundPath = "Audio/SoundEffects/HealFx";
-        _skillName = "Heal";
+        _skillName = this.GetType().Name;
+        _iconName = _skillName + "Icon";
+        _spritePath += _iconName;
 
-        _resourceAmount = ResourceAmount;
-        _resourceToUse = ResourceType;
+        // Things To Update
+        _soundPath += "HealFx";
+        _toolTipInfo = "Heal yourself!";
+        _stunTime = 0.0f;
+        _knockBackAmount = 0.0f;
+        _loadingTime = 0.25f;
+        _loadingMovementSpeedModifier = 0.5f;
+        _loadedMovementSpeedModifier = 0.0f;
+        _resourceAmount = 3.0f;
+        _resourceToUse = Resource.Mana;
+        _weaponTypeToUse = WeaponType.Magic;
     }
+
+    public Heal() : base() { SetupSkill(); }
+
+    public Heal(Weapon staffToUse) : base(staffToUse) { SetupSkill(); }
 
     protected override void Awake()
     {

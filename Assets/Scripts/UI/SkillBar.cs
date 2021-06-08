@@ -1,6 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Reflection;
+using System.Linq;
+using Assets.Scripts.Skills.Melee;
+using Assets.Scripts.Skills.Magic;
+using Assets.Scripts.Skills.Archery;
 
 public class SkillBar : MonoBehaviour
 {
@@ -27,89 +33,76 @@ public class SkillBar : MonoBehaviour
 
     private EntityWeapon _playerWeapons;
 
-    // Magic Skills
-    const string IceBoltName = "IceboltIcon";
-    const string FireBoltName = "FireboltIcon";
-    const string LightningBoltName = "LightningboltIcon";
-    const string BoulderTossName = "BoulderTossIcon";
-    const string FrozenDaggersName = "FrozenDaggersIcon";
+    private List<string> _skillNames = new List<string>();
+    private List<string> _iconNames = new List<string>();
+    private Dictionary<string, string> _iconNameToSkillName = new Dictionary<string, string>();
+    private Dictionary<string, float> _iconNameToResourceAmount = new Dictionary<string, float>();
+    private Dictionary<string, BaseSkill.Resource> _iconNameToResourceType = new Dictionary<string, BaseSkill.Resource>();
+    private Dictionary<string, WeaponType> _iconNameToWeaponType = new Dictionary<string, WeaponType>();
+
+    // Self Skills
     const string HealName = "HealIcon";
-
-    // Archery Skills
-    const string RangedAttackName = "RangedAttackIcon";
-    const string ArrowRevolverName = "ArrowRevolverIcon";
-    const string ChargedShotName = "ChargedShotIcon";
-    const string PoisonArrowName = "PoisonArrowIcon";
-    const string ArrowBarrageName = "ArrowBarrageIcon";
-
-    // Melee Skills
-    const string MeleeAttackName = "MeleeAttackIcon";
-    const string SkyFallName = "SkyFallIcon";
-
-    // Shield Skills
-    const string ChargeName = "ChargeIcon";
 
     // UI Variables
     private int currentlySelectedGroup = 0;
-
-    Dictionary<string, float> _skillNameToResourceAmount = new Dictionary<string, float>()
-    {
-        { IceBoltName, IceBolt.ResourceAmount},
-        { FireBoltName, FireBolt.ResourceAmount},
-        { LightningBoltName, LightningBolt.ResourceAmount},
-        { BoulderTossName, BoulderToss.ResourceAmount},
-        { FrozenDaggersName, FrozenDaggers.ResourceAmount},
-        { HealName, Heal.ResourceAmount },
-        { RangedAttackName, RangedAttack.ResourceAmount},
-        { ArrowBarrageName, ArrowBarrage.ResourceAmount},
-        { ArrowRevolverName, ArrowRevolver.ResourceAmount },
-        { ChargedShotName, ChargedShot.ResourceAmount},
-        { PoisonArrowName, PoisonArrow.ResourceAmount },
-        { MeleeAttackName, MeleeAttack.ResourceAmount},
-        { ChargeName, Charge.ResourceAmount },
-        { SkyFallName, SkyFall.ResourceAmount }
-    };
-
-    Dictionary<string, BaseSkill.Resource> _skillNameToResourceType = new Dictionary<string, BaseSkill.Resource>()
-    {
-        { IceBoltName, IceBolt.ResourceType},
-        { FireBoltName, FireBolt.ResourceType},
-        { LightningBoltName, LightningBolt.ResourceType},
-        { BoulderTossName, BoulderToss.ResourceType},
-        { FrozenDaggersName, FrozenDaggers.ResourceType},
-        { HealName, Heal.ResourceType },
-        { RangedAttackName, RangedAttack.ResourceType},
-        { ArrowBarrageName, ArrowBarrage.ResourceType },
-        { ArrowRevolverName, ArrowRevolver.ResourceType },
-        { ChargedShotName, ChargedShot.ResourceType},
-        { PoisonArrowName, PoisonArrow.ResourceType },
-        { MeleeAttackName, MeleeAttack.ResourceType},
-        { ChargeName, Charge.ResourceType },
-        { SkyFallName, SkyFall.ResourceType },
-    };
-
-    Dictionary<string, WeaponType> _skillNameToType = new Dictionary<string, WeaponType>()
-    {
-        { IceBoltName, WeaponType.Magic },
-        { FireBoltName, WeaponType.Magic },
-        { LightningBoltName, WeaponType.Magic },
-        { BoulderTossName, WeaponType.Magic },
-        { FrozenDaggersName, WeaponType.Magic },
-        { HealName, WeaponType.Magic },
-        { RangedAttackName, WeaponType.Bow },
-        { ArrowBarrageName, WeaponType.Bow },
-        { ArrowRevolverName, WeaponType.Bow },
-        { ChargedShotName, WeaponType.Bow },
-        { PoisonArrowName, WeaponType.Bow },
-        { MeleeAttackName, WeaponType.Melee },
-        { ChargeName, WeaponType.Melee },
-        { SkyFallName, WeaponType.Melee }
-    };
 
     // Start is called before the first frame update
     void Start()
     {
         _playerWeapons = Player.GetComponent<EntityWeapon>();
+
+        Setup();
+    }
+
+    private void Setup()
+    {
+        Type[] MeleeSkills = FindMeleeSkills();
+        Type[] MagicSkills = FindMagicSkills();
+        Type[] ArcherySkills = FindArcherySkills();
+
+        // Setup Melee Skill Names
+        foreach (Type meleeSkill in MeleeSkills)
+            _skillNames.Add(meleeSkill.Name);
+
+        // Setup Magic Skill Names
+        foreach (Type magicSkill in MagicSkills)
+            _skillNames.Add(magicSkill.Name);
+
+        // Setup Archery Skill Names
+        foreach (Type archerySkill in ArcherySkills)
+            _skillNames.Add(archerySkill.Name);
+
+        // Temp Fix
+        _skillNames.Remove("MeleeSkill");
+        _skillNames.Remove("MagicSkill");
+        _skillNames.Remove("ArcherySkill");
+        _skillNames.Remove("EnemyFireBolt");
+        _skillNames.Remove("EnemyIceBolt");
+        _skillNames.Remove("EnemyChargedShot");
+        _skillNames.Remove("EnemyRangedAttack");
+
+        // Setup Icon Names
+        foreach (string skillName in _skillNames)
+        {
+            string iconName = skillName + "Icon";
+            _iconNames.Add(iconName);
+            _iconNameToSkillName[iconName] = skillName;
+        }
+
+        // Setup Skill Info
+        foreach (string iconName in _iconNames)
+        {
+            Type type = Type.GetType(_iconNameToSkillName[iconName]);
+
+            if (type == null)
+                Debug.LogError("Skill not found!");
+
+            BaseSkill skill = (BaseSkill)Activator.CreateInstance(type);
+
+            _iconNameToResourceAmount[iconName] = skill.ResourceAmount;
+            _iconNameToResourceType[iconName] = skill.ResourceType;
+            _iconNameToWeaponType[iconName] = skill.WeaponType;
+        }
     }
 
     void Update()
@@ -149,7 +142,7 @@ public class SkillBar : MonoBehaviour
 
     private Image GetSkillImage()
     {
-	    if (currentlySelectedGroup == 0)
+        if (currentlySelectedGroup == 0)
         {
             if (Input.GetMouseButtonDown(0))
                 return G1_L_Icon;
@@ -235,11 +228,11 @@ public class SkillBar : MonoBehaviour
             DialogManager.Instance.InstantSystemMessage("No skill assigned");
             return false;
         }
-        else if (Player.GetComponent<EntityWeapon>().IsAnySkillOccupied() || ((!(_skillNameToType[iconPressed.sprite.name] == WeaponType.Melee)) && Player.GetComponent<EntityWeapon>().IsMeleeWeaponAndBusy()))
+        else if (Player.GetComponent<EntityWeapon>().IsAnySkillOccupied() || ((!(_iconNameToWeaponType[iconPressed.sprite.name] == WeaponType.Melee)) && Player.GetComponent<EntityWeapon>().IsMeleeWeaponAndBusy()))
             return false;
 
 
-        WeaponType weaponType = _skillNameToType[iconPressed.sprite.name];
+        WeaponType weaponType = _iconNameToWeaponType[iconPressed.sprite.name];
 
         bool isWeaponFound = false;
         Weapon mainWeapon = _playerWeapons.CurrentWeapon;
@@ -304,36 +297,14 @@ public class SkillBar : MonoBehaviour
 
     private BaseSkill SkillToUse(string iconName, Weapon weapon)
     {
-        if (iconName == IceBoltName)
-            return new IceBolt(weapon as Staff);
-        else if (iconName == FireBoltName)
-            return new FireBolt(weapon as Staff);
-        else if (iconName == LightningBoltName)
-            return new LightningBolt(weapon as Staff);
-        else if (iconName == BoulderTossName)
-            return new BoulderToss(weapon as Staff);
-        else if (iconName == FrozenDaggersName)
-            return new FrozenDaggers(weapon as Staff);
-        else if (iconName == HealName)
-            return new Heal(weapon as Staff);
-        else if (iconName == RangedAttackName)
-            return new RangedAttack(weapon as Bow);
-        else if (iconName == ArrowBarrageName)
-            return new ArrowBarrage(weapon as Bow);
-        else if (iconName == ChargedShotName)
-            return new ChargedShot(weapon as Bow);
-        else if (iconName == ArrowRevolverName)
-            return new ArrowRevolver(weapon as Bow);
-        else if (iconName == PoisonArrowName)
-            return new PoisonArrow(weapon as Bow);
-        else if (iconName == MeleeAttackName)
-            return new MeleeAttack(weapon as Sword);
-        else if (iconName == ChargeName)
-            return new Charge(weapon as Sword);
-        else if (iconName == SkyFallName)
-            return new SkyFall(weapon as Sword);
+        Type type = Type.GetType(_iconNameToSkillName[iconName]);
 
-        return null;
+        if (type == null)
+            Debug.LogError("Skill not found!");
+
+        System.Object[] args = { weapon };
+
+        return (BaseSkill)Activator.CreateInstance(type, args);
     }
 
     public void ResetSkillIcons()
@@ -354,7 +325,7 @@ public class SkillBar : MonoBehaviour
     {
         if (G1_L_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G1_L_Icon.sprite.name], _skillNameToResourceType[G1_L_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G1_L_Icon.sprite.name], _iconNameToResourceType[G1_L_Icon.sprite.name]);
             if (enoughResource)
                 G1_L_Icon.color = Color.white;
             else
@@ -362,7 +333,7 @@ public class SkillBar : MonoBehaviour
         }
         if (G1_R_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G1_R_Icon.sprite.name], _skillNameToResourceType[G1_R_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G1_R_Icon.sprite.name], _iconNameToResourceType[G1_R_Icon.sprite.name]);
             if (enoughResource)
                 G1_R_Icon.color = Color.white;
             else
@@ -370,7 +341,7 @@ public class SkillBar : MonoBehaviour
         }
         if (G2_L_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G2_L_Icon.sprite.name], _skillNameToResourceType[G2_L_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G2_L_Icon.sprite.name], _iconNameToResourceType[G2_L_Icon.sprite.name]);
             if (enoughResource)
                 G2_L_Icon.color = Color.white;
             else
@@ -378,7 +349,7 @@ public class SkillBar : MonoBehaviour
         }
         if (G2_R_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G2_R_Icon.sprite.name], _skillNameToResourceType[G2_R_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G2_R_Icon.sprite.name], _iconNameToResourceType[G2_R_Icon.sprite.name]);
             if (enoughResource)
                 G2_R_Icon.color = Color.white;
             else
@@ -386,7 +357,7 @@ public class SkillBar : MonoBehaviour
         }
         if (G3_L_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G3_L_Icon.sprite.name], _skillNameToResourceType[G3_L_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G3_L_Icon.sprite.name], _iconNameToResourceType[G3_L_Icon.sprite.name]);
             if (enoughResource)
                 G3_L_Icon.color = Color.white;
             else
@@ -394,7 +365,7 @@ public class SkillBar : MonoBehaviour
         }
         if (G3_R_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G3_R_Icon.sprite.name], _skillNameToResourceType[G3_R_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G3_R_Icon.sprite.name], _iconNameToResourceType[G3_R_Icon.sprite.name]);
             if (enoughResource)
                 G3_R_Icon.color = Color.white;
             else
@@ -402,7 +373,7 @@ public class SkillBar : MonoBehaviour
         }
         if (G4_L_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G4_L_Icon.sprite.name], _skillNameToResourceType[G4_L_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G4_L_Icon.sprite.name], _iconNameToResourceType[G4_L_Icon.sprite.name]);
             if (enoughResource)
                 G4_L_Icon.color = Color.white;
             else
@@ -410,7 +381,7 @@ public class SkillBar : MonoBehaviour
         }
         if (G4_R_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G4_R_Icon.sprite.name], _skillNameToResourceType[G4_R_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G4_R_Icon.sprite.name], _iconNameToResourceType[G4_R_Icon.sprite.name]);
             if (enoughResource)
                 G4_R_Icon.color = Color.white;
             else
@@ -418,7 +389,7 @@ public class SkillBar : MonoBehaviour
         }
         if (G5_L_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G5_L_Icon.sprite.name], _skillNameToResourceType[G5_L_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G5_L_Icon.sprite.name], _iconNameToResourceType[G5_L_Icon.sprite.name]);
             if (enoughResource)
                 G5_L_Icon.color = Color.white;
             else
@@ -426,7 +397,7 @@ public class SkillBar : MonoBehaviour
         }
         if (G5_R_Icon.sprite.name != "IconSlot")
         {
-            bool enoughResource = CheckResource(_skillNameToResourceAmount[G5_R_Icon.sprite.name], _skillNameToResourceType[G5_R_Icon.sprite.name]);
+            bool enoughResource = CheckResource(_iconNameToResourceAmount[G5_R_Icon.sprite.name], _iconNameToResourceType[G5_R_Icon.sprite.name]);
             if (enoughResource)
                 G5_R_Icon.color = Color.white;
             else
@@ -458,5 +429,29 @@ public class SkillBar : MonoBehaviour
     {
         if (index < 4 && index >= 0)
             currentlySelectedGroup = index;
+    }
+
+    public Type[] FindMeleeSkills()
+    {
+        return (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+                from assemblyType in domainAssembly.GetTypes()
+                where typeof(MeleeSkill).IsAssignableFrom(assemblyType)
+                select assemblyType).ToArray();
+    }
+
+    public Type[] FindMagicSkills()
+    {
+        return (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+                from assemblyType in domainAssembly.GetTypes()
+                where typeof(MagicSkill).IsAssignableFrom(assemblyType)
+                select assemblyType).ToArray();
+    }
+
+    public Type[] FindArcherySkills()
+    {
+        return (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+                from assemblyType in domainAssembly.GetTypes()
+                where typeof(ArcherySkill).IsAssignableFrom(assemblyType)
+                select assemblyType).ToArray();
     }
 }

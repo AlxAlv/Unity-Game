@@ -10,6 +10,7 @@ public class SkillUnlocker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _skillToUnlock.SetActive(IsUnlocked);
+        // Alx [TODO] Fix This!
+        //_skillToUnlock.SetActive(IsUnlocked);
     }
 }

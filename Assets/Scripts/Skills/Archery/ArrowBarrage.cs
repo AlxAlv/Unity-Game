@@ -3,34 +3,38 @@ using UnityEngine;
 
 public class ArrowBarrage : ArcherySkill
 {
-    // Skillbar Helper Static
-    public static float ResourceAmount = 25.0f;
-    public static Resource ResourceType = Resource.Ultimate;
-
-    // Private Members
+    // Skill Specific
     private int _arrowsShot = 0;
     private int _arrowsToShoot = 20;
-
     private float _timeBetweenArrows = 0.05f;
     private float _timer;
 
-
-    public ArrowBarrage(Bow bowToUse) : base(bowToUse)
+    private void SetupSkill()
     {
-        _stunTime = 1.0f;
-        _knockBackAmount = 50f;
-        _loadingTime = (0.0f);
-        _loadingMovementSpeedModifier = 1.0f;
-        _spritePath = "SkillIcons/ArrowBarrageIcon";
-        _projectilePrefabPath = "Prefabs/Projectiles/Arrow";
-        _soundPath = "Audio/SoundEffects/RangedAttackFx";
-        _projectileCollisionsoundPath = "Audio/SoundEffects/ArrowHitFx";
-        _skillName = "RangedAttack";
-
-
+        _skillName = this.GetType().Name;
+        _iconName = _skillName + "Icon";
+        _spritePath += _iconName;
         _resourceAmount = ResourceAmount;
         _resourceToUse = ResourceType;
+
+        // Things To Update
+        _projectilePrefabPath += "Arrow";
+        _soundPath += "RangedAttackFx";
+        _projectileCollisionsoundPath += "ArrowHitFx";
+        _toolTipInfo = "Unleash a barrage of arrows!";
+        _stunTime = 1.0f;
+        _knockBackAmount = 50f;
+        _loadingTime = 0.0f;
+        _loadingMovementSpeedModifier = 1.0f;
+        _loadedMovementSpeedModifier = 0.0f;
+        _resourceToUse = Resource.Ultimate;
+        _weaponTypeToUse = WeaponType.Bow;
+        _resourceAmount = 25f;
     }
+
+    public ArrowBarrage() : base() { SetupSkill(); }
+
+    public ArrowBarrage(Weapon bowToUse) : base(bowToUse) { SetupSkill(); }
 
     private bool Timer()
     {
@@ -66,6 +70,7 @@ public class ArrowBarrage : ArcherySkill
 
     protected override void Execute()
     {
+        _arrowsShot++;
         if (_arrowsShot < _arrowsToShoot)
         {
             if (!_isExecutingSkill)
@@ -82,7 +87,6 @@ public class ArrowBarrage : ArcherySkill
 
         _bowToUse.EvaluateProjectileSpawnPosition();
         ShootProjectile(_bowToUse.ProjectileSpawnPosition);
-        _arrowsShot++;
     }
 
     protected override void SkillLoaded()

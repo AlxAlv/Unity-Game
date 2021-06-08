@@ -5,35 +5,38 @@ using Random = UnityEngine.Random;
 
 public class SkyFall : MeleeSkill
 {
-	// Skillbar Helper Static
-	public static float ResourceAmount = 8.0f;
-	public static Resource ResourceType = Resource.Stamina;
-
 	// SkyFall Specific
 	private float _skyFallDistance = 20.0f;
 	private float _skyFallSpeedModifier = 4.0f;
 	private string _skyFallImpactSoundPath = "Audio/SoundEffects/SkyFallFx";
 
-	public SkyFall(Sword swordToUse) : base(swordToUse)
+	private void SetupSkill()
 	{
-		_isSkillShot = true;
-		_skillName = "SkyFall";
-		_distanceToAttack = 1.5f;
+		_skillName = this.GetType().Name;
+		_iconName = _skillName + "Icon";
+		_spritePath += _iconName;
+
+		// Things To Update
+		_soundPath += "ChargeFx";
+		_toolTipInfo = "Perform a massive leap causing AOE damage on impact!";
 		_stunTime = 2.0f;
 		_knockBackAmount = 100f;
 		_loadingTime = 0.5f;
-		_loadingMovementSpeedModifier = 0.20f;
+		_loadingMovementSpeedModifier = 0.2f;
 		_loadedMovementSpeedModifier = 0.35f;
+		_resourceAmount = 8.0f;
+		_resourceToUse = Resource.Stamina;
+		_weaponTypeToUse = WeaponType.Melee;
 
-		/* AOE Outliner */
+		// Skill Specific
 		_outlineRadius = 6.5f;
-
-		_spritePath = "SkillIcons/SkyFallIcon";
-		_soundPath = "Audio/SoundEffects/ChargeFx";
-
-		_resourceAmount = ResourceAmount;
-		_resourceToUse = ResourceType;
+		_isSkillShot = true;
+		_distanceToAttack = 1.5f;
 	}
+
+	public SkyFall() : base() { SetupSkill(); }
+
+	public SkyFall(Weapon swordToUse) : base(swordToUse) { SetupSkill(); }
 
 	public override void Update()
 	{

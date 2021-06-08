@@ -8,6 +8,20 @@ public enum SkillState : ushort
 	unavailable = 3
 }
 
+public struct SkillSettings
+{
+	public string ProjectilePrefabPath;
+    public string SoundPath;
+    public string ProjectileCollisionsoundPath;
+	public float StunTime;
+    public float KnockBackAmount;
+    public float LoadingTime;
+    public float ResourceAmount;
+    public float LoadingMovementSpeedModifier;
+    public BaseSkill.Resource ResourceToUse;
+    public WeaponType WeaponTypeToUse;
+}
+
 public class BaseSkill : MonoBehaviour
 {
 	public enum Resource : ushort
@@ -24,9 +38,19 @@ public class BaseSkill : MonoBehaviour
 	[SerializeField] protected float _loadedMovementSpeedModifier = 0.0f;
 	[SerializeField] protected float _resourceAmount = 2.0f;
 	[SerializeField] protected Resource _resourceToUse = Resource.Mana;
+	[SerializeField] protected WeaponType _weaponTypeToUse = WeaponType.Base;
+
+	// Helpers
+	public Resource ResourceType => _resourceToUse;
+	public WeaponType WeaponType => _weaponTypeToUse;
+	public float ResourceAmount => _resourceAmount;
+	public string ToolTipInfo => _toolTipInfo;
 
 	// Member Variables
 	public SkillState CurrentState { get; set; }
+
+	public string SkillName => _skillName;
+	public string IconName => _iconName;
 	protected float _startTime = 0f;
 	protected float _outlineWidth = 0.035f;
 	protected float _outlineRadius = 0.0f;
@@ -47,6 +71,7 @@ public class BaseSkill : MonoBehaviour
 	protected bool _isStatusProjectile = false;
 	protected bool _isAOEProjectile = false;
 	protected bool _isExecutingSkill = false;
+	protected string _toolTipInfo = "";
 
 	/* Status Info */
 	protected int _numberOfTicks = 0;
@@ -54,16 +79,19 @@ public class BaseSkill : MonoBehaviour
 	protected float _timePerTick = 0.0f;
 
 	// Resource Paths
-	protected string _spritePath = "";
-	protected string _soundPath = "";
-	protected string _projectilePrefabPath = "";
-	protected string _projectileCollisionsoundPath = "";
+	protected string _skillName = "";
+	protected string _iconName = "";
+	protected string _spritePath = "SkillIcons/";
+	protected string _soundPath = "Audio/SoundEffects/";
+	protected string _projectilePrefabPath = "Prefabs/Projectiles/";
+	protected string _projectileCollisionsoundPath = "Audio/SoundEffects/";
 
 	protected int _damageAmount = 0;
-	protected string _skillName = "BaseSkill";
 	protected int _currentProjectileDamage = -1;
 	protected float _stunTime = 0.0f;
 	protected float _knockBackAmount = 0.0f;
+
+	public BaseSkill() { }
 
 	public BaseSkill(Weapon weaponToUse)
 	{

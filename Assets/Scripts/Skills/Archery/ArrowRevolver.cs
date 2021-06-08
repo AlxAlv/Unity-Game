@@ -3,31 +3,36 @@ using UnityEngine;
 
 public class ArrowRevolver : ArcherySkill
 {
-	// Skillbar Helper Static
-	public static float ResourceAmount = 6.0f;
-	public static Resource ResourceType = Resource.Stamina;
-
+	// Skill Specific
 	private const int NUMBER_OF_ARROWS = 5;
 	private int _currentNumOfArrows = 0;
-
 	private float _timer = 0.0f;
 	private float _timerDuration = (.05f);
 
-	public ArrowRevolver(Bow bowToUse) : base(bowToUse)
+	private void SetupSkill()
 	{
+		_skillName = this.GetType().Name;
+		_iconName = _skillName + "Icon";
+		_spritePath += _iconName;
+
+		// Things To Update
+		_projectilePrefabPath += "Arrow";
+		_soundPath += "RangedAttackFx";
+		_projectileCollisionsoundPath += "ArrowHitFx";
+		_toolTipInfo = "Load up 5 arrows to shoot!";
 		_stunTime = 0.8f;
 		_knockBackAmount = 25f;
-		_bowToUse = bowToUse;
-		_loadingTime = .8f;
-		_spritePath = "SkillIcons/ArrowRevolverIcon";
-		_projectilePrefabPath = "Prefabs/Projectiles/Arrow";
-		_soundPath = "Audio/SoundEffects/RangedAttackFx";
-		_projectileCollisionsoundPath = "Audio/SoundEffects/ArrowHitFx";
-		_skillName = "ArrowRevolver";
-
-		_resourceAmount = ResourceAmount;
+		_loadingTime = 0.8f;
+		_loadingMovementSpeedModifier = 0.8f;
+		_loadedMovementSpeedModifier = 0.0f;
+		_resourceAmount = 5.0f;
 		_resourceToUse = Resource.Stamina;
+		_weaponTypeToUse = WeaponType.Bow;
 	}
+
+	public ArrowRevolver() : base() { SetupSkill(); }
+
+	public ArrowRevolver(Weapon bowToUse) : base(bowToUse) { SetupSkill(); }
 
 	protected override void Awake()
 	{

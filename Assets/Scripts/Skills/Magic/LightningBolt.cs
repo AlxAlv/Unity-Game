@@ -2,25 +2,30 @@
 
 public class LightningBolt : MagicSkill
 {
-    // Skillbar Helper Static
-    public static float ResourceAmount = 0.5f;
-    public static Resource ResourceType = Resource.Mana;
-
-    public LightningBolt(Staff staffToUse) : base(staffToUse)
+    private void SetupSkill()
     {
-        _stunTime = 2.5f;
-        _staffToUse = staffToUse;
-        _loadingTime = (0.15f);
-        _knockBackAmount = 10f;
-        _spritePath = "SkillIcons/LightningboltIcon";
-        _projectilePrefabPath = "Prefabs/Projectiles/Lightningbolt";
-        _soundPath = "Audio/SoundEffects/LightningBoltFx";
-        _projectileCollisionsoundPath = "Audio/SoundEffects/BoltHitFx";
-        _skillName = "Lightningbolt";
+        _skillName = this.GetType().Name;
+        _iconName = _skillName + "Icon";
+        _spritePath += _iconName;
 
-        _resourceAmount  = ResourceAmount;
-        _resourceToUse = ResourceType;
+        // Things To Update
+        _projectilePrefabPath += "Lightningbolt";
+        _soundPath += "LightningBoltFx";
+        _projectileCollisionsoundPath += "BoltHitFx";
+        _toolTipInfo = "Shoot a ball of lightning to stun an enemy!";
+        _stunTime = 2.0f;
+        _knockBackAmount = 10f;
+        _loadingTime = 0.15f;
+        _loadingMovementSpeedModifier = 0.5f;
+        _loadedMovementSpeedModifier = 0.0f;
+        _resourceAmount = 0.5f;
+        _resourceToUse = Resource.Mana;
+        _weaponTypeToUse = WeaponType.Magic;
     }
+
+    public LightningBolt() : base() { SetupSkill(); }
+
+    public LightningBolt(Weapon staffToUse) : base(staffToUse) { SetupSkill(); }
 
     protected override void Awake()
     {

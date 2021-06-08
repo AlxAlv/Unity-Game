@@ -6,10 +6,6 @@ enum ChargingStatus { NotCharging, Charging}
 
 public class FrozenDaggers : MagicSkill
 {
-	// Skillbar Helper Static
-	public static float ResourceAmount = 0.5f;
-	public static Resource ResourceType = Resource.Mana;
-
 	private int _currentNumOfDaggers = 0;
 	private int _maxNumOfDaggers = 50;
 
@@ -25,24 +21,34 @@ public class FrozenDaggers : MagicSkill
 
 	private ChargingStatus _chargingStatus = ChargingStatus.NotCharging;
 
-	public FrozenDaggers(Staff staffToUse) : base(staffToUse)
+	private void SetupSkill()
 	{
+		_skillName = this.GetType().Name;
+		_iconName = _skillName + "Icon";
+		_spritePath += _iconName;
+
+		// Things To Update
+		_projectilePrefabPath += "FrozenDaggersPrefab";
+		_soundPath += "IceBoltFx";
+		_projectileCollisionsoundPath += "BoltHitFx";
+		_toolTipInfo = "Load up and shoot mini daggers of ice!";
+		_stunTime = 0.25f;
+		_knockBackAmount = 10f;
+		_loadingTime = 1.0f;
 		_loadingMovementSpeedModifier = 1.0f;
 		_loadedMovementSpeedModifier = 1.0f;
+		_resourceAmount = 0.5f;
+		_resourceToUse = Resource.Mana;
+		_weaponTypeToUse = WeaponType.Magic;
 
-		_stunTime = 0.25f;
-		_staffToUse = staffToUse;
-		_loadingTime = 1.0f;
-		_knockBackAmount = 15f;
-		_spritePath = "SkillIcons/FrozenDaggersIcon";
-		_projectilePrefabPath = "Prefabs/Projectiles/FrozenDaggersPrefab";
-		_soundPath = "Audio/SoundEffects/IceBoltFx";
-		_projectileCollisionsoundPath = "Audio/SoundEffects/BoltHitFx";
-		_skillName = "FrozenDaggers";
-
-		_resourceAmount = ResourceAmount;
-		_resourceToUse = ResourceType;
+		/* Skill Specific */
+		_isAOEProjectile = true;
+		_outlineRadius = 6.5f;
 	}
+
+	public FrozenDaggers() : base() { SetupSkill(); }
+
+	public FrozenDaggers(Weapon staffToUse) : base(staffToUse) { SetupSkill(); }
 
 	protected override void Awake()
 	{

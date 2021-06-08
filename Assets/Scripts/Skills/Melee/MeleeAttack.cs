@@ -6,10 +6,6 @@ using Random = UnityEngine.Random;
 
 public class MeleeAttack : MeleeSkill
 {
-    // Skillbar Helper Static
-    public static float ResourceAmount = 0.5f;
-    public static Resource ResourceType = Resource.Stamina;
-
     private const int NUM_OF_SWING = 3;
     private int _currentNumOfSwings = 0;
 
@@ -23,22 +19,31 @@ public class MeleeAttack : MeleeSkill
 	    "Audio/SoundEffects/SwordSwing1Fx"
     };
 
-    public MeleeAttack(Sword swordToUse) : base(swordToUse)
+    private void SetupSkill()
     {
-	    _skillName = "MeleeAttack";
-        _distanceToAttack = 2.0f;
-        _stunTime = 2.0f;
+        _skillName = this.GetType().Name;
+        _iconName = _skillName + "Icon";
+        _spritePath += _iconName;
+
+        // Things To Update
+        _meleeFxPath = "Audio/SoundEffects/SwordSwingFx";
+        _toolTipInfo = "Swing your weapon at the enemies!";
+        _stunTime = 1.0f;
         _knockBackAmount = 40f;
-        _loadingTime = 0.4f;
+        _loadingTime = 0.3f;
         _loadingMovementSpeedModifier = 1.0f;
         _loadedMovementSpeedModifier = 1.0f;
-        _spritePath = "SkillIcons/MeleeAttackIcon";
-        _meleeFxPath = "Audio/SoundEffects/SwordSwingFx";
-        _skillName = "MeleeAttack";
+        _resourceAmount = 1.0f;
+        _resourceToUse = Resource.Stamina;
+        _weaponTypeToUse = WeaponType.Melee;
 
-        _resourceAmount = ResourceAmount;
-        _resourceToUse = ResourceType;
+        // Skill Specific
+        _distanceToAttack = 2.0f;
     }
+
+    public MeleeAttack() : base() { SetupSkill(); }
+    
+    public MeleeAttack(Weapon swordToUse) : base(swordToUse) { SetupSkill(); }
 
     public override void Update()
     {

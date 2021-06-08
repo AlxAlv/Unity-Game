@@ -4,9 +4,11 @@
 	{
 		protected Bow _bowToUse;
 
-		protected ArcherySkill (Bow bowToUse) : base(bowToUse)
+		protected ArcherySkill() : base() { }
+
+		protected ArcherySkill (Weapon bowToUse) : base(bowToUse)
 		{
-			_bowToUse = bowToUse;
+			_bowToUse = bowToUse as Bow;
 		}
 
 		public override bool IsBase()

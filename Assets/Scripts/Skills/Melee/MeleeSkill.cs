@@ -17,9 +17,11 @@ namespace Assets.Scripts.Skills.Melee
 		protected bool _pendingAttack = false;
 		protected string _skillName = "MeleeSkill";
 
-		protected MeleeSkill(Sword swordToUse) : base(swordToUse)
+		protected MeleeSkill() : base() { }
+
+		protected MeleeSkill(Weapon swordToUse) : base(swordToUse)
 		{
-			_swordToUse = swordToUse;
+			_swordToUse = swordToUse as Sword;
 		}
 
 		public override void Update()
