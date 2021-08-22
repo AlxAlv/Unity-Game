@@ -183,7 +183,7 @@ public class EntityMovement : EntityComponent
 
                 GameObject enemyUnderCursor = RaycastHelper.Instance.GetEnemyUnderCursor();
 
-                if (enemyUnderCursor != null)
+                if (enemyUnderCursor != null && GameSettingsManager.Instance.IsTargettingNeeded)
                 {
                     TargetEnemy(enemyUnderCursor);
                 }

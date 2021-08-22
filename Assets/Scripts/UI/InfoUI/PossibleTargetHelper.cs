@@ -17,7 +17,7 @@ public class PossibleTargetHelper : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.GetKey(KeyCode.S))
+        if (!Input.GetKey(KeyCode.S) && GameSettingsManager.Instance.IsTargetNearest)
             FindEnemyNearCursor();
 
         if (CurrentTarget != null && !Input.GetKey(KeyCode.S))

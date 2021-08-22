@@ -108,7 +108,10 @@ public class SkillBar : MonoBehaviour
     void Update()
     {
         // Attacking Skills
-        if (!Player.GetComponent<EntityWeapon>().IsAnySkillOccupied() && (Player.GetComponent<EntityTarget>().PossibleTargetHelper.CurrentTarget != null || Player.GetComponent<EntityTarget>().IsTargettingEnemy() || (RaycastHelper.Instance.GetEnemyUnderCursor() && (RaycastHelper.Instance.CheckObjectType(RaycastHelper.Instance.GetEnemyUnderCursor()) != TypeOfObject.GameObject))))
+        if (!Player.GetComponent<EntityWeapon>().IsAnySkillOccupied() && 
+                (Player.GetComponent<EntityTarget>().PossibleTargetHelper.CurrentTarget != null || 
+                 Player.GetComponent<EntityTarget>().IsTargettingEnemy() || 
+                (RaycastHelper.Instance.GetEnemyUnderCursor() && (RaycastHelper.Instance.CheckObjectType(RaycastHelper.Instance.GetEnemyUnderCursor()) != TypeOfObject.GameObject) && GameSettingsManager.Instance.IsTargettingNeeded)))
         {
             Image skillImage = GetSkillImage();
 
