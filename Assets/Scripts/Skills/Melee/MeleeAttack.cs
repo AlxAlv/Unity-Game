@@ -19,31 +19,9 @@ public class MeleeAttack : MeleeSkill
 	    "Audio/SoundEffects/SwordSwing1Fx"
     };
 
-    private void SetupSkill()
-    {
-        _skillName = this.GetType().Name;
-        _iconName = _skillName + "Icon";
-        _spritePath += _iconName;
-
-        // Things To Update
-        _meleeFxPath = "Audio/SoundEffects/SwordSwingFx";
-        _toolTipInfo = "Swing your weapon at the enemies!";
-        _stunTime = 1.0f;
-        _knockBackAmount = 40f;
-        _loadingTime = 0.3f;
-        _loadingMovementSpeedModifier = 1.0f;
-        _loadedMovementSpeedModifier = 1.0f;
-        _resourceAmount = 1.0f;
-        _resourceToUse = Resource.Stamina;
-        _weaponTypeToUse = WeaponType.Melee;
-
-        // Skill Specific
-        _distanceToAttack = 2.0f;
-    }
-
-    public MeleeAttack() : base() { SetupSkill(); }
+    public MeleeAttack() : base() { SetupBaseSkill(this.GetType().Name); }
     
-    public MeleeAttack(Weapon swordToUse) : base(swordToUse) { SetupSkill(); }
+    public MeleeAttack(Weapon swordToUse) : base(swordToUse) { SetupBaseSkill(this.GetType().Name); }
 
     public override void Update()
     {

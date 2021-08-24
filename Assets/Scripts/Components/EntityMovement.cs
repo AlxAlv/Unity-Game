@@ -114,7 +114,10 @@ public class EntityMovement : EntityComponent
         //if (m_controller.IsSkillLoaded() && !m_entityWeapon.CurrentWeapon.IsMeleeWeapon())
         //    _isMoving = false;
 
-        m_moveSpeed = _baseWalkSpeed * SkillMovementModifier * RunMovementModifier * StunMovementModifier;
+        m_moveSpeed = _baseWalkSpeed * RunMovementModifier * StunMovementModifier;
+
+        if (GameSettingsManager.Instance.IsMovementModifableBySkill)
+            m_moveSpeed *= SkillMovementModifier;
     }
 
     private void MoveEntity()
@@ -193,9 +196,14 @@ public class EntityMovement : EntityComponent
                 }
             }
 
-            if (((!_entityTarget.IsTargettingEnemy() || _entityTarget.CurrentTarget == null) && !_enemyTargeted) || (Input.GetKeyDown(KeyCode.LeftShift)))
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+                RemoveDestination();
+
+            if ((((!_entityTarget.IsTargettingEnemy() || _entityTarget.CurrentTarget == null) && !_enemyTargeted) || !GameSettingsManager.Instance.IsPlayerMovementStoppedWhenAiming)
+              && (!Input.GetKey(KeyCode.LeftShift))
+              && (!Input.GetKey(KeyCode.LeftControl)))
             {
-                if (Input.GetMouseButton(0) && _canMove && !RaycastHelper.Instance.IsPlayerUnderCursor() && (!DialogueManager.Instance.Animator.GetBool("IsOpen")))
+                if ((Input.GetMouseButton(0) || (GameSettingsManager.Instance.IsRightClickAlsoMove && Input.GetMouseButton(1))) && _canMove && !RaycastHelper.Instance.IsPlayerUnderCursor() && (!DialogueManager.Instance.Animator.GetBool("IsOpen")))
                 {
                     SetMouseDestination();
                     HideCursorHelper.Instance.MovementFlag = false;

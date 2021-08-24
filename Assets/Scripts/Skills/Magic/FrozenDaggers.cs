@@ -21,34 +21,9 @@ public class FrozenDaggers : MagicSkill
 
 	private ChargingStatus _chargingStatus = ChargingStatus.NotCharging;
 
-	private void SetupSkill()
-	{
-		_skillName = this.GetType().Name;
-		_iconName = _skillName + "Icon";
-		_spritePath += _iconName;
+	public FrozenDaggers() : base() { SetupBaseSkill(this.GetType().Name); }
 
-		// Things To Update
-		_projectilePrefabPath += "FrozenDaggersPrefab";
-		_soundPath += "IceBoltFx";
-		_projectileCollisionsoundPath += "BoltHitFx";
-		_toolTipInfo = "Load up and shoot mini daggers of ice!";
-		_stunTime = 0.25f;
-		_knockBackAmount = 10f;
-		_loadingTime = 1.0f;
-		_loadingMovementSpeedModifier = 1.0f;
-		_loadedMovementSpeedModifier = 1.0f;
-		_resourceAmount = 0.5f;
-		_resourceToUse = Resource.Mana;
-		_weaponTypeToUse = WeaponType.Magic;
-
-		/* Skill Specific */
-		_isAOEProjectile = true;
-		_outlineRadius = 6.5f;
-	}
-
-	public FrozenDaggers() : base() { SetupSkill(); }
-
-	public FrozenDaggers(Weapon staffToUse) : base(staffToUse) { SetupSkill(); }
+	public FrozenDaggers(Weapon staffToUse) : base(staffToUse) { SetupBaseSkill(this.GetType().Name); }
 
 	protected override void Awake()
 	{

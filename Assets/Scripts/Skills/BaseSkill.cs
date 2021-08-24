@@ -51,6 +51,7 @@ public class BaseSkill : MonoBehaviour
 
 	public string SkillName => _skillName;
 	public string IconName => _iconName;
+	protected float _distanceToAttack = 5.0f;
 	protected float _startTime = 0f;
 	protected float _outlineWidth = 0.035f;
 	protected float _outlineRadius = 0.0f;
@@ -67,10 +68,10 @@ public class BaseSkill : MonoBehaviour
 	protected Health _health;
 	protected UltimatePoints _ultimatePoints;
 	protected GameObject OutlineRendererObject = null;
-	protected bool _isSkillShot = false;
 	protected bool _isStatusProjectile = false;
 	protected bool _isAOEProjectile = false;
 	protected bool _isExecutingSkill = false;
+	protected string _meleeFxPath;
 	protected string _toolTipInfo = "";
 
 	/* Status Info */
@@ -112,6 +113,40 @@ public class BaseSkill : MonoBehaviour
 
 		UpdateDamage();
 		UpdateSkillHaste();
+	}
+
+	protected void SetupBaseSkill(string skillName)
+	{
+		_skillName = skillName;
+		_iconName = _skillName + "Icon";
+		_spritePath += _iconName;
+
+		if (SkillInfoRepository.Instance.SkillInfoMap.ContainsKey(_skillName))
+		{
+			SkillInfo skillInfo = SkillInfoRepository.Instance.SkillInfoMap[_skillName];
+
+			_projectilePrefabPath += skillInfo.ProjectilePrefabPath;
+			_soundPath += skillInfo.SoundPath;
+			_projectileCollisionsoundPath += skillInfo.ProjectileCollisionsoundPath;
+			_toolTipInfo = skillInfo.ToolTipInfo;
+			_stunTime = skillInfo.StunTime;
+			_knockBackAmount = skillInfo.KnockBackAmount;
+			_loadingTime = skillInfo.LoadingTime;
+			_loadingMovementSpeedModifier = skillInfo.LoadingMovementSpeedModifier;
+			_loadedMovementSpeedModifier = skillInfo.LoadedMovementSpeedModifier;
+			_resourceAmount = skillInfo.ResourceAmount;
+			_resourceToUse = skillInfo.TheResourceType;
+			_weaponTypeToUse = skillInfo.TheWeaponType;
+			_isAOEProjectile = skillInfo.IsAOEProjectile;
+			_outlineRadius = skillInfo.OutlineRadius;
+			_timePerTick = skillInfo.TimePerTick;
+			_numberOfTicks = skillInfo.NumberOfTicks;
+			_isStatusProjectile = skillInfo.IsStatusProjectile;
+			_distanceToAttack = skillInfo.DistanceToAttack;
+			_meleeFxPath = skillInfo.MeleeSoundPath;
+		}
+		else
+			Debug.LogError(_skillName + " does not have its SkillInfoRepository setup!");
 	}
 
 	protected virtual void UpdateSkillHaste()

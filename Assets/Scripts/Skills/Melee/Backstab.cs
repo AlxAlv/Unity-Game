@@ -8,31 +8,9 @@ public class Backstab : MeleeSkill
     // Backstab Specific
     private float _backstabDistance = 15.0f;
 
-    private void SetupSkill()
-    {
-        _skillName = this.GetType().Name;
-        _iconName = _skillName + "Icon";
-        _spritePath += _iconName;
+    public Backstab() : base() { SetupBaseSkill(this.GetType().Name); }
 
-        // Things To Update
-        _soundPath += "StabFx";
-        _toolTipInfo = "Teleport behind an enemy and stab them!";
-        _stunTime = 1.0f;
-        _knockBackAmount = 10f;
-        _loadingTime = 0.05f;
-        _loadingMovementSpeedModifier = 1.0f;
-        _loadedMovementSpeedModifier = 1.0f;
-        _resourceAmount = 10.0f;
-        _resourceToUse = Resource.Stamina;
-        _weaponTypeToUse = WeaponType.Melee;
-
-        // Skill Specific
-        _distanceToAttack = 1.5f;
-    }
-
-    public Backstab() : base() { SetupSkill(); }
-
-    public Backstab(Weapon swordToUse) : base(swordToUse) { SetupSkill(); }
+    public Backstab(Weapon swordToUse) : base(swordToUse) { SetupBaseSkill(this.GetType().Name); }
 
     public override void Update()
     {

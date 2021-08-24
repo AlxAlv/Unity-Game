@@ -3,30 +3,9 @@ using UnityEngine;
 
 public class IceBolt : MagicSkill
 {
-    private void SetupSkill()
-    {
-        _skillName = this.GetType().Name;
-        _iconName = _skillName + "Icon";
-        _spritePath += _iconName;
-
-        // Things To Update
-        _projectilePrefabPath += "Icebolt";
-        _soundPath += "IceBoltFx";
-        _projectileCollisionsoundPath += "BoltHitFx";
-        _toolTipInfo = "Shoot a ball made of ice!";
-        _stunTime = 0.8f;
-        _knockBackAmount = 35f;
-        _loadingTime = 0.25f;
-        _loadingMovementSpeedModifier = 0.5f;
-        _loadedMovementSpeedModifier = 0.0f;
-        _resourceAmount = 1.0f;
-        _resourceToUse = Resource.Mana;
-        _weaponTypeToUse = WeaponType.Magic;
-    }
-
-    public IceBolt() : base() { SetupSkill(); }
+    public IceBolt() : base() { SetupBaseSkill(this.GetType().Name); }
     
-    public IceBolt(Weapon staffToUse) : base(staffToUse){ SetupSkill(); }
+    public IceBolt(Weapon staffToUse) : base(staffToUse){ SetupBaseSkill(this.GetType().Name); }
 
     protected override void Awake()
     {

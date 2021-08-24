@@ -125,7 +125,7 @@ public class FenrirManager : MonoBehaviour
 
         message6.Emotion = Dialogue.Emotions.Happy;
         message6.Name = name;
-        message6.Sentence = "Holding [LEFT-SHIFT] reduces incoming damage.\nLetting go of [LEFT-SHIFT] has you dodge and avoid all damage.\n[ESC] Cancels any loaded skill.";
+        message6.Sentence = "Holding [LEFT-SHIFT] reduces incoming damage.\nLetting go of [LEFT-SHIFT] has you dodge and avoid all damage.\n[ESC] Cancels any loaded skill.\n[CTRL] Stops player movement.";
 
         DialogueButton button6_0 = new DialogueButton("[CONTINUE]", 7, ButtonType.Continue);
         dialogueButtons6.Add(button6_0);

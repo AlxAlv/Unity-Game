@@ -9,32 +9,9 @@ public class ArrowBarrage : ArcherySkill
     private float _timeBetweenArrows = 0.05f;
     private float _timer;
 
-    private void SetupSkill()
-    {
-        _skillName = this.GetType().Name;
-        _iconName = _skillName + "Icon";
-        _spritePath += _iconName;
-        _resourceAmount = ResourceAmount;
-        _resourceToUse = ResourceType;
+    public ArrowBarrage() : base() { SetupBaseSkill(this.GetType().Name); }
 
-        // Things To Update
-        _projectilePrefabPath += "Arrow";
-        _soundPath += "RangedAttackFx";
-        _projectileCollisionsoundPath += "ArrowHitFx";
-        _toolTipInfo = "Unleash a barrage of arrows!";
-        _stunTime = 1.0f;
-        _knockBackAmount = 50f;
-        _loadingTime = 0.0f;
-        _loadingMovementSpeedModifier = 1.0f;
-        _loadedMovementSpeedModifier = 0.0f;
-        _resourceToUse = Resource.Ultimate;
-        _weaponTypeToUse = WeaponType.Bow;
-        _resourceAmount = 25f;
-    }
-
-    public ArrowBarrage() : base() { SetupSkill(); }
-
-    public ArrowBarrage(Weapon bowToUse) : base(bowToUse) { SetupSkill(); }
+    public ArrowBarrage(Weapon bowToUse) : base(bowToUse) { SetupBaseSkill(this.GetType().Name); }
 
     private bool Timer()
     {

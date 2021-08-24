@@ -151,27 +151,30 @@ public class EntityStunGuage : EntityComponent
 
     public void HitStun(float stunTime = _defaultStunDuration, float knockBackAmount = 0.0f, Transform projectileLocation = null)
     {
-        _lastPlaceHitFrom = projectileLocation;
-
-        if (Invincible || (_entityShield != null && (_entityShield.IsShielding || _entityShield.IsRolling)))
+        if (m_entity.EntityType != Entity.EntityTypes.Player || GameSettingsManager.Instance.IsPlayerHitStunnable)
         {
-            SoundManager.Instance.Playsound("Audio/SoundEffects/InvincibleFx");
-            return;
+            _lastPlaceHitFrom = projectileLocation;
+
+            if (Invincible || (_entityShield != null && (_entityShield.IsShielding || _entityShield.IsRolling)))
+            {
+                SoundManager.Instance.Playsound("Audio/SoundEffects/InvincibleFx");
+                return;
+            }
+
+            if (!KnockedBack)
+                _currentStunTimer = 0.0f;
+
+            ApplyPush(knockBackAmount);
+
+            _barInstance.AddAmount(knockBackAmount);
+
+            m_entityWeapon.CurrentWeapon.CancelSkills();
+
+            _currentStunDuration = (KnockedBack ? _armorBreakDuration : stunTime);
+
+            if (m_entity.EntityType == Entity.EntityTypes.Player)
+                m_movement.RemoveDestination();
         }
-
-        if (!KnockedBack)
-	        _currentStunTimer = 0.0f;
-	     
-        ApplyPush(knockBackAmount);
-
-	    _barInstance.AddAmount(knockBackAmount);
-
-        m_entityWeapon.CurrentWeapon.CancelSkills();
-
-        _currentStunDuration = (KnockedBack ? _armorBreakDuration : stunTime);
-
-        if (m_entity.EntityType == Entity.EntityTypes.Player)
-            m_movement.RemoveDestination();
     }
 
     private void ApplyPush(float pushAmount)

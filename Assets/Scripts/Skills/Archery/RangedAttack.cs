@@ -3,30 +3,9 @@ using UnityEngine;
 
 public class RangedAttack : ArcherySkill
 {
-    private void SetupSkill()
-    {
-        _skillName = this.GetType().Name;
-        _iconName = _skillName + "Icon";
-        _spritePath += _iconName;
+    public RangedAttack() : base() { SetupBaseSkill(this.GetType().Name); }
 
-        // Things To Update
-        _projectilePrefabPath += "Arrow";
-        _soundPath += "RangedAttackFx";
-        _projectileCollisionsoundPath += "ArrowHitFx";
-        _toolTipInfo = "Shoot an arrow!";
-        _stunTime = 1.0f;
-        _knockBackAmount = 50f;
-        _loadingTime = 0.3f;
-        _loadingMovementSpeedModifier = 0.5f;
-        _loadedMovementSpeedModifier = 0.0f;
-        _resourceAmount = 1.0f;
-        _resourceToUse = Resource.Stamina;
-        _weaponTypeToUse = WeaponType.Bow;
-    }
-
-    public RangedAttack() : base() { SetupSkill(); }
-
-    public RangedAttack(Weapon bowToUse) : base(bowToUse) { SetupSkill(); }
+    public RangedAttack(Weapon bowToUse) : base(bowToUse) { SetupBaseSkill(this.GetType().Name); }
 
     protected override void Awake()
     {

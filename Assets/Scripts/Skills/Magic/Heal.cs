@@ -5,28 +5,9 @@ using UnityEngine;
 
 public class Heal : MagicSkill
 {
-    private void SetupSkill()
-    {
-        _skillName = this.GetType().Name;
-        _iconName = _skillName + "Icon";
-        _spritePath += _iconName;
+    public Heal() : base() { SetupBaseSkill(this.GetType().Name); }
 
-        // Things To Update
-        _soundPath += "HealFx";
-        _toolTipInfo = "Heal yourself!";
-        _stunTime = 0.0f;
-        _knockBackAmount = 0.0f;
-        _loadingTime = 0.25f;
-        _loadingMovementSpeedModifier = 0.5f;
-        _loadedMovementSpeedModifier = 0.0f;
-        _resourceAmount = 3.0f;
-        _resourceToUse = Resource.Mana;
-        _weaponTypeToUse = WeaponType.Magic;
-    }
-
-    public Heal() : base() { SetupSkill(); }
-
-    public Heal(Weapon staffToUse) : base(staffToUse) { SetupSkill(); }
+    public Heal(Weapon staffToUse) : base(staffToUse) { SetupBaseSkill(this.GetType().Name); }
 
     protected override void Awake()
     {

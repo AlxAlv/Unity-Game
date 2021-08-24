@@ -3,35 +3,9 @@ using UnityEngine;
 
 public class FireBolt : MagicSkill
 {
-    private void SetupSkill()
-    {
-        _skillName = this.GetType().Name;
-        _iconName = _skillName + "Icon";
-        _spritePath += _iconName;
+    public FireBolt() : base() { SetupBaseSkill(this.GetType().Name); }
 
-        // Things To Update
-        _projectilePrefabPath += "Firebolt";
-        _soundPath += "FireBoltFx";
-        _projectileCollisionsoundPath += "BoltHitFx";
-        _toolTipInfo = "Burn foes with a 3 bolt blast of fire!";
-        _stunTime = 1.2f;
-        _knockBackAmount = 60f;
-        _loadingTime = 0.75f;
-        _loadingMovementSpeedModifier = 0.5f;
-        _loadedMovementSpeedModifier = 0.0f;
-        _resourceAmount = 5.0f;
-        _resourceToUse = Resource.Mana;
-        _weaponTypeToUse = WeaponType.Magic;
-
-        /* This Is A Status Projectile Being Shot */
-        _isStatusProjectile = true;
-        _numberOfTicks = 5;
-        _timePerTick = 0.5f;
-    }
-
-    public FireBolt() : base() { SetupSkill(); }
-
-    public FireBolt(Weapon staffToUse) : base(staffToUse) { SetupSkill(); }
+    public FireBolt(Weapon staffToUse) : base(staffToUse) { SetupBaseSkill(this.GetType().Name); }
 
     protected override void Awake()
     {

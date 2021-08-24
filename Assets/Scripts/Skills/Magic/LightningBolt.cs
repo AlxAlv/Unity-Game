@@ -2,30 +2,9 @@
 
 public class LightningBolt : MagicSkill
 {
-    private void SetupSkill()
-    {
-        _skillName = this.GetType().Name;
-        _iconName = _skillName + "Icon";
-        _spritePath += _iconName;
+    public LightningBolt() : base() { SetupBaseSkill(this.GetType().Name); }
 
-        // Things To Update
-        _projectilePrefabPath += "Lightningbolt";
-        _soundPath += "LightningBoltFx";
-        _projectileCollisionsoundPath += "BoltHitFx";
-        _toolTipInfo = "Shoot a ball of lightning to stun an enemy!";
-        _stunTime = 2.0f;
-        _knockBackAmount = 10f;
-        _loadingTime = 0.15f;
-        _loadingMovementSpeedModifier = 0.5f;
-        _loadedMovementSpeedModifier = 0.0f;
-        _resourceAmount = 0.5f;
-        _resourceToUse = Resource.Mana;
-        _weaponTypeToUse = WeaponType.Magic;
-    }
-
-    public LightningBolt() : base() { SetupSkill(); }
-
-    public LightningBolt(Weapon staffToUse) : base(staffToUse) { SetupSkill(); }
+    public LightningBolt(Weapon staffToUse) : base(staffToUse) { SetupBaseSkill(this.GetType().Name); }
 
     protected override void Awake()
     {

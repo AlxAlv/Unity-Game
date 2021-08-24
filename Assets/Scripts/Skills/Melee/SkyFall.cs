@@ -10,33 +10,9 @@ public class SkyFall : MeleeSkill
 	private float _skyFallSpeedModifier = 4.0f;
 	private string _skyFallImpactSoundPath = "Audio/SoundEffects/SkyFallFx";
 
-	private void SetupSkill()
-	{
-		_skillName = this.GetType().Name;
-		_iconName = _skillName + "Icon";
-		_spritePath += _iconName;
+	public SkyFall() : base() { SetupBaseSkill(this.GetType().Name); }
 
-		// Things To Update
-		_soundPath += "ChargeFx";
-		_toolTipInfo = "Perform a massive leap causing AOE damage on impact!";
-		_stunTime = 2.0f;
-		_knockBackAmount = 100f;
-		_loadingTime = 0.5f;
-		_loadingMovementSpeedModifier = 0.2f;
-		_loadedMovementSpeedModifier = 0.35f;
-		_resourceAmount = 8.0f;
-		_resourceToUse = Resource.Stamina;
-		_weaponTypeToUse = WeaponType.Melee;
-
-		// Skill Specific
-		_outlineRadius = 6.5f;
-		_isSkillShot = true;
-		_distanceToAttack = 1.5f;
-	}
-
-	public SkyFall() : base() { SetupSkill(); }
-
-	public SkyFall(Weapon swordToUse) : base(swordToUse) { SetupSkill(); }
+	public SkyFall(Weapon swordToUse) : base(swordToUse) { SetupBaseSkill(this.GetType().Name); }
 
 	public override void Update()
 	{

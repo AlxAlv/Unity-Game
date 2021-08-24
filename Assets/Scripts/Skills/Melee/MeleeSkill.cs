@@ -8,10 +8,6 @@ namespace Assets.Scripts.Skills.Melee
 	{
 		// Resource Variables
 		protected Sword _swordToUse;
-		protected string _meleeFxPath;
-
-		// Distance Variables
-		protected float _distanceToAttack = 5.0f;
 
 		// Attack Variables
 		protected bool _pendingAttack = false;

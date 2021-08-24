@@ -9,30 +9,9 @@ public class ArrowRevolver : ArcherySkill
 	private float _timer = 0.0f;
 	private float _timerDuration = (.05f);
 
-	private void SetupSkill()
-	{
-		_skillName = this.GetType().Name;
-		_iconName = _skillName + "Icon";
-		_spritePath += _iconName;
+	public ArrowRevolver() : base() { SetupBaseSkill(this.GetType().Name); }
 
-		// Things To Update
-		_projectilePrefabPath += "Arrow";
-		_soundPath += "RangedAttackFx";
-		_projectileCollisionsoundPath += "ArrowHitFx";
-		_toolTipInfo = "Load up 5 arrows to shoot!";
-		_stunTime = 0.8f;
-		_knockBackAmount = 25f;
-		_loadingTime = 0.8f;
-		_loadingMovementSpeedModifier = 0.8f;
-		_loadedMovementSpeedModifier = 0.0f;
-		_resourceAmount = 5.0f;
-		_resourceToUse = Resource.Stamina;
-		_weaponTypeToUse = WeaponType.Bow;
-	}
-
-	public ArrowRevolver() : base() { SetupSkill(); }
-
-	public ArrowRevolver(Weapon bowToUse) : base(bowToUse) { SetupSkill(); }
+	public ArrowRevolver(Weapon bowToUse) : base(bowToUse) { SetupBaseSkill(this.GetType().Name); }
 
 	protected override void Awake()
 	{

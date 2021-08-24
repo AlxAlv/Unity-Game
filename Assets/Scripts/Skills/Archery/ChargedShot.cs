@@ -5,30 +5,9 @@ using UnityEngine;
 
 public class ChargedShot : ArcherySkill
 {
-    private void SetupSkill()
-    {
-        _skillName = this.GetType().Name;
-        _iconName = _skillName + "Icon";
-        _spritePath += _iconName;
+    public ChargedShot() : base() { _skillName = this.GetType().Name; }
 
-        // Things To Update
-        _projectilePrefabPath += "Arrow";
-        _soundPath += "RangedAttackFx";
-        _projectileCollisionsoundPath += "ArrowHitFx";
-        _toolTipInfo = "Shoot a devastating arrow!";
-        _stunTime = 1.0f;
-        _knockBackAmount = 100f;
-        _loadingTime = 1.0f;
-        _loadingMovementSpeedModifier = 0.5f;
-        _loadedMovementSpeedModifier = 0.0f;
-        _resourceAmount = 10.0f;
-        _resourceToUse = Resource.Stamina;
-        _weaponTypeToUse = WeaponType.Bow;
-    }
-
-    public ChargedShot() : base() { SetupSkill(); }
-
-    public ChargedShot(Weapon bowToUse) : base(bowToUse) { SetupSkill(); }
+    public ChargedShot(Weapon bowToUse) : base(bowToUse) { _skillName = this.GetType().Name; }
 
     protected override void Awake()
     {
