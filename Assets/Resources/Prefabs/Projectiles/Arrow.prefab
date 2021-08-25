@@ -34,7 +34,7 @@ GameObject:
   - component: {fileID: 7672847954848453238}
   - component: {fileID: -1261110383413717215}
   - component: {fileID: 6823586718430488243}
-  - component: {fileID: 4275338776249945002}
+  - component: {fileID: 7963472966679251713}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Projectile
@@ -72,6 +72,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -214,8 +215,8 @@ MonoBehaviour:
   - {x: -0.2162091, y: 0.01464603, z: 0}
   m_ShapePathHash: 2107051079
   m_Mesh: {fileID: 0}
-  m_InstanceId: 211870
---- !u!114 &4275338776249945002
+  m_InstanceId: 41890
+--- !u!114 &7963472966679251713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -224,9 +225,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8321050490716486963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c46908c26b15c2f489e7eaca60a13e0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62c2f6f3eb660854cb55d814be1f1a38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 32
+  _rotatingAxis: 0
 --- !u!1001 &5706959884363732485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -241,13 +244,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3439268955794855410, guid: afa35bc0fdd5cb248a885a4537f27363,
         type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3439268955794855410, guid: afa35bc0fdd5cb248a885a4537f27363,
         type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
-      value: 1
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3439268955794855410, guid: afa35bc0fdd5cb248a885a4537f27363,
         type: 3}
@@ -256,7 +259,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3439268955794855410, guid: afa35bc0fdd5cb248a885a4537f27363,
         type: 3}
-      propertyPath: playOnAwake
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333107535834312310, guid: afa35bc0fdd5cb248a885a4537f27363,
+        type: 3}
+      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5333107535834312310, guid: afa35bc0fdd5cb248a885a4537f27363,
@@ -276,6 +284,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5333107535834312310, guid: afa35bc0fdd5cb248a885a4537f27363,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333107535834312310, guid: afa35bc0fdd5cb248a885a4537f27363,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -288,16 +301,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5333107535834312310, guid: afa35bc0fdd5cb248a885a4537f27363,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5333107535834312310, guid: afa35bc0fdd5cb248a885a4537f27363,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5333107535834312310, guid: afa35bc0fdd5cb248a885a4537f27363,
         type: 3}
