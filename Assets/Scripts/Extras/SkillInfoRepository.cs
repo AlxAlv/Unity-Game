@@ -226,7 +226,7 @@ public class SkillInfoRepository : Singleton<SkillInfoRepository>
             ProjectilePrefabPath = "Lightningbolt",
             SoundPath = "LightningBoltFx",
             ProjectileCollisionsoundPath = "BoltHitFx",
-            ToolTipInfo = "Shoot a ball of lightning to stun an enemy!",
+            ToolTipInfo = "Shoot a ball of lightning that bounces off multiple enemies!",
             StunTime = 2.0f,
             KnockBackAmount = 10f,
             LoadingTime = 0.15f,
@@ -234,7 +234,8 @@ public class SkillInfoRepository : Singleton<SkillInfoRepository>
             LoadedMovementSpeedModifier = 0.0f,
             ResourceAmount = 0.5f,
             TheResourceType = Resource.Mana,
-            TheWeaponType = WeaponType.Magic
+            TheWeaponType = WeaponType.Magic,
+            OutlineRadius = 6.5f
         };
 
         // Player Melee Skills

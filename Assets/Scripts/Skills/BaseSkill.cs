@@ -111,6 +111,9 @@ public class BaseSkill : MonoBehaviour
 			LoadingUpdate();
 		}
 
+		if (_outlineRadius > 0.0f)
+			UpdateOutlineRenderer();
+
 		UpdateDamage();
 		UpdateSkillHaste();
 	}
@@ -277,6 +280,7 @@ public class BaseSkill : MonoBehaviour
 		var poolReturnComponent = newObject.transform.GetComponent<ReturnToPool>();
 		var statusComponent = newObject.transform.GetComponent<StatusProjectile>();
 		var aoeComponent = newObject.transform.GetComponent<ProjectileAOEOnImpact>();
+		var chainComponent = newObject.transform.GetComponent<ChainProjectile>();
 
 		if (projectileComponent != null)
 		{
@@ -299,6 +303,8 @@ public class BaseSkill : MonoBehaviour
 		{
 			aoeComponent.AOESize = _outlineRadius;
 		}
+		else if (chainComponent != null)
+			chainComponent.AoeRadius = _outlineRadius;
 
 		if (poolReturnComponent != null)
 		{

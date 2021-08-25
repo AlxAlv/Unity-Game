@@ -11,15 +11,21 @@ public class ReturnToPool : MonoBehaviour
 	[Header("Effects")]
 	[SerializeField] private ParticleSystem _impactPS;
 
+	// Projectile Components
 	private Projectile _projectile;
 	private StatusProjectile _statusProjectile;
+	private ProjectileAOEOnImpact _aoeComponent;
+	private ChainProjectile _chainComponent;
 
 	private string _collisionSound;
+	private bool _alreadyHit = false;
 
 	private void Start()
 	{
 		_projectile = GetComponent<Projectile>();
 		_statusProjectile = GetComponent<StatusProjectile>();
+		_aoeComponent = _projectile.GetComponent<ProjectileAOEOnImpact>();
+		_chainComponent = _projectile.GetComponent<ChainProjectile>();
 	}
 
 	private void Return()
@@ -34,6 +40,9 @@ public class ReturnToPool : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+		if (_alreadyHit)
+			return;
+
 		if (CheckLayer(collision.gameObject.layer, _objectMask))
 		{
 			if (_projectile != null)
@@ -46,14 +55,13 @@ public class ReturnToPool : MonoBehaviour
 				SoundManager.Instance.Playsound(_collisionSound);
 				Invoke(nameof(Return), _impactPS.main.duration);
 
-				ProjectileAOEOnImpact aoeComponent = _projectile.GetComponent<ProjectileAOEOnImpact>();
 
 				// Critical Chance
 				bool isCriticalHit = (Random.Range(0, 101) < _projectile.CriticalChance);
 
-				if (aoeComponent)
+				if (_aoeComponent)
 				{
-					float radius = aoeComponent.AOESize;
+					float radius = _aoeComponent.AOESize;
 
 					Collider2D[] _targetCollider2D = Physics2D.OverlapCircleAll(collision.transform.position, radius, LayerMask.GetMask("LevelComponents", "Enemies"));
 
@@ -94,6 +102,59 @@ public class ReturnToPool : MonoBehaviour
 							_statusProjectile.ApplyEffect(collision.GetComponent<EntityStatus>());
 					}
 				}
+				HandleChainProjectile(collision);
+				_alreadyHit = true;
+			}
+		}
+	}
+
+	private void HandleChainProjectile(Collider2D collision)
+	{
+		if (!_chainComponent)
+			return;
+
+		bool isCriticalHit = (Random.Range(0, 101) < _projectile.CriticalChance);
+		int hits = 0;
+
+		Collider2D entityCollider = collision;
+		List<Collider2D> entitiesHit = new List<Collider2D>();
+		List<Collider2D> entitesAlreadyDamaged = new List<Collider2D>();
+
+		while (hits < _chainComponent.MaxBounces && entityCollider)
+		{
+			Collider2D[] targetCollider2D = Physics2D.OverlapCircleAll(entityCollider.transform.position, _chainComponent.AoeRadius, LayerMask.GetMask("LevelComponents", "Enemies"));
+
+			foreach (Collider2D collider in targetCollider2D)
+			{
+				RaycastHit2D hit = Physics2D.Linecast(collision.transform.position, collider.transform.position, LayerMask.GetMask("LevelComponents", "Enemies"));
+
+				if (hit && !entitesAlreadyDamaged.Contains(collider) && collider != entityCollider)
+					entitiesHit.Add(collider);
+			}
+
+			entityCollider = null;
+
+			if (entitiesHit.Count > 0 && entitiesHit.Count > entitesAlreadyDamaged.Count)
+			{
+				int enemyIndex = Random.Range(0, entitiesHit.Count);
+
+				LevelComponent levelComponent = entitiesHit[enemyIndex].GetComponent<LevelComponent>();
+				Health targetHealth = entitiesHit[enemyIndex].GetComponent<Health>();
+
+				if (levelComponent)
+				{
+					levelComponent.TakeDamage((isCriticalHit ? (_projectile.DamageAmount * 2) : _projectile.DamageAmount), isCriticalHit, _projectile.Owner.GetComponent<Inventory>());
+				}
+				else if (targetHealth)
+				{
+					targetHealth.Attacker = _projectile.Owner;
+					targetHealth.TakeDamage((isCriticalHit ? (_projectile.DamageAmount * 2) : _projectile.DamageAmount), _projectile.SkillName, isCriticalHit);
+					targetHealth.HitStun(_projectile.StunTime, _projectile.KnockBackAmount, _projectile.Owner.transform);
+				}
+
+				entityCollider = entitiesHit[enemyIndex];
+				entitesAlreadyDamaged.Add(entitiesHit[enemyIndex]);
+				hits++;
 			}
 		}
 	}

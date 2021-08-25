@@ -9,8 +9,6 @@ public class BoulderToss : MagicSkill
 
     public override void Update()
     {
-	    UpdateOutlineRenderer();
-
         base.Update();
     }
 
