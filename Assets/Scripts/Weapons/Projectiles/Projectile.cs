@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 
@@ -9,6 +10,7 @@ public class Projectile : MonoBehaviour
 {
 	[SerializeField] private float m_speed = 35f;
 	[SerializeField] private float m_acceleration = 0f;
+    [SerializeField] private Light2D _projectileLight;
 
     public Vector2 Direction { get; set; }
     public bool FacingLeft { get; set; }
@@ -19,6 +21,8 @@ public class Projectile : MonoBehaviour
     public float StunTime { get; set; }
     public float KnockBackAmount { get; set; }
     public GameObject Owner { get; set; }
+
+    public Light2D ProjectileLight => _projectileLight;
 
     private Rigidbody2D m_rigidBody2D;
     private SpriteRenderer m_spriteRenderer;

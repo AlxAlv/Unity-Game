@@ -16,6 +16,7 @@ public class ReturnToPool : MonoBehaviour
 	private StatusProjectile _statusProjectile;
 	private ProjectileAOEOnImpact _aoeComponent;
 	private ChainProjectile _chainComponent;
+	private ParticleProjectileHelper _particleHelper;
 
 	private string _collisionSound;
 	private bool _alreadyHit = false;
@@ -26,6 +27,7 @@ public class ReturnToPool : MonoBehaviour
 		_statusProjectile = GetComponent<StatusProjectile>();
 		_aoeComponent = _projectile.GetComponent<ProjectileAOEOnImpact>();
 		_chainComponent = _projectile.GetComponent<ChainProjectile>();
+		_particleHelper = _projectile.GetComponent<ParticleProjectileHelper>();
 	}
 
 	private void Return()
@@ -35,7 +37,24 @@ public class ReturnToPool : MonoBehaviour
 			_projectile.ResetProjectile();
 		}
 
-		Destroy(gameObject);
+		if (_projectile.ProjectileLight)
+			_projectile.ProjectileLight.gameObject.SetActive(false);
+
+		if (_particleHelper)
+			KeepParticlesAlive();
+		else
+			Destroy(gameObject);
+	}
+
+	private void Update()
+	{
+		if (_particleHelper && !_particleHelper.ParticlesSystem.IsAlive())
+			Destroy(gameObject);
+	}
+
+	private void KeepParticlesAlive()
+	{
+		_particleHelper.ParticlesSystem.Stop();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
