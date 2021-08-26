@@ -151,6 +151,7 @@ public class ReturnToPool : MonoBehaviour
 					entitiesHit.Add(collider);
 			}
 
+			Collider2D firstObject = entityCollider;
 			entityCollider = null;
 
 			if (entitiesHit.Count > 0 && entitiesHit.Count > entitesAlreadyDamaged.Count)
@@ -170,6 +171,23 @@ public class ReturnToPool : MonoBehaviour
 					targetHealth.TakeDamage((isCriticalHit ? (_projectile.DamageAmount * 2) : _projectile.DamageAmount), _projectile.SkillName, isCriticalHit);
 					targetHealth.HitStun(_projectile.StunTime, _projectile.KnockBackAmount, _projectile.Owner.transform);
 				}
+
+				// Draw line between two objects
+				GameObject newObject = new GameObject("Line");
+				newObject.transform.parent = this.gameObject.transform;
+
+				LineRenderer lineRenderer = newObject.AddComponent<LineRenderer>();
+				lineRenderer.startColor = Color.white;
+				lineRenderer.endColor = Color.white;
+				lineRenderer.startWidth = 0.5f;
+				lineRenderer.endWidth = 0.5f;
+				lineRenderer.positionCount = 2;
+				lineRenderer.useWorldSpace = true;
+				//lineRenderer.materials.Length = 1;
+				lineRenderer.materials[0] = Resources.Load<Material>("Sprites/Materials/LightningParticle");
+
+				lineRenderer.SetPosition(0, firstObject.transform.position);
+				lineRenderer.SetPosition(1, entitiesHit[enemyIndex].transform.position);
 
 				entityCollider = entitiesHit[enemyIndex];
 				entitesAlreadyDamaged.Add(entitiesHit[enemyIndex]);
