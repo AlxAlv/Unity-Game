@@ -187,7 +187,7 @@ public class BaseSkill : MonoBehaviour
 	protected virtual void LoadingUpdate()
 	{
 		float timePassed = (Time.time - _startTime);
-		if (_loadingTime < timePassed)
+		if (_loadingTime < timePassed || GameSettingsManager.Instance.IsSkillLoadingInstant)
 		{
 			SkillLoaded();
 		}
