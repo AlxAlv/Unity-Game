@@ -35,7 +35,13 @@ public class Charge : MeleeSkill
 
     public Charge(Weapon swordToUse) : base(swordToUse) { SetupSkill(); }
 
-    public override void Update()
+	public override void Trigger()
+	{
+        _pendingAttack = true;
+        base.Trigger();
+	}
+
+	public override void Update()
     {
 	    if (IsLoaded() && IsInChargeReach() && _pendingAttack)
 		    _entityMovement.RunMovementModifier = _chargeSpeedModifier;

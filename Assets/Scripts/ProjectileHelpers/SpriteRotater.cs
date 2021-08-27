@@ -19,13 +19,13 @@ public class SpriteRotater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_sprite.enabled)
+            if (_sprite.enabled)
         {
             if (_rotatingAxis == _axis.x)
                 _sprite.transform.Rotate(new Vector3(rotationSpeed, 0, 0));
-            else if (_rotatingAxis == _axis.x)
+            else if (_rotatingAxis == _axis.y)
                 _sprite.transform.Rotate(new Vector3(0, rotationSpeed, 0));
-            else if (_rotatingAxis == _axis.x)
+            else if (_rotatingAxis == _axis.z)
                 _sprite.transform.Rotate(new Vector3(0, 0, rotationSpeed));
         }
     }

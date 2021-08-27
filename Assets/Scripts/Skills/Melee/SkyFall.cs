@@ -34,6 +34,12 @@ public class SkyFall : MeleeSkill
 		base.CancelSkill();
 	}
 
+	public override void Trigger()
+	{
+		_pendingAttack = true;
+		base.Trigger();
+	}
+
 	protected override void Execute()
 	{
 		if (IsInReach() && IsLoaded() && _pendingAttack)

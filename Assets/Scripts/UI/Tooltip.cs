@@ -30,7 +30,7 @@ public class Tooltip : MonoBehaviour
 
         transform.localPosition = new Vector2(localPoint.x, localPoint.y + (16f));
 
-        if (_currentToolTipBeingViewed && _currentToolTipBeingViewed.gameObject.activeInHierarchy == false)
+        if ((_currentToolTipBeingViewed && _currentToolTipBeingViewed.gameObject.activeInHierarchy == false) || (_currentToolTipBeingViewed == null))
             HideTooltip();
     }
 

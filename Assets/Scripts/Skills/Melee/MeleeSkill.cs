@@ -56,10 +56,8 @@ namespace Assets.Scripts.Skills.Melee
 		{
 			base.Trigger();
 
-			_pendingAttack = true;
-
 			if (!IsInReach() && _entityTarget.CurrentTarget != null)
-				_entityMovement.SetIsWalking(true, _entityTarget.CurrentTarget);
+					_entityMovement.SetIsWalking(true, _entityTarget.CurrentTarget);
 		}
 
 		protected override void Execute()

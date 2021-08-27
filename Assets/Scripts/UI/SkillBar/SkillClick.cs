@@ -9,11 +9,11 @@ public class SkillClick : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            _skillBarToUse.HandleKeyPress(GetComponent<Image>());
-            _skillBarToUse.SetSetBar(_index);
-        }
+        //if (eventData.button == PointerEventData.InputButton.Left)
+        //{
+        //    _skillBarToUse.HandleKeyPress(GetComponent<Image>());
+        //    _skillBarToUse.SetSetBar(_index);
+        //}
     }
 
     public void OnPointerDown(PointerEventData eventData)

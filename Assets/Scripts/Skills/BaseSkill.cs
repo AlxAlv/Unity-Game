@@ -214,6 +214,7 @@ public class BaseSkill : MonoBehaviour
 
 	protected virtual void Execute()
 	{
+		_ultimatePoints.GainUltimatePoints(5);
 		SoundManager.Instance.Playsound(_soundPath);
 
 		CancelSkill();
@@ -324,8 +325,6 @@ public class BaseSkill : MonoBehaviour
 	{
 		if (_entity.EntityType == Entity.EntityTypes.Player)
 		{
-			_ultimatePoints.GainUltimatePoints(100);
-
 			switch (_resourceToUse)
 			{
 				case Resource.Health:
@@ -464,6 +463,7 @@ public class BaseSkill : MonoBehaviour
 
 	protected void ExecuteAOESkill()
 	{
+		_ultimatePoints.GainUltimatePoints(5);
 		SoundManager.Instance.Playsound(_soundPath);
 
 		Collider2D[] _targetCollider2D = Physics2D.OverlapCircleAll(OutlineRendererObject.transform.position, _outlineRadius, LayerMask.GetMask("LevelComponents", "Enemies"));

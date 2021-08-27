@@ -25,8 +25,11 @@ public class MeleeAttack : MeleeSkill
 
     public override void Update()
     {
-	    if (IsLoaded())
-		    _entitySkill.SkillUses.text = _currentNumOfSwings.ToString();
+        if (IsLoaded())
+        {
+            _entitySkill.SkillUses.text = _currentNumOfSwings.ToString();
+            Execute();
+        }
 
         base.Update();
     }
@@ -39,11 +42,12 @@ public class MeleeAttack : MeleeSkill
 
     protected override void Execute()
     {
-        if (IsInReach() && IsLoaded() && _pendingAttack)
+        if (IsInReach() && IsLoaded() /*&& _pendingAttack*/)
         {
 	        if ((_timer == 0.0f) || (Time.time > _timer))
 	        {
-		        _timer = Time.time + _timerDuration;
+                _ultimatePoints.GainUltimatePoints(5);
+                _timer = Time.time + _timerDuration;
 		        _swordToUse.ClearLastHitEnemies();
 		        _swordToUse.UseWeapon();
 
