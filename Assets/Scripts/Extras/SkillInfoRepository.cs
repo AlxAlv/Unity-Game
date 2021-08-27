@@ -4,6 +4,7 @@ using static BaseSkill;
 public struct SkillInfo
 {
     public string ProjectilePrefabPath;
+    public string ChainMaterialPath;
     public string SoundPath;
     public string ProjectileCollisionsoundPath;
     public string ToolTipInfo;
@@ -224,6 +225,7 @@ public class SkillInfoRepository : Singleton<SkillInfoRepository>
         new SkillInfo()
         {
             ProjectilePrefabPath = "Lightningbolt",
+            ChainMaterialPath = "LightningParticle",
             SoundPath = "LightningBoltFx",
             ProjectileCollisionsoundPath = "BoltHitFx",
             ToolTipInfo = "Shoot a ball of lightning that bounces off multiple enemies!",
@@ -235,7 +237,10 @@ public class SkillInfoRepository : Singleton<SkillInfoRepository>
             ResourceAmount = 0.5f,
             TheResourceType = Resource.Mana,
             TheWeaponType = WeaponType.Magic,
-            OutlineRadius = 6.5f
+            OutlineRadius = 10.0f,
+            IsStatusProjectile = true,
+            NumberOfTicks = 5,
+            TimePerTick = 0.10f
         };
 
         // Player Melee Skills

@@ -45,6 +45,7 @@ public class BaseSkill : MonoBehaviour
 	public WeaponType WeaponType => _weaponTypeToUse;
 	public float ResourceAmount => _resourceAmount;
 	public string ToolTipInfo => _toolTipInfo;
+	public string ChainEffectPrefabPath => _chainPrefabPath;
 
 	// Member Variables
 	public SkillState CurrentState { get; set; }
@@ -85,6 +86,7 @@ public class BaseSkill : MonoBehaviour
 	protected string _spritePath = "SkillIcons/";
 	protected string _soundPath = "Audio/SoundEffects/";
 	protected string _projectilePrefabPath = "Prefabs/Projectiles/";
+	protected string _chainPrefabPath = "Sprites/Materials/";
 	protected string _projectileCollisionsoundPath = "Audio/SoundEffects/";
 
 	protected int _damageAmount = 0;
@@ -131,6 +133,7 @@ public class BaseSkill : MonoBehaviour
 			_projectilePrefabPath += skillInfo.ProjectilePrefabPath;
 			_soundPath += skillInfo.SoundPath;
 			_projectileCollisionsoundPath += skillInfo.ProjectileCollisionsoundPath;
+			_chainPrefabPath += skillInfo.ChainMaterialPath;
 			_toolTipInfo = skillInfo.ToolTipInfo;
 			_stunTime = skillInfo.StunTime;
 			_knockBackAmount = skillInfo.KnockBackAmount;
@@ -360,9 +363,9 @@ public class BaseSkill : MonoBehaviour
 		if (_entity != null)
 		{
 			if (_entity.EntityType == Entity.EntityTypes.Player)
-				return LayerMask.GetMask("LevelComponents", "Enemies");
+				return LayerMask.GetMask("Walls", "LevelComponents", "Enemies");
 			else
-				return LayerMask.GetMask("LevelComponents", "Player");
+				return LayerMask.GetMask("Walls", "LevelComponents", "Player");
 		}
 
 		return LayerMask.GetMask("Default");

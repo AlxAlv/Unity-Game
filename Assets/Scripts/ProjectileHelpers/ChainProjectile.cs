@@ -6,4 +6,5 @@ public class ChainProjectile : MonoBehaviour
 {
     [SerializeField] public float AoeRadius;
     [SerializeField] public float MaxBounces;
+    [SerializeField] public string ChainResourcePath;
 }

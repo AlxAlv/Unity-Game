@@ -172,22 +172,28 @@ public class ReturnToPool : MonoBehaviour
 					targetHealth.HitStun(_projectile.StunTime, _projectile.KnockBackAmount, _projectile.Owner.transform);
 				}
 
-				// Draw line between two objects
-				GameObject newObject = new GameObject("Line");
-				newObject.transform.parent = this.gameObject.transform;
+				if (_statusProjectile != null)
+					_statusProjectile.ApplyEffect(entitiesHit[enemyIndex].GetComponent<EntityStatus>());
 
-				LineRenderer lineRenderer = newObject.AddComponent<LineRenderer>();
-				lineRenderer.startColor = Color.white;
-				lineRenderer.endColor = Color.white;
-				lineRenderer.startWidth = 0.5f;
-				lineRenderer.endWidth = 0.5f;
-				lineRenderer.positionCount = 2;
-				lineRenderer.useWorldSpace = true;
-				//lineRenderer.materials.Length = 1;
-				lineRenderer.materials[0] = Resources.Load<Material>("Sprites/Materials/LightningParticle");
+				if (_chainComponent.ChainResourcePath.Length > 0)
+				{
+					// Draw line between two objects
+					GameObject newObject = new GameObject("Line");
+					newObject.transform.parent = this.gameObject.transform;
 
-				lineRenderer.SetPosition(0, firstObject.transform.position);
-				lineRenderer.SetPosition(1, entitiesHit[enemyIndex].transform.position);
+					LineRenderer lineRenderer = newObject.AddComponent<LineRenderer>();
+					lineRenderer.startColor = Color.white;
+					lineRenderer.endColor = Color.white;
+					lineRenderer.startWidth = 0.5f;
+					lineRenderer.endWidth = 0.5f;
+					lineRenderer.positionCount = 2;
+					lineRenderer.useWorldSpace = true;
+					//lineRenderer.materials.Length = 1;
+					lineRenderer.material = Resources.Load<Material>(_chainComponent.ChainResourcePath);
+
+					lineRenderer.SetPosition(0, firstObject.transform.position);
+					lineRenderer.SetPosition(1, entitiesHit[enemyIndex].transform.position);
+				}
 
 				entityCollider = entitiesHit[enemyIndex];
 				entitesAlreadyDamaged.Add(entitiesHit[enemyIndex]);
