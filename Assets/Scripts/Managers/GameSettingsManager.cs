@@ -12,9 +12,10 @@ public class GameSettingsManager : Singleton<GameSettingsManager>
     private bool _targetNearest = false;
     private bool _canSkillModifyMovement = false;
     private bool _canPlayerBeHitStun = false;
-    private bool _doesPlayerStopWhenAiming = false;
+    private bool _doesPlayerStopWhenAiming = true;
     private bool _doesRightClickMovePlayer = true;
     private bool _doSkillsLoadInstantly = false;
+    private bool _doSkillsExecuteImmediately = true;
 
     // Public Members   
     public bool IsTargettingNeeded => _targettingNeeded;
@@ -24,6 +25,7 @@ public class GameSettingsManager : Singleton<GameSettingsManager>
     public bool IsPlayerMovementStoppedWhenAiming => _doesPlayerStopWhenAiming;
     public bool IsRightClickAlsoMove => _doesRightClickMovePlayer;
     public bool IsSkillLoadingInstant => _doSkillsLoadInstantly;
+    public bool IsSkillExecutedImmediatelyOnLoad => _doSkillsExecuteImmediately;
 
     private void Awake()
     {
@@ -75,5 +77,10 @@ public class GameSettingsManager : Singleton<GameSettingsManager>
     public void ToggleInstantSkills()
     {
         _doSkillsLoadInstantly = !_doSkillsLoadInstantly;
+    }
+
+    public void ToggleSkillExecuteOnLoad()
+    {
+        _doSkillsExecuteImmediately = !_doSkillsExecuteImmediately;
     }
 }

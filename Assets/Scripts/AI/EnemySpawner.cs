@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
         bool noMaximumSpawnLimit = (_maxNumberOfTotalSpawns == 0);
         bool maximumSpawnsAtAnyGiveTimeNotReached = (gameObject.transform.childCount < _maxNumberOfEnemies);
 
-        if (    (timeHasPassed || noEnemiesExist || _summonAllAtOnce) 
+        if ((timeHasPassed || noEnemiesExist || _summonAllAtOnce) 
              && (hasNotReachedMaximumSpawns || noMaximumSpawnLimit)
              &&  maximumSpawnsAtAnyGiveTimeNotReached)
         {
@@ -42,24 +42,60 @@ public class EnemySpawner : MonoBehaviour
             var objectCreated = SpawnEnemy(_enemyObject);
 
             Weapon weaponToUse = _possibleWeapons[Random.Range(0, (_possibleWeapons.Count -1))];
-            objectCreated.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
 
-            _currentSpawns++;
+            if (objectCreated.GetComponent<EntityWeapon>())
+            {
+                objectCreated.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
+                _currentSpawns++;
+            }
+            else
+            {
+                EntityWeapon[] listOfWeapons = objectCreated.GetComponentsInChildren<EntityWeapon>();
+
+                foreach (EntityWeapon weapon in listOfWeapons)
+                {
+                    weapon.EquipWeapon(weaponToUse);
+                    _currentSpawns++;
+                }
+            }
         }
     }
 
     private void SetLevel(GameObject enemy, int level)
     {
 		UpdateLevel(enemy, level);
-        enemy.GetComponent<Exp>().ExpToGive *= level;
     }
 
     public void UpdateLevel(GameObject enemy, int level)
     {
-	    enemy.GetComponent<StatManager>().SetLevel(level);
-	    enemy.GetComponent<Health>().CalculateMaxHealth();
-	    enemy.GetComponent<Health>().RefillHealth();
-	    enemy.GetComponent<Exp>()._currentLevel = level;
+        if (enemy.GetComponent<StatManager>())
+        {
+            enemy.GetComponent<StatManager>().SetLevel(level);
+            enemy.GetComponent<Health>().CalculateMaxHealth();
+            enemy.GetComponent<Health>().RefillHealth();
+            enemy.GetComponent<Exp>()._currentLevel = level;
+        }
+        else
+        {
+            StatManager[] listOfStats = enemy.GetComponentsInChildren<StatManager>();
+            Health[] listOfHealth = enemy.GetComponentsInChildren<Health>();
+            Exp[] listOfExp = enemy.GetComponentsInChildren<Exp>();
+
+            foreach (StatManager stat in listOfStats)
+                stat.SetLevel(level);
+
+            foreach (Health health in listOfHealth)
+            {
+                health.CalculateMaxHealth();
+                health.RefillHealth();
+            }
+
+            foreach (Exp exp in listOfExp)
+            {
+                exp._currentLevel = level;
+                exp.ExpToGive *= level;
+            }
+        }
     }
 
     public GameObject SpawnEnemy(GameObject enemyToSpawn)
@@ -74,7 +110,7 @@ public class EnemySpawner : MonoBehaviour
             float randYPos = Random.Range(-_yOffset, _yOffset);
             whereToSpawn = new Vector2(randXPos + transform.position.x, randYPos + transform.position.y);
 
-            hit = Physics2D.BoxCast(whereToSpawn, enemyToSpawn.GetComponent<BoxCollider2D>().size, 0.0f, Vector2.zero, 0, LayerMask.GetMask("LevelComponents"));
+                hit = Physics2D.BoxCast(whereToSpawn, enemyToSpawn.GetComponent<BoxCollider2D>().size, 0.0f, Vector2.zero, 0, LayerMask.GetMask("LevelComponents"));
         } while (hit.collider != null);
 	    
         var objectCreated = Instantiate(enemyToSpawn, whereToSpawn, Quaternion.identity);

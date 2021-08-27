@@ -77,8 +77,16 @@ public class EnclosedRoom : MonoBehaviour
 	    GameObject spawnedEnemy = _enemySpawner.SpawnEnemy(enemyToSpawn);
 	    Weapon weaponToUse = _possibleWeapons[Random.Range(0, (_possibleWeapons.Count - 1))];
 
-	    // Outfit The Enemy
-	    spawnedEnemy.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
+		// Outfit The Enemy
+		if (spawnedEnemy.GetComponent<EntityWeapon>())
+			spawnedEnemy.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
+		else
+		{
+			EntityWeapon[] listOfWeapons = spawnedEnemy.GetComponentsInChildren<EntityWeapon>();
+
+			foreach (EntityWeapon weapon in listOfWeapons)
+				weapon.EquipWeapon(weaponToUse);
+		}
 
 	    _spawnedEntities.Add(spawnedEnemy);
 	}

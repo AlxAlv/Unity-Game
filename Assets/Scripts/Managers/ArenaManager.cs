@@ -218,7 +218,7 @@ public class ArenaManager : Singleton<ArenaManager>
 
 	    for (int i = 0; i < numberOfEnemiesThisRound; ++i)
 	    {
-		    GameObject enemyToSpawn = _possibleEnemies[Random.Range(0, (_possibleEnemies.Count - 1))];
+		    GameObject enemyToSpawn = _possibleEnemies[Random.Range(0, (_possibleEnemies.Count))];
             Spawn(enemyToSpawn);
 	    }
     }
@@ -319,10 +319,22 @@ public class ArenaManager : Singleton<ArenaManager>
 	    GameObject spawnedEnemy = _enemySpawners[Random.Range(0, (_enemySpawners.Count - 1))].SpawnEnemy(enemyToSpawn);
 	    Weapon weaponToUse = _possibleWeapons[Random.Range(0, (_possibleWeapons.Count - 1))];
 
-	    // Outfit The Enemy
-	    spawnedEnemy.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
+		// Outfit The Enemy
+		if (spawnedEnemy.GetComponent<EntityWeapon>())
+		{
+			spawnedEnemy.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
+			_spawnedEntities.Add(spawnedEnemy);
+		}
+		else
+		{
+			EntityWeapon[] listOfWeapons = spawnedEnemy.GetComponentsInChildren<EntityWeapon>();
 
-	    _spawnedEntities.Add(spawnedEnemy);
+			foreach (EntityWeapon weapon in listOfWeapons)
+			{
+				_spawnedEntities.Add(weapon.gameObject);
+				weapon.EquipWeapon(weaponToUse);
+			}
+		}
     }
 
 	// Spawn An Enemy Into The List
@@ -334,7 +346,15 @@ public class ArenaManager : Singleton<ArenaManager>
 		_enemySpawners[Random.Range(0, (_enemySpawners.Count - 1))].UpdateLevel(spawnedEnemy, (LevelManager.Instance.CurrentLevel + 5));
 
 		// Outfit The Enemy
-		spawnedEnemy.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
+		if (spawnedEnemy.GetComponent<EntityWeapon>())
+			spawnedEnemy.GetComponent<EntityWeapon>().EquipWeapon(weaponToUse);
+		else
+		{
+			EntityWeapon[] listOfWeapons = spawnedEnemy.GetComponentsInChildren<EntityWeapon>();
+
+			foreach (EntityWeapon weapon in listOfWeapons)
+				weapon.EquipWeapon(weaponToUse);
+		}
 
 		_spawnedEntities.Add(spawnedEnemy);
 	}

@@ -49,7 +49,7 @@ public class SkyFall : MeleeSkill
 
 	protected override void UpdateDamage()
 	{
-		_damageAmount = (_statManager.Strength.TotalAmount * 4) + (Random.Range(_swordToUse.WeaponInfo.MinDamage, _swordToUse.WeaponInfo.MaxDamage + 1) * 3);
+		_damageAmount = (_statManager.Strength.TotalAmount * 4) + (Random.Range(_swordToUse.WeaponInfo.MinDamage, _swordToUse.WeaponInfo.MaxDamage + 5) * 3);
 
 		base.UpdateDamage();
 	}

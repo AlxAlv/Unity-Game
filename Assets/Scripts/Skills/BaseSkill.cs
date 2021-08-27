@@ -112,6 +112,8 @@ public class BaseSkill : MonoBehaviour
 		{
 			LoadingUpdate();
 		}
+		else if (CurrentState == SkillState.loaded && IsPlayer() && GameSettingsManager.Instance.IsSkillExecutedImmediatelyOnLoad && _weaponTypeToUse != WeaponType.Melee)
+			Execute();
 
 		if (_outlineRadius > 0.0f)
 			UpdateOutlineRenderer();
@@ -190,7 +192,7 @@ public class BaseSkill : MonoBehaviour
 	protected virtual void LoadingUpdate()
 	{
 		float timePassed = (Time.time - _startTime);
-		if (_loadingTime < timePassed || GameSettingsManager.Instance.IsSkillLoadingInstant)
+		if (_loadingTime < timePassed || (GameSettingsManager.Instance.IsSkillLoadingInstant && IsPlayer()))
 		{
 			SkillLoaded();
 		}
@@ -356,6 +358,11 @@ public class BaseSkill : MonoBehaviour
 				_currentProjectileDamage = _damageAmount;
 			}
 		}
+	}
+
+	private bool IsPlayer()
+	{
+		return _entity.EntityType == Entity.EntityTypes.Player;
 	}
 
 	protected virtual LayerMask GetLayerMaskToAssign()
