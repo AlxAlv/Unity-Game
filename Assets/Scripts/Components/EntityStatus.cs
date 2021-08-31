@@ -66,9 +66,10 @@ public class EntityStatus : EntityComponent
 		if (Time.time > _poisonTickTimer)
 		{
 			_poisonTickTimer = Time.time + _poisonTickDuration;
+			float damageToTake = _health.m_maxHealth * (_poisonPercentPerTick / 100.0f);
 
 			// Deal Damage
-			_health.TakeDamage(Mathf.Round(_health.m_maxHealth * _poisonPercentPerTick) , "PoisonStatus", false);
+			_health.TakeDamage(damageToTake, "PoisonStatus", false);
 			++_currentPoisonTick;
 
 			SoundManager.Instance.Playsound(_poisonSoundFxPath);

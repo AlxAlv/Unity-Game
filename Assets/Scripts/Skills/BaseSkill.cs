@@ -214,7 +214,8 @@ public class BaseSkill : MonoBehaviour
 
 	protected virtual void Execute()
 	{
-		_ultimatePoints.GainUltimatePoints(5);
+		if (_ultimatePoints)
+			_ultimatePoints.GainUltimatePoints(5);
 		SoundManager.Instance.Playsound(_soundPath);
 
 		CancelSkill();
@@ -463,7 +464,8 @@ public class BaseSkill : MonoBehaviour
 
 	protected void ExecuteAOESkill()
 	{
-		_ultimatePoints.GainUltimatePoints(5);
+		if (_ultimatePoints)
+			_ultimatePoints.GainUltimatePoints(5);
 		SoundManager.Instance.Playsound(_soundPath);
 
 		Collider2D[] _targetCollider2D = Physics2D.OverlapCircleAll(OutlineRendererObject.transform.position, _outlineRadius, LayerMask.GetMask("LevelComponents", "Enemies"));

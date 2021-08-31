@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class ActionShoot : AIAction
 {
     private Vector2 _aimDirection;
-    private float _timeToAttack = 1.0f;
+    private float _timeToAttack = 0.50f;
 
     public override void Act(AIStateController controller)
     {

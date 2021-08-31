@@ -74,7 +74,7 @@ public class EntityWeapon : EntityComponent
 
             if (IsTargettingSomething())
             {
-                if ((Input.GetMouseButtonDown(0)) && (!IsAnySkillLoaded() || !_entityStunGuage.Stunned))
+                if ((Input.GetMouseButtonDown   (0)) && (!IsAnySkillLoaded() || !_entityStunGuage.Stunned))
                 {
                     // If a hotkey was pressed go for that otherwise do the normal main ability
                     if (!CurrentWeapon.SkillToUse.IsBase() && CurrentWeapon.SkillToUse.IsLoadingOrLoaded())

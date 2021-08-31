@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DecisionNotice
   m_EditorClassIdentifier: 
   DetectArea: 8
-  TimeUntilNotice: 3
+  TimeUntilNotice: 1
   TargetMask:
     serializedVersion: 2
     m_Bits: 1024

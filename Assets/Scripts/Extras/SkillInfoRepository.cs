@@ -121,7 +121,9 @@ public class SkillInfoRepository : Singleton<SkillInfoRepository>
             LoadedMovementSpeedModifier = 0.0f,
             ResourceAmount = 5.0f,
             TheResourceType = Resource.Mana,
-            TheWeaponType = WeaponType.Bow
+            TheWeaponType = WeaponType.Bow,
+            NumberOfTicks = 5,
+            TimePerTick = 1.5f
         };
 
         // Player Magic Skills

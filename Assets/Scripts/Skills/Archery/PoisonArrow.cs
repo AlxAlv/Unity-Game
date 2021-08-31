@@ -24,6 +24,7 @@ public class PoisonArrow : ArcherySkill
 
 	protected override void UpdateDamage()
 	{
+		_amountPerTick = 10;
 		_damageAmount = _statManager.Dexterity.TotalAmount + Random.Range(_bowToUse.WeaponInfo.MinDamage, _bowToUse.WeaponInfo.MaxDamage + 1);
 
 		base.UpdateDamage();
