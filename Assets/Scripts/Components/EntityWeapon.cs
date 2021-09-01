@@ -257,10 +257,10 @@ public class EntityWeapon : EntityComponent
     {
         bool isAnySkillLoading = false;
 
-        if (CurrentWeapon != null)
+        if (CurrentWeapon != null && CurrentWeapon.SkillToUse != null)
             isAnySkillLoading = (CurrentWeapon.SkillToUse.IsLoadingOrLoaded());
 
-        if (CurrentOffHandWeapon != null)
+        if (CurrentOffHandWeapon != null && CurrentOffHandWeapon.SkillToUse != null)
             isAnySkillLoading |= (CurrentOffHandWeapon.SkillToUse.IsLoadingOrLoaded());
 
         return isAnySkillLoading;

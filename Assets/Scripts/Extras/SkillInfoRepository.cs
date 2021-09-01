@@ -30,7 +30,7 @@ public class SkillInfoRepository : Singleton<SkillInfoRepository>
     public Dictionary<string, SkillInfo> SkillInfoMap;
 
     // Setup Info
-    void Start()
+    void Awake()
     {
         SkillInfoMap = new Dictionary<string, SkillInfo>();
         // Player Archery Skills

@@ -21,5 +21,10 @@ public class RandomDungeonGeneratorEditor : Editor
 		{
 			_generator.GenerateDungeon();
 		}
+
+		if (GUILayout.Button("Delete Dungeon"))
+		{
+			_generator.ClearDungeon();
+		}
 	}
 }

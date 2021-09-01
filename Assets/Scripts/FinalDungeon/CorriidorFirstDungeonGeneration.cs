@@ -9,6 +9,11 @@ public class CorriidorFirstDungeonGeneration : SimpleRandomWalkMapGenerator
 	[SerializeField] private int _corridorLength = 14, _corridorCount = 5;
 	[SerializeField] [Range(0.1f,1)] private float _roomPercent = 0.8f;
 
+	private void Awake()
+	{
+		CorridorFirstGenerationer();
+	}
+
 	protected override void RunProceduralGeneration()
 	{
 		CorridorFirstGenerationer();
@@ -29,6 +34,7 @@ public class CorriidorFirstDungeonGeneration : SimpleRandomWalkMapGenerator
 
 		floorPositions.UnionWith(roomPositions);
 
+		_tileMapVisualizer.Clear();
 		_tileMapVisualizer.PaintFloorTiles(floorPositions);
 		WallGenerator.CreateWalls(floorPositions, _tileMapVisualizer);
 	}

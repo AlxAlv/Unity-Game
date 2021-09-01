@@ -7,6 +7,7 @@ public class SkillWindow : MonoBehaviour
 
     private void Awake()
     {
+        _skillPanel = GameObject.FindWithTag("SkillPanel");
         _skillPanel.SetActive(false);
     }
 
