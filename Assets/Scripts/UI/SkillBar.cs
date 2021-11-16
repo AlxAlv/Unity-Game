@@ -49,6 +49,7 @@ public class SkillBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player = GameObject.FindWithTag("Player");
         _playerWeapons = Player.GetComponent<EntityWeapon>();
 
         Setup();
@@ -114,8 +115,8 @@ public class SkillBar : MonoBehaviour
                 (RaycastHelper.Instance.GetEnemyUnderCursor() && (RaycastHelper.Instance.CheckObjectType(RaycastHelper.Instance.GetEnemyUnderCursor()) != TypeOfObject.GameObject) && GameSettingsManager.Instance.IsTargettingNeeded)))
         {
             Image skillImage = GetSkillImage();
-
             if (skillImage != null && !IsSelfSkill(skillImage.sprite.name))
+                Player.GetComponent<EntityWeapon>().IsAnySkillOccupied();
                 HandleKeyPress(skillImage);
         }
         // Self Skills

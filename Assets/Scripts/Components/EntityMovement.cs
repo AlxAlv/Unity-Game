@@ -50,6 +50,10 @@ public class EntityMovement : EntityComponent
     {
         base.Start();
 
+        _movementArrowTransform = GameObject.FindWithTag("MovementArrow").transform;
+        _movementArrowImage = _movementArrowTransform.GetComponentInChildren<Image>();
+        _possibleTargetHelper = GameObject.FindWithTag("UIManager").GetComponent<PossibleTargetHelper>();
+
         m_moveSpeed = _baseWalkSpeed;
         RunMovementModifier = 1.0f;
         SkillMovementModifier = 1.0f;
@@ -97,8 +101,9 @@ public class EntityMovement : EntityComponent
         {
             if (_destination != transform.position && _destination != Vector3.zero)
             {
-                _movementArrowImage.enabled = true;
                 _movementArrowTransform.position = _destination;
+                _movementArrowImage.enabled = true;
+                _movementArrowImage.transform.position = Vector3.zero;
             }
             else
                 _movementArrowImage.enabled = false;

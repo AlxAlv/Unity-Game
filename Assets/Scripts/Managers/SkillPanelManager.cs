@@ -22,8 +22,18 @@ public class SkillPanelManager : MonoBehaviour
     private List<string> _skillNames = new List<string>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        GameObject skillPanelObject = GameObject.FindWithTag("SkillPanel");
+        Transform skillPanel = skillPanelObject.transform;
+
+        if (skillPanel)
+        {
+            _archeryTabObject = skillPanel.Find("RangedTab").Find("Ranged Skills").gameObject;
+            _meleeTabObject = skillPanel.Find("MeleeTab").Find("Melee Skills").gameObject;
+            _magicTabObject = skillPanel.Find("MagicTab").Find("Magic Skills").gameObject;
+        }
+
         Type[] MeleeSkills = FindMeleeSkills();
         Type[] MagicSkills = FindMagicSkills();
         Type[] ArcherySkills = FindArcherySkills();

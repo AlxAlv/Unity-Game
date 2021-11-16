@@ -5,7 +5,7 @@ public class SkillWindow : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject _skillPanel;
 
-    private void Awake()
+    private void Start()
     {
         _skillPanel = GameObject.FindWithTag("SkillPanel");
         _skillPanel.SetActive(false);

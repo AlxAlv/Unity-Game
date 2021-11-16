@@ -62,7 +62,24 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-	    _inventoryContainer.SetActive(false);
+        _inventoryContainer = GameObject.FindWithTag("InventoryPanel");
+
+        if (_inventoryContainer)
+        {
+            _weaponsPanel = _inventoryContainer.transform.Find("WeaponsContainer").gameObject;
+            _armorPanel = _inventoryContainer.transform.Find("ArmorContainer").gameObject;
+            _itemsPanel = _inventoryContainer.transform.Find("ItemsContainer").gameObject;
+
+            _weaponsArrow = _inventoryContainer.transform.Find("CategoryTabs").Find("WeaponsTab").Find("Arrow").gameObject;
+            _armorArrow = _inventoryContainer.transform.Find("CategoryTabs").Find("ArmorTab").Find("Arrow").gameObject;
+            _itemsArrow = _inventoryContainer.transform.Find("CategoryTabs").Find("ItemsTab").Find("Arrow").gameObject;
+
+            _magicPowderText = _itemsPanel.transform.Find("Magic Powder").Find("Text").GetComponent<TextMeshProUGUI>();
+            _sawdustText = _itemsPanel.transform.Find("Sawdust").Find("Text").GetComponent<TextMeshProUGUI>();
+            _jarDustText = _itemsPanel.transform.Find("Jar Dust").Find("Text").GetComponent<TextMeshProUGUI>();
+        }
+
+        _inventoryContainer.SetActive(false);
         WeaponsOwned = new List<WeaponInstance>();
         EquipsOwned = new List<EquipInstance>();
     }

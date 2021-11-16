@@ -14,6 +14,21 @@ TagManager:
   - Rooms
   - RoomsTemplate
   - SkillPanel
+  - DexButton
+  - StrButton
+  - IntButton
+  - AimingLine
+  - UIManager
+  - MovementArrow
+  - Dialogue
+  - Bars
+  - Coin
+  - Combo
+  - Dialoge
+  - SystemMessage
+  - StatsGroup
+  - EquipsObject
+  - InventoryPanel
   layers:
   - Default
   - TransparentFX

@@ -17,8 +17,19 @@ public class DialogueManager : Singleton<DialogueManager>
 	private Dictionary<int, Dialogue> _currentDialogueDictionary;
     private Coroutine _currentCoroutine = null;
 
-    // Constant Strings To Display To The Player
-    private Dictionary<Dialogue.Emotions, string> _emojiDictionary = new Dictionary<Dialogue.Emotions, string>()
+	private void Awake()
+	{
+		Transform DialogTransform = GameObject.FindWithTag("Dialogue").transform;
+
+		EmotionImage = DialogTransform.Find("Emotion").GetComponent<Image>();
+		NameText = DialogTransform.Find("NameBox").Find("Name").GetComponent<TextMeshProUGUI>();
+		DialogueText = DialogTransform.Find("Dialogue").GetComponent<TextMeshProUGUI>();
+		Animator = DialogTransform.GetComponent<Animator>();
+		OptionsList = DialogTransform.Find("Buttons").gameObject;
+	}
+
+	// Constant Strings To Display To The Player
+	private Dictionary<Dialogue.Emotions, string> _emojiDictionary = new Dictionary<Dialogue.Emotions, string>()
     {
 	    {Dialogue.Emotions.Happy, "Sprites/Dialogue/emoji_happy"},
 	    {Dialogue.Emotions.Sad, "Sprites/Dialogue/emoji_sad"},

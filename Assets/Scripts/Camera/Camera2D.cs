@@ -36,6 +36,8 @@ public class Camera2D : MonoBehaviour
 
 	private void Start()
 	{
+		m_targetTransform = GameObject.FindWithTag("Player").transform;
+
 		_camera = GetComponent<Camera>();
 		_defaultOffset = new Vector3(0, _maxDistance, (-_maxDistance));
 		_offsetForOffset = new Vector3(0, _maxDistance, (-_maxDistance));

@@ -7,7 +7,7 @@ public class DialogManager : Singleton<DialogManager>
 {
     [SerializeField] TextMeshProUGUI _systemTextDisplay;
     [SerializeField] float _typingSpeed;
-    [SerializeField] float _displayTime;
+    [SerializeField] float _displayTime;    
 
     public bool HeldHostage = false;
     private Vector2 _originalSize;
@@ -15,6 +15,7 @@ public class DialogManager : Singleton<DialogManager>
 
     private void Start()
     {
+        _systemTextDisplay = GameObject.FindWithTag("SystemMessage").GetComponent<TextMeshProUGUI>();
         _originalSize = _systemTextDisplay.gameObject.GetComponent<RectTransform>().sizeDelta;
     }
 

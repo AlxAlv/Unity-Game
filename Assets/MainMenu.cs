@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     // Press The PLAY Button
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
 	}
 
     // Press The ERASE DATA Button

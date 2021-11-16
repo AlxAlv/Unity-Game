@@ -44,6 +44,21 @@ public class EquipmentManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        GameObject equipsObject = GameObject.FindWithTag("EquipsObject");
+
+        if (equipsObject != null)
+        {
+            _equipmentPanel = equipsObject.transform.parent.gameObject;
+            _currentMainContainer = equipsObject.transform.Find("CurrentMainPanel").Find("CMContainer").gameObject;
+            _currentOffContainer = equipsObject.transform.Find("CurrentOffPanel").Find("COContainer").gameObject;
+            _alternateMainContainer = equipsObject.transform.Find("AlternateMainPanel").Find("AMContainer").gameObject;
+            _alternateOffContainer = equipsObject.transform.Find("AlternateOffPanel").Find("AOContainer").gameObject;
+
+            _helmetContainer = equipsObject.transform.Find("Helmet").Find("HelmetContainer").gameObject;
+            _armorContainer = equipsObject.transform.Find("Armor").Find("ArmorContainer").gameObject;
+            _footwearContainer = equipsObject.transform.Find("Footwear").Find("FootwearContainer").gameObject;
+        }
+
         _equipmentPanel.SetActive(false);
 
         _entityWeapon = GetComponent<EntityWeapon>();

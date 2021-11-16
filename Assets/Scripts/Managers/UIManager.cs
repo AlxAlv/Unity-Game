@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     [Header("Settings")]
-    [SerializeField] private Image m_healthBar;
     [SerializeField] private TextMeshProUGUI m_currentHealthText;
-    [SerializeField] private Image m_manaBar;
     [SerializeField] private TextMeshProUGUI m_currentManaText;
-    [SerializeField] private Image m_staminaBar;
     [SerializeField] private TextMeshProUGUI m_currentStaminaText;
-    [SerializeField] private Image _expBar;
     [SerializeField] private TextMeshProUGUI _currentExpText;
-    [SerializeField] private Image _ultimateBar;
     [SerializeField] private TextMeshProUGUI _currentUltimateText;
+    [SerializeField] private Image m_healthBar;
+    [SerializeField] private Image m_manaBar;
+    [SerializeField] private Image m_staminaBar;
+    [SerializeField] private Image _expBar;
+    [SerializeField] private Image _ultimateBar;
     [SerializeField] private Image _hungerBar;
 
     [Header("Coins")] 
@@ -48,7 +48,32 @@ public class UIManager : Singleton<UIManager>
 
     private bool _isPlayer;
 
-    private void Update()
+	private void Start()
+	{
+		GameObject barsObject = GameObject.FindWithTag("Bars");
+        GameObject coinObject = GameObject.FindWithTag("Coin");
+        GameObject comboObject = GameObject.FindWithTag("Combo");
+
+        m_currentHealthText = barsObject.transform.Find("HealthBar").Find("Text").GetComponent<TextMeshProUGUI>();
+        m_currentManaText = barsObject.transform.Find("Mana").Find("Text").GetComponent<TextMeshProUGUI>();
+        m_currentStaminaText = barsObject.transform.Find("StaminaBar").Find("Text").GetComponent<TextMeshProUGUI>();
+        _currentExpText = barsObject.transform.Find("ExpBar").Find("Text").GetComponent<TextMeshProUGUI>();
+        _currentUltimateText = barsObject.transform.Find("UltimateBar").Find("Text").GetComponent<TextMeshProUGUI>();
+
+        m_healthBar = barsObject.transform.Find("HealthBar").Find("Health").GetComponent<Image>();
+        m_manaBar = barsObject.transform.Find("Mana").Find("Mana").GetComponent<Image>();
+        m_staminaBar = barsObject.transform.Find("StaminaBar").Find("Stamina").GetComponent<Image>();
+        _expBar = barsObject.transform.Find("ExpBar").Find("Exp").GetComponent<Image>();
+        _ultimateBar = barsObject.transform.Find("UltimateBar").Find("UltimatePoints").GetComponent<Image>();
+        _hungerBar = barsObject.transform.Find("StaminaBar").Find("Hunger").GetComponent<Image>();
+
+        _coinText = coinObject.transform.Find("CoinText").GetComponent<TextMeshProUGUI>();
+        _coinImage = coinObject.transform.Find("CoinImage").gameObject;
+
+        _comboText = comboObject.GetComponent<TextMeshProUGUI>();
+    }
+
+	private void Update()
     {
         InternalUpdate();
     }

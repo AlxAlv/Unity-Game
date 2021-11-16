@@ -42,6 +42,19 @@ public class StatManager : MonoBehaviour
 
         if (GetComponent<Entity>().EntityType == Entity.EntityTypes.Player)
         {
+            GameObject statsGroup = GameObject.FindWithTag("StatsGroup");
+            _statContainer = statsGroup.transform.Find("StatContainer").gameObject;
+            _characterPanel = statsGroup.transform.parent.gameObject;
+
+            _dexterityButton = _statContainer.transform.Find("Dexterity").Find("UpButton").GetComponent<OnClickStat>();
+            _intelligenceButton = _statContainer.transform.Find("Intelligence").Find("UpButton").GetComponent<OnClickStat>();
+            _strengthButton = _statContainer.transform.Find("Strength").Find("UpButton").GetComponent<OnClickStat>();
+
+            _intelligenceTextAmount = _statContainer.transform.Find("Intelligence").Find("Amount").GetComponent<TextMeshProUGUI>();
+            _dexterityTextAmount = _statContainer.transform.Find("Dexterity").Find("Amount").GetComponent<TextMeshProUGUI>();
+            _strengthTextAmount = _statContainer.transform.Find("Strength").Find("Amount").GetComponent<TextMeshProUGUI>();
+            _pointsTextAmount = statsGroup.transform.Find("StatPoints").Find("Amount").GetComponent<TextMeshProUGUI>();
+
             _dexterityButton.SetStat(0, this);
             _intelligenceButton.SetStat(1, this);
             _strengthButton.SetStat(2, this);

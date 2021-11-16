@@ -17,6 +17,9 @@ public class EntityTarget : EntityComponent
 
     protected override void Start()
     {
+        _lineRenderer = GameObject.FindWithTag("AimingLine").GetComponent<LineRenderer>();
+        PossibleTargetHelper = GameObject.FindWithTag("UIManager").GetComponent<PossibleTargetHelper>();
+
         CurrentTarget = null;
         HasCancelled = true;
 
