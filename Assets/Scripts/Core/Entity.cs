@@ -8,7 +8,8 @@ public class Entity : MonoBehaviour
     public enum EntityTypes
     {
         Player,
-        AI
+        AI,
+        Undefined
     }
 
     [SerializeField] private EntityTypes m_entityType;
