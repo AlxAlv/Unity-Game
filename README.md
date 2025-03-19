@@ -1,2 +1,2 @@
 # Stardrop
- Current C# Unity Game Project
+ Unity game that developed to refine C# skills from 2020 to 2021.
